@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <title>Standings — FIFA World Cup 2026</title>
+</head>
+<body class="subpage">
+
+  <div class="noise-overlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <a class="nav-logo" href="/index.html" aria-label="FIFA World Cup 2026 — home">
+      <span class="logo-chip">
+        <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+        <span class="logo-fallback" style="display:none">WC26</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="/host-cities.html">Host Cities</a>
+      <a href="/teams.html">Teams</a>
+      <a href="/standings.html" class="active">Standings</a>
+      <a href="/index.html#how-section">Be There</a>
+      <a href="/index.html#site-footer">About</a>
+    </div>
+    <button class="profile-btn glass-pill">
+      <span class="pulse-dot"></span>
+      Get tickets
+    </button>
+  </nav>
+
+  <!-- ===================== COUNTDOWN ===================== -->
+  <div class="countdown-bar" id="wc-countdown">
+    <div class="cd-inner">
+      <div class="cd-brand">
+        <span class="logo-chip">
+          <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+          <span class="logo-fallback" style="display:none">WC26</span>
+        </span>
+        <div class="cd-titles">
+          <span class="cd-title">FIFA World Cup 2026</span>
+          <span class="cd-status">11 June – 19 July 2026</span>
+        </div>
+      </div>
+      <div class="cd-clock">
+        <div class="cd-unit"><span class="cd-num" data-cd="days">--</span><span class="cd-lbl">Days</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="hours">--</span><span class="cd-lbl">Hours</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="mins">--</span><span class="cd-lbl">Mins</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="secs">--</span><span class="cd-lbl">Secs</span></div>
+      </div>
+      <a class="cd-cta" href="/index.html">View matches</a>
+    </div>
+  </div>
+
+  <!-- ===================== PAGE HERO ===================== -->
+  <header class="page-hero">
+    <span class="page-eyebrow">Group Stage · 48 Teams</span>
+    <h1 class="page-title">Standings</h1>
+    <p class="page-sub">Twelve groups of four. The top two from each group, plus the eight best third-placed teams, advance to the round of 32.</p>
+  </header>
+
+  <!-- ===================== GROUPS ===================== -->
+  <main class="page-wrap">
+    <div class="group-legend">
+      <span class="legend-swatch"></span>
+      <span>Top 2 qualify directly for the knockout stage</span>
+    </div>
+    <div id="groups-root" class="groups-grid"></div>
+    <div class="page-note">
+      <div class="page-note-inner">
+        <strong>All matches level at kick-off.</strong> Group results update once play begins on 11 June 2026.
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="site-footer">
+    <div class="footer-bg-ball"></div>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/index.html" aria-label="FIFA World Cup 2026 — home">
+            <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo-lg"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+            <span class="logo-fallback-lg" style="display:none">WC26</span>
+          </a>
+          <p class="footer-tagline">The official home of the FIFA World Cup 2026 — June 11 to July 19.</p>
+          <div class="footer-socials">
+            <a class="glass-pill" href="#">𝕏 Twitter</a>
+            <a class="glass-pill" href="#">▶ Instagram</a>
+            <a class="glass-pill" href="#">in LinkedIn</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <span class="footer-col-title">Tournament</span>
+            <a href="/index.html">Fixtures</a>
+            <a href="/standings.html">Standings</a>
+            <a href="/teams.html">Teams</a>
+            <a href="#">Tickets</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">Fan Zone</span>
+            <a href="/host-cities.html">Host Cities</a>
+            <a href="#">Fan Festivals</a>
+            <a href="#">Volunteers</a>
+            <a href="#">Merch</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">More</span>
+            <a href="#">About</a>
+            <a href="#">News</a>
+            <a href="#">Media</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+        <div class="footer-news">
+          <div class="news-card">
+            <span class="news-title">Never miss a match</span>
+            <p class="news-desc">Drop your email for fixtures, results, and ticket drops near you.</p>
+            <form class="news-form" onsubmit="return false">
+              <input type="email" placeholder="you@email.com" aria-label="Email" />
+              <button type="submit" aria-label="Subscribe">→</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="fb-left">
+          <span>© 2026 World Cup 26. All rights reserved.</span>
+          <span class="fb-legal"><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Cookies</a></span>
+        </div>
+        <div class="fb-right">
+          <div class="city-ticker">
+            <span class="city-track">NEW YORK · LOS ANGELES · DALLAS · MEXICO CITY · TORONTO · MIAMI · SEATTLE · ATLANTA · VANCOUVER · MONTERREY · NEW YORK · LOS ANGELES · DALLAS · MEXICO CITY · TORONTO · MIAMI · SEATTLE · ATLANTA · VANCOUVER · MONTERREY · </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/standings.js"></script>
+</body>
+</html>

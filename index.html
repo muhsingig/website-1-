@@ -7,9 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <title>Y68° — Find Your Street Ballers</title>
+  <title>FIFA World Cup 2026 — One World, One Game</title>
 </head>
-<body>
+<body class="has-countdown">
 
   <!-- Global SVG distortion filter (liquid glass warp) -->
   <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
@@ -29,37 +29,72 @@
 
   <!-- ===================== NAVBAR ===================== -->
   <nav class="navbar" id="navbar">
-    <div class="nav-logo">Y68°</div>
+    <a class="nav-logo" href="/index.html" aria-label="FIFA World Cup 2026 — home">
+      <span class="logo-chip">
+        <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+        <span class="logo-fallback" style="display:none">WC26</span>
+      </span>
+    </a>
     <div class="nav-links">
-      <a href="#hero-section">Play</a>
-      <a href="#stats-section">Leaderboard</a>
-      <a href="#how-section">How it works</a>
+      <a href="/host-cities.html">Host Cities</a>
+      <a href="/teams.html">Teams</a>
+      <a href="/standings.html">Standings</a>
+      <a href="#how-section">Be There</a>
       <a href="#site-footer">About</a>
     </div>
     <button class="profile-btn glass-pill">
       <span class="pulse-dot"></span>
-      My profile
+      Get tickets
     </button>
   </nav>
+
+  <!-- ===================== COUNTDOWN ===================== -->
+  <div class="countdown-bar" id="wc-countdown">
+    <div class="cd-inner">
+      <div class="cd-brand">
+        <span class="logo-chip">
+          <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+          <span class="logo-fallback" style="display:none">WC26</span>
+        </span>
+        <div class="cd-titles">
+          <span class="cd-title">FIFA World Cup 2026</span>
+          <span class="cd-status">11 June – 19 July 2026</span>
+        </div>
+      </div>
+      <div class="cd-clock">
+        <div class="cd-unit"><span class="cd-num" data-cd="days">--</span><span class="cd-lbl">Days</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="hours">--</span><span class="cd-lbl">Hours</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="mins">--</span><span class="cd-lbl">Mins</span></div>
+        <span class="cd-sep">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="secs">--</span><span class="cd-lbl">Secs</span></div>
+      </div>
+      <a class="cd-cta" href="#fixtures">View matches</a>
+    </div>
+  </div>
 
   <!-- ===================== HERO ===================== -->
   <section id="hero-section">
 
-    <!-- Product Hunt badge -->
-    <a class="ph-badge glass-card" id="ph-badge" href="#" aria-label="Product Hunt #1 Product of the Day">
+    <!-- Tournament badge -->
+    <a class="ph-badge glass-card" id="ph-badge" href="#" aria-label="48 teams, 16 host cities, World Cup 2026">
       <span class="ph-logo">
         <svg viewBox="0 0 40 40" width="34" height="34">
-          <circle cx="20" cy="20" r="20" fill="#FF6154" />
-          <path d="M22.5 13.5h-7v13h2.7v-3.8h4.3a4.6 4.6 0 0 0 0-9.2zm-.3 6.6h-4v-4h4a2 2 0 0 1 0 4z" fill="#fff" />
+          <circle cx="20" cy="20" r="20" fill="#0a1712" />
+          <circle cx="20" cy="20" r="12.5" fill="#ffffff" />
+          <polygon points="20,11 26,15.5 23.7,22.5 16.3,22.5 14,15.5" fill="#0a1712" />
         </svg>
       </span>
       <span class="ph-text">
-        <span class="ph-top">#1 Product of the Day</span>
-        <span class="ph-bottom">Product Hunt</span>
+        <span class="ph-top">48 Teams · 16 Host Cities</span>
+        <span class="ph-bottom">World Cup 2026</span>
       </span>
     </a>
 
-    <!-- Event card (3-layer liquid glass) -->
+    <!-- Match card (3-layer liquid glass) -->
     <article class="event-card" id="event-card">
       <div class="ec-bend ec-layer"></div>
       <div class="ec-face ec-layer"></div>
@@ -67,67 +102,67 @@
       <div class="ec-content">
 
         <div class="ec-photo">
-          <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=560&q=80" alt="Street basketball court" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=560&q=80" alt="Packed football stadium under floodlights" loading="lazy" />
           <div class="ec-photo-shade"></div>
           <div class="ec-photo-top">
-            <span class="ec-pill">12 min from</span>
-            <span class="ec-pill"><span class="dot">●</span> Home</span>
+            <span class="ec-pill">Group A</span>
+            <span class="ec-pill"><span class="dot">●</span> Matchday 1</span>
           </div>
           <div class="ec-photo-bottom">
-            <h3>Boooys night out</h3>
-            <span class="ec-date">May 12, 9 PM</span>
+            <h3>Opening Match</h3>
+            <span class="ec-date">June 11, 2026 · 8 PM</span>
           </div>
         </div>
 
         <div class="ec-org">
-          <span class="org-av grad-1"></span>
+          <span class="org-av grad-3"></span>
           <div class="org-meta">
-            <span class="org-name">Matthew Walker</span>
-            <span class="org-role">organizer</span>
+            <span class="org-name">Group Stage</span>
+            <span class="org-role">Matchday 1 of 8</span>
           </div>
           <div class="org-extra">
             <span class="mini-av grad-2"></span>
-            <span class="mini-av grad-3"></span>
+            <span class="mini-av grad-5"></span>
             <span class="mini-av grad-4"></span>
-            <span class="org-plus">+3</span>
+            <span class="org-plus">+45</span>
           </div>
         </div>
 
         <div class="ec-venue">
-          <span class="venue-name">Shōten</span>
-          <span class="venue-addr">123 Sakura Park, Sakyo-ku, Kyoto</span>
+          <span class="venue-name">Estadio Azteca</span>
+          <span class="venue-addr">Mexico City, Mexico</span>
         </div>
 
         <div class="ec-actions">
-          <button class="btn-ghost">Check on map</button>
-          <button class="btn-dark">Join game</button>
+          <button class="btn-ghost">Match info</button>
+          <button class="btn-dark">Get tickets</button>
         </div>
-        <span class="ec-free">✓ Free event</span>
+        <span class="ec-free">✓ Group Stage · Matchday 1</span>
 
       </div>
     </article>
 
     <!-- Hero text -->
     <div class="hero-text" id="hero-text">
-      <span class="hero-eyebrow">JOIN GAME</span>
+      <span class="hero-eyebrow">JUNE 11 – JULY 19, 2026</span>
       <h1 class="hero-headline">
-        <span class="hl-line">FIND YOUR</span>
-        <span class="hl-line">STREET</span>
-        <span class="hl-line">BALLERS</span>
+        <span class="hl-line">ONE</span>
+        <span class="hl-line">WORLD</span>
+        <span class="hl-line">CUP</span>
       </h1>
-      <div class="hero-brand">Y68°</div>
+      <div class="hero-brand">WC26</div>
       <div class="pricing-strip glass-pill">
-        <span class="price"><strong>$100</strong> / Early Access</span>
-        <button class="price-cta">Get In →</button>
+        <span class="price"><strong>From $60</strong> / Group Stage</span>
+        <button class="price-cta">Get Tickets →</button>
       </div>
     </div>
 
     <!-- Signature -->
     <div class="sig-wrap" id="sig-wrap">
       <svg viewBox="0 0 220 80" width="160" height="58" fill="none">
-        <path class="sp1" d="M8 60 C 30 10, 55 10, 60 45 C 64 70, 80 70, 92 40 C 100 18, 118 18, 120 50" stroke="#0f0f0f" stroke-width="3" stroke-linecap="round" />
-        <path class="sp2" d="M128 52 C 140 20, 162 22, 168 48 C 172 66, 188 60, 196 38" stroke="#0f0f0f" stroke-width="3" stroke-linecap="round" />
-        <path class="sp3" d="M150 64 C 168 60, 188 60, 210 56" stroke="#0f0f0f" stroke-width="2.4" stroke-linecap="round" />
+        <path class="sp1" d="M8 60 C 30 10, 55 10, 60 45 C 64 70, 80 70, 92 40 C 100 18, 118 18, 120 50" stroke="#0a1712" stroke-width="3" stroke-linecap="round" />
+        <path class="sp2" d="M128 52 C 140 20, 162 22, 168 48 C 172 66, 188 60, 196 38" stroke="#0a1712" stroke-width="3" stroke-linecap="round" />
+        <path class="sp3" d="M150 64 C 168 60, 188 60, 210 56" stroke="#0a1712" stroke-width="2.4" stroke-linecap="round" />
       </svg>
     </div>
 
@@ -135,7 +170,7 @@
     <button class="nav-arrow glass-pill" id="nav-arrow" aria-label="Next">›</button>
 
     <!-- Drag hint -->
-    <div class="drag-hint">↔ drag to spin</div>
+    <div class="drag-hint">↔ drag to spin the Trionda</div>
 
     <!-- Scroll indicator -->
     <div class="scroll-indicator">
@@ -146,31 +181,31 @@
 
   <!-- ===================== STATS ===================== -->
   <section id="stats-section">
-    <span class="bg-word bg-word-stat">STAT</span>
+    <span class="bg-word bg-word-stat">2026</span>
     <div class="stats-left">
       <span class="eyebrow">By The Numbers</span>
-      <h2 class="section-headline">THE STREETS<br />ARE ALIVE.</h2>
-      <p class="section-body">From Tokyo to London, Lagos to NYC — ballers are running Y68° games every single day.</p>
+      <h2 class="section-headline">THE GAME<br />GOES GLOBAL.</h2>
+      <p class="section-body">From New York to Mexico City, Toronto to Los Angeles — the biggest World Cup in history comes to North America in the summer of 2026.</p>
       <div class="stats-grid">
         <div class="stat-card glass-card">
-          <span class="stat-num">24K+</span>
-          <span class="stat-label">Active Ballers</span>
-          <span class="stat-delta up">↑ +12% this month</span>
+          <span class="stat-num">48</span>
+          <span class="stat-label">Teams</span>
+          <span class="stat-delta up">↑ Up from 32</span>
         </div>
         <div class="stat-card glass-card">
-          <span class="stat-num">840</span>
-          <span class="stat-label">Games This Week</span>
-          <span class="stat-delta up">↑ +8% vs last week</span>
+          <span class="stat-num">104</span>
+          <span class="stat-label">Matches</span>
+          <span class="stat-delta up">↑ Most ever</span>
         </div>
         <div class="stat-card glass-card">
-          <span class="stat-num">62</span>
-          <span class="stat-label">Cities Worldwide</span>
-          <span class="stat-delta neutral">→ 5 new this quarter</span>
+          <span class="stat-num">16</span>
+          <span class="stat-label">Host Cities</span>
+          <span class="stat-delta neutral">→ Across 3 nations</span>
         </div>
         <div class="stat-card glass-card">
-          <span class="stat-num">4.9★</span>
-          <span class="stat-label">Avg Game Rating</span>
-          <span class="stat-delta up">↑ Consistent</span>
+          <span class="stat-num">3</span>
+          <span class="stat-label">Host Nations</span>
+          <span class="stat-delta neutral">→ USA · CAN · MEX</span>
         </div>
       </div>
     </div>
@@ -178,16 +213,16 @@
 
   <!-- ===================== HOW IT WORKS ===================== -->
   <section id="how-section">
-    <span class="bg-word bg-word-play">PLAY</span>
+    <span class="bg-word bg-word-play">GOAL</span>
     <div class="how-content">
-      <span class="eyebrow">How It Works</span>
-      <h2 class="section-headline">THREE STEPS<br />TO THE COURT</h2>
+      <span class="eyebrow">Be There</span>
+      <h2 class="section-headline">THREE STEPS<br />TO THE STADIUM</h2>
 
       <div class="step-item glass-card">
         <span class="step-num">01</span>
         <div class="step-body">
-          <span class="step-title">Find a Game</span>
-          <span class="step-desc">Browse live and upcoming street games near you. Filter by skill level, location, or time slot.</span>
+          <span class="step-title">Find a Match</span>
+          <span class="step-desc">Browse the full fixture list across all 16 host cities. Filter by group, team, or matchday.</span>
         </div>
         <span class="step-arrow">→</span>
       </div>
@@ -195,8 +230,8 @@
       <div class="step-item glass-card">
         <span class="step-num">02</span>
         <div class="step-body">
-          <span class="step-title">Join or Create</span>
-          <span class="step-desc">Tap to join instantly or spin up your own game in under 30 seconds. Set rules, capacity, and skill tier.</span>
+          <span class="step-title">Get Your Tickets</span>
+          <span class="step-desc">Secure your seats in seconds — group-stage clashes, knockout rounds, or the final on July 19.</span>
         </div>
         <span class="step-arrow">→</span>
       </div>
@@ -204,24 +239,25 @@
       <div class="step-item glass-card">
         <span class="step-num">03</span>
         <div class="step-body">
-          <span class="step-title">Build Your Rep</span>
-          <span class="step-desc">Every game earns you points. Climb the city leaderboard, unlock badges, get scouted.</span>
+          <span class="step-title">Follow the Action</span>
+          <span class="step-desc">Track live scores, standings, and your favourite nation all the way to the World Cup final.</span>
         </div>
         <span class="step-arrow">→</span>
       </div>
 
       <div class="how-cta">
-        <button class="btn-dark btn-lg">Get on the Court →</button>
+        <button class="btn-dark btn-lg">Get Tickets →</button>
         <a class="ph-badge glass-pill ph-badge-sm" href="#">
           <span class="ph-logo">
             <svg viewBox="0 0 40 40" width="28" height="28">
-              <circle cx="20" cy="20" r="20" fill="#FF6154" />
-              <path d="M22.5 13.5h-7v13h2.7v-3.8h4.3a4.6 4.6 0 0 0 0-9.2zm-.3 6.6h-4v-4h4a2 2 0 0 1 0 4z" fill="#fff" />
+              <circle cx="20" cy="20" r="20" fill="#0a1712" />
+              <circle cx="20" cy="20" r="12.5" fill="#ffffff" />
+              <polygon points="20,11 26,15.5 23.7,22.5 16.3,22.5 14,15.5" fill="#0a1712" />
             </svg>
           </span>
           <span class="ph-text">
-            <span class="ph-top">Featured on Product Hunt</span>
-            <span class="ph-bottom">#1</span>
+            <span class="ph-top">Official Match Ball</span>
+            <span class="ph-bottom">adidas Trionda</span>
           </span>
         </a>
       </div>
@@ -235,8 +271,12 @@
 
       <div class="footer-top">
         <div class="footer-brand">
-          <div class="footer-logo">Y68°</div>
-          <p class="footer-tagline">The world's most premium street volleyball network.</p>
+          <a class="footer-logo" href="/index.html" aria-label="FIFA World Cup 2026 — home">
+            <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo-lg"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+            <span class="logo-fallback-lg" style="display:none">WC26</span>
+          </a>
+          <p class="footer-tagline">The official home of the FIFA World Cup 2026 — June 11 to July 19.</p>
           <div class="footer-socials">
             <a class="glass-pill" href="#">𝕏 Twitter</a>
             <a class="glass-pill" href="#">▶ Instagram</a>
@@ -246,32 +286,32 @@
 
         <div class="footer-links">
           <div class="footer-col">
-            <span class="footer-col-title">Product</span>
-            <a href="#">Find Games</a>
-            <a href="#">Leaderboard</a>
-            <a href="#">Court Map</a>
-            <a href="#">Create Event</a>
-          </div>
-          <div class="footer-col">
-            <span class="footer-col-title">Community</span>
-            <a href="#">Players</a>
+            <span class="footer-col-title">Tournament</span>
+            <a href="#">Fixtures</a>
+            <a href="#">Standings</a>
             <a href="#">Teams</a>
-            <a href="#">Tournaments</a>
-            <a href="#">Rankings</a>
+            <a href="#">Tickets</a>
           </div>
           <div class="footer-col">
-            <span class="footer-col-title">Company</span>
+            <span class="footer-col-title">Fan Zone</span>
+            <a href="#">Host Cities</a>
+            <a href="#">Fan Festivals</a>
+            <a href="#">Volunteers</a>
+            <a href="#">Merch</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">More</span>
             <a href="#">About</a>
-            <a href="#">Blog</a>
-            <a href="#">Press Kit</a>
+            <a href="#">News</a>
+            <a href="#">Media</a>
             <a href="#">Contact</a>
           </div>
         </div>
 
         <div class="footer-news">
           <div class="news-card">
-            <span class="news-title">Stay in the game</span>
-            <p class="news-desc">Drop your email. Get notified when games go live near you.</p>
+            <span class="news-title">Never miss a match</span>
+            <p class="news-desc">Drop your email for fixtures, results, and ticket drops near you.</p>
             <form class="news-form" onsubmit="return false">
               <input type="email" placeholder="you@email.com" aria-label="Email" />
               <button type="submit" aria-label="Subscribe">→</button>
@@ -282,23 +322,24 @@
 
       <div class="footer-bottom">
         <div class="fb-left">
-          <span>© 2026 Y68°. All rights reserved.</span>
+          <span>© 2026 World Cup 26. All rights reserved.</span>
           <span class="fb-legal"><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Cookies</a></span>
         </div>
         <div class="fb-center">
           <a class="ph-badge glass-pill ph-badge-white" href="#">
             <span class="ph-logo">
               <svg viewBox="0 0 40 40" width="24" height="24">
-                <circle cx="20" cy="20" r="20" fill="#FF6154" />
-                <path d="M22.5 13.5h-7v13h2.7v-3.8h4.3a4.6 4.6 0 0 0 0-9.2zm-.3 6.6h-4v-4h4a2 2 0 0 1 0 4z" fill="#fff" />
+                <circle cx="20" cy="20" r="20" fill="#0a1712" />
+                <circle cx="20" cy="20" r="12.5" fill="#ffffff" />
+                <polygon points="20,11 26,15.5 23.7,22.5 16.3,22.5 14,15.5" fill="#0a1712" />
               </svg>
             </span>
-            <span class="ph-text"><span class="ph-bottom">Product of the Day #1</span></span>
+            <span class="ph-text"><span class="ph-bottom">USA · Canada · Mexico</span></span>
           </a>
         </div>
         <div class="fb-right">
           <div class="city-ticker">
-            <span class="city-track">TOKYO · KYOTO · OSAKA · SEOUL · DUBAI · NYC · LONDON · PARIS · MUMBAI · SYDNEY · TOKYO · KYOTO · OSAKA · SEOUL · DUBAI · NYC · LONDON · PARIS · MUMBAI · SYDNEY · </span>
+            <span class="city-track">NEW YORK · LOS ANGELES · DALLAS · MEXICO CITY · TORONTO · MIAMI · SEATTLE · ATLANTA · VANCOUVER · MONTERREY · NEW YORK · LOS ANGELES · DALLAS · MEXICO CITY · TORONTO · MIAMI · SEATTLE · ATLANTA · VANCOUVER · MONTERREY · </span>
           </div>
         </div>
       </div>

@@ -5,8 +5,10 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initCountdown } from './countdown.js';
 
 gsap.registerPlugin(ScrollTrigger);
+initCountdown();
 
 /* ============================================================
    RENDERER
