@@ -1,6 +1,7 @@
 import './style.css';
 import { groups, flagUrl } from './wc-data.js';
 import { initCountdown } from './countdown.js';
+import './nav.js';
 
 const navbar = document.getElementById('navbar');
 if (navbar) {

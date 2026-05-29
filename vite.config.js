@@ -14,6 +14,8 @@ export default defineConfig({
         teams: resolve(__dirname, 'teams.html'),
         standings: resolve(__dirname, 'standings.html'),
         fixtures: resolve(__dirname, 'fixtures.html'),
+        squads: resolve(__dirname, 'squads.html'),
+        about: resolve(__dirname, 'about.html'),
       },
     },
   },

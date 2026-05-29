@@ -6,6 +6,7 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initCountdown } from './countdown.js';
+import './nav.js';
 
 gsap.registerPlugin(ScrollTrigger);
 initCountdown();
