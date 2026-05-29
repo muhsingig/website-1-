@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <title>Host Cities — FIFA World Cup 2026</title>
+  <title>Scores & Fixtures — FIFA World Cup 2026</title>
 </head>
 <body class="subpage">
 
@@ -23,11 +23,10 @@
       </span>
     </a>
     <div class="nav-links">
-      <a href="/fixtures.html">Fixtures</a>
-      <a href="/host-cities.html" class="active">Host Cities</a>
+      <a href="/fixtures.html" class="active">Fixtures</a>
+      <a href="/host-cities.html">Host Cities</a>
       <a href="/teams.html">Teams</a>
       <a href="/standings.html">Standings</a>
-      <a href="/index.html#how-section">Be There</a>
       <a href="/index.html#site-footer">About</a>
     </div>
     <button class="profile-btn glass-pill">
@@ -65,126 +64,19 @@
 
   <!-- ===================== PAGE HERO ===================== -->
   <header class="page-hero">
-    <span class="page-eyebrow">Canada · Mexico · USA 2026</span>
-    <h1 class="page-title">Host Cities</h1>
-    <p class="page-sub">16 cities. 3 nations. 104 matches. The FIFA World Cup 2026 will be staged across North America from June 11 to July 19, 2026.</p>
+    <span class="page-eyebrow">Group Stage · 11–27 June 2026</span>
+    <h1 class="page-title">Scores &amp; Fixtures</h1>
+    <p class="page-sub">All 72 group-stage matches across 16 venues in Canada, Mexico and the USA. Kickoff times shown in U.S. Eastern Time.</p>
   </header>
 
-  <!-- ===================== CITIES ===================== -->
+  <!-- ===================== FIXTURES ===================== -->
   <main class="page-wrap">
-
-    <section class="country-block">
-      <div class="country-head">
-        <span class="country-flag">🇺🇸</span>
-        <span class="country-name">United States</span>
-        <span class="country-count">11 Host Cities</span>
+    <div id="fixtures-root"></div>
+    <div class="page-note">
+      <div class="page-note-inner">
+        <strong>Group stage only.</strong> The knockout bracket (Round of 32 onward) is confirmed once group positions are decided.
       </div>
-      <div class="city-grid">
-        <div class="city-card glass-card">
-          <span class="city-name">Atlanta</span>
-          <span class="city-stadium">Mercedes-Benz Stadium</span>
-          <span class="city-meta">Atlanta, Georgia</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Boston</span>
-          <span class="city-stadium">Gillette Stadium</span>
-          <span class="city-meta">Foxborough, Massachusetts</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Dallas</span>
-          <span class="city-stadium">AT&amp;T Stadium</span>
-          <span class="city-meta">Arlington, Texas</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Houston</span>
-          <span class="city-stadium">NRG Stadium</span>
-          <span class="city-meta">Houston, Texas</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Kansas City</span>
-          <span class="city-stadium">Arrowhead Stadium</span>
-          <span class="city-meta">Kansas City, Missouri</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Los Angeles</span>
-          <span class="city-stadium">SoFi Stadium</span>
-          <span class="city-meta">Inglewood, California</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Miami</span>
-          <span class="city-stadium">Hard Rock Stadium</span>
-          <span class="city-meta">Miami Gardens, Florida</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">New York / New Jersey</span>
-          <span class="city-stadium">MetLife Stadium</span>
-          <span class="city-meta">East Rutherford, New Jersey</span>
-          <span class="city-tag final">Final · July 19</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Philadelphia</span>
-          <span class="city-stadium">Lincoln Financial Field</span>
-          <span class="city-meta">Philadelphia, Pennsylvania</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">San Francisco Bay Area</span>
-          <span class="city-stadium">Levi's Stadium</span>
-          <span class="city-meta">Santa Clara, California</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Seattle</span>
-          <span class="city-stadium">Lumen Field</span>
-          <span class="city-meta">Seattle, Washington</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="country-block">
-      <div class="country-head">
-        <span class="country-flag">🇨🇦</span>
-        <span class="country-name">Canada</span>
-        <span class="country-count">2 Host Cities</span>
-      </div>
-      <div class="city-grid">
-        <div class="city-card glass-card">
-          <span class="city-name">Toronto</span>
-          <span class="city-stadium">BMO Field</span>
-          <span class="city-meta">Toronto, Ontario</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Vancouver</span>
-          <span class="city-stadium">BC Place</span>
-          <span class="city-meta">Vancouver, British Columbia</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="country-block">
-      <div class="country-head">
-        <span class="country-flag">🇲🇽</span>
-        <span class="country-name">Mexico</span>
-        <span class="country-count">3 Host Cities</span>
-      </div>
-      <div class="city-grid">
-        <div class="city-card glass-card">
-          <span class="city-name">Guadalajara</span>
-          <span class="city-stadium">Estadio Akron</span>
-          <span class="city-meta">Zapopan, Jalisco</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Mexico City</span>
-          <span class="city-stadium">Estadio Azteca</span>
-          <span class="city-meta">Mexico City</span>
-          <span class="city-tag">Opening Match · June 11</span>
-        </div>
-        <div class="city-card glass-card">
-          <span class="city-name">Monterrey</span>
-          <span class="city-stadium">Estadio BBVA</span>
-          <span class="city-meta">Guadalupe, Nuevo León</span>
-        </div>
-      </div>
-    </section>
-
+    </div>
   </main>
 
   <!-- ===================== FOOTER ===================== -->
@@ -208,9 +100,9 @@
         <div class="footer-links">
           <div class="footer-col">
             <span class="footer-col-title">Tournament</span>
-            <a href="/index.html">Fixtures</a>
+            <a href="/fixtures.html">Fixtures</a>
             <a href="/standings.html">Standings</a>
-            <a href="#">Teams</a>
+            <a href="/teams.html">Teams</a>
             <a href="#">Tickets</a>
           </div>
           <div class="footer-col">
@@ -253,6 +145,6 @@
     </div>
   </footer>
 
-  <script type="module" src="/src/pages.js"></script>
+  <script type="module" src="/src/fixtures.js"></script>
 </body>
 </html>

@@ -13,6 +13,7 @@ export default defineConfig({
         hostCities: resolve(__dirname, 'host-cities.html'),
         teams: resolve(__dirname, 'teams.html'),
         standings: resolve(__dirname, 'standings.html'),
+        fixtures: resolve(__dirname, 'fixtures.html'),
       },
     },
   },
