@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <title>Teams — FIFA World Cup 2026</title>
+  <title>All-Time Stats — FIFA World Cup 2026</title>
 </head>
 <body class="subpage">
 
@@ -25,11 +25,11 @@
     <div class="nav-links">
       <a href="/fixtures.html">Fixtures</a>
       <a href="/host-cities.html">Host Cities</a>
-      <a href="/teams.html" class="active">Teams</a>
+      <a href="/teams.html">Teams</a>
       <a href="/squads.html">Squads</a>
       <a href="/standings.html">Standings</a>
       <a href="/winners.html">Winners</a>
-      <a href="/stats.html">Stats</a>
+      <a href="/stats.html" class="active">Stats</a>
       <a href="/about.html">About</a>
     </div>
     <button class="profile-btn glass-pill">
@@ -67,14 +67,32 @@
 
   <!-- ===================== PAGE HERO ===================== -->
   <header class="page-hero">
-    <span class="page-eyebrow">48 Nations · 12 Groups</span>
-    <h1 class="page-title">Teams</h1>
-    <p class="page-sub">Every nation in the FIFA World Cup 2026, drawn into twelve groups. Tap any side to see its colours and flag.</p>
+    <span class="page-eyebrow">1930 – 2022 · The Record Books</span>
+    <h1 class="page-title">All-Time Stats</h1>
+    <p class="page-sub">Goals, appearances, titles and records from 92 years of FIFA World Cup history — every number from the first ball in Montevideo to the Lusail final.</p>
   </header>
 
-  <!-- ===================== TEAMS ===================== -->
+  <!-- ===================== CONTENT ===================== -->
   <main class="page-wrap">
-    <div id="teams-root"></div>
+    <div class="st-cards" id="stat-cards"></div>
+
+    <h2 class="wn-section-title">All-time top scorers</h2>
+    <div id="scorers-root"></div>
+
+    <h2 class="wn-section-title">Most appearances (matches)</h2>
+    <div id="apps-root"></div>
+
+    <h2 class="wn-section-title">Titles by nation</h2>
+    <div id="titles-root"></div>
+
+    <h2 class="wn-section-title">Records &amp; milestones</h2>
+    <div class="st-records" id="records-root"></div>
+
+    <div class="page-note">
+      <div class="page-note-inner">
+        <strong>Through 2022.</strong> All figures cover the 22 World Cup final tournaments from 1930 to 2022. Germany's totals include the West Germany era; goalscoring and appearance records count finals-tournament matches only.
+      </div>
+    </div>
   </main>
 
   <!-- ===================== FOOTER ===================== -->
@@ -101,20 +119,20 @@
             <a href="/fixtures.html">Fixtures</a>
             <a href="/standings.html">Standings</a>
             <a href="/teams.html">Teams</a>
-            <a href="#">Tickets</a>
+            <a href="/squads.html">Squads</a>
           </div>
           <div class="footer-col">
-            <span class="footer-col-title">Fan Zone</span>
+            <span class="footer-col-title">History</span>
+            <a href="/winners.html">Winners</a>
+            <a href="/stats.html">All-time Stats</a>
             <a href="/host-cities.html">Host Cities</a>
-            <a href="#">Fan Festivals</a>
-            <a href="#">Volunteers</a>
-            <a href="#">Merch</a>
+            <a href="/about.html">About</a>
           </div>
           <div class="footer-col">
             <span class="footer-col-title">More</span>
-            <a href="/about.html">About</a>
             <a href="#">News</a>
             <a href="#">Media</a>
+            <a href="#">Tickets</a>
             <a href="#">Contact</a>
           </div>
         </div>
@@ -143,6 +161,6 @@
     </div>
   </footer>
 
-  <script type="module" src="/src/teams.js"></script>
+  <script type="module" src="/src/stats.js"></script>
 </body>
 </html>
