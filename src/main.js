@@ -252,6 +252,7 @@ const goalNetSvg = goalNetZone && goalNetZone.querySelector('.goal-net');
 const goalBurst = document.getElementById('goal-burst');
 const goalBurstText = goalBurst && goalBurst.querySelector('.goal-burst-text');
 const goalConfetti = goalBurst && goalBurst.querySelector('.goal-confetti');
+const goalFlash = goalBurst && goalBurst.querySelector('.goal-flash');
 let goalScored = false;
 
 function projectScreen(x, y, z) {
@@ -282,48 +283,62 @@ function spawnConfetti() {
   if (!goalConfetti) return;
   goalConfetti.innerHTML = '';
   const colors = ['#2b6cff', '#e8113a', '#00a651', '#d9a521', '#ffffff'];
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 28; i++) {
     const s = document.createElement('span');
     s.style.background = colors[i % colors.length];
+    s.style.width = s.style.height = `${7 + Math.random() * 7}px`;
     goalConfetti.appendChild(s);
-    const ang = (Math.PI * 2 * i) / 16 + Math.random() * 0.4;
-    const dist = 60 + Math.random() * 90;
-    gsap.fromTo(
-      s,
-      { x: 0, y: 0, opacity: 1, scale: 1 },
-      {
-        x: Math.cos(ang) * dist,
-        y: Math.sin(ang) * dist + 50,
-        opacity: 0,
-        scale: 0.4,
-        rotation: Math.random() * 360,
-        duration: 1.1,
+    const ang = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.2; // mostly upward fan
+    const speed = 90 + Math.random() * 150;
+    gsap.set(s, { x: 0, y: 0, opacity: 1, scale: 1 });
+    gsap
+      .timeline({ onComplete: () => s.remove() })
+      .to(s, {
+        x: Math.cos(ang) * speed,
+        y: Math.sin(ang) * speed,
+        rotation: Math.random() * 540,
+        duration: 0.5 + Math.random() * 0.3,
         ease: 'power2.out',
-        onComplete: () => s.remove(),
-      }
-    );
+      })
+      .to(s, { y: '+=200', opacity: 0, rotation: '+=180', duration: 0.9, ease: 'power1.in' }, '>-0.05');
   }
 }
 
 function celebrateGoal() {
   if (goalScored || !goalNetZone) return;
   goalScored = true;
+
+  // Net snap + bulge as the ball hits
   if (goalNetSvg) {
+    gsap.killTweensOf(goalNetSvg);
+    gsap
+      .timeline()
+      .fromTo(goalNetSvg, { scale: 1 }, { scale: 1.1, duration: 0.14, ease: 'power3.out', transformOrigin: '50% 42%' })
+      .to(goalNetSvg, { scale: 1, duration: 0.7, ease: 'elastic.out(1, 0.35)' });
+  }
+
+  // White flash burst behind the text
+  if (goalFlash) {
+    gsap.killTweensOf(goalFlash);
     gsap.fromTo(
-      goalNetSvg,
-      { scale: 1 },
-      { scale: 1.06, duration: 0.12, yoyo: true, repeat: 3, ease: 'sine.inOut', transformOrigin: '50% 40%' }
+      goalFlash,
+      { scale: 0.2, opacity: 0.85 },
+      { scale: 3, opacity: 0, duration: 0.7, ease: 'power2.out' }
     );
   }
+
+  // "GOAL!" punch in, hold, fade
   if (goalBurstText) {
     gsap.killTweensOf(goalBurstText);
     gsap.fromTo(
       goalBurstText,
-      { scale: 0.3, opacity: 0, y: 14 },
-      { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2.2)' }
+      { scale: 0.2, opacity: 0, y: 18, rotate: -4 },
+      { scale: 1, opacity: 1, y: 0, rotate: 0, duration: 0.55, ease: 'back.out(2.6)' }
     );
-    gsap.to(goalBurstText, { opacity: 0, scale: 1.18, duration: 0.55, delay: 1.5, ease: 'power1.in' });
+    gsap.to(goalBurstText, { scale: 1.06, duration: 0.9, delay: 0.55, ease: 'sine.inOut', yoyo: true, repeat: 1 });
+    gsap.to(goalBurstText, { opacity: 0, scale: 1.25, duration: 0.6, delay: 1.9, ease: 'power1.in' });
   }
+
   spawnConfetti();
 }
 

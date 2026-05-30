@@ -273,12 +273,19 @@
 
     <!-- Goal net (sits behind the 3D ball) + goal celebration (in front) -->
     <div id="goal-net-zone" aria-hidden="true">
-      <svg class="goal-net" viewBox="0 0 220 180" preserveAspectRatio="xMidYMid meet">
-        <path class="goal-mesh" d="M30 18L30 165 M50 18L50 165 M70 18L70 165 M90 18L90 165 M110 18L110 165 M130 18L130 165 M150 18L150 165 M170 18L170 165 M190 18L190 165 M15 35L205 35 M15 53L205 53 M15 71L205 71 M15 89L205 89 M15 107L205 107 M15 125L205 125 M15 143L205 143 M15 160L205 160" />
-        <path class="goal-frame" d="M15 165 L15 18 L205 18 L205 165" />
+      <svg class="goal-net" viewBox="0 0 240 190" preserveAspectRatio="xMidYMid meet">
+        <!-- back panel netting -->
+        <path class="goal-mesh goal-mesh-back" d="M90 10L90 120 M125 10L125 120 M160 10L160 120 M55 40L190 40 M55 70L190 70 M55 100L190 100" />
+        <!-- depth struts + back frame -->
+        <path class="goal-strut" d="M20 25L55 10 M220 25L190 10 M20 170L55 120 M220 170L190 120 M55 120L55 10L190 10L190 120" />
+        <!-- front face netting -->
+        <path class="goal-mesh" d="M45 25L45 170 M70 25L70 170 M95 25L95 170 M120 25L120 170 M145 25L145 170 M170 25L170 170 M195 25L195 170 M20 45L220 45 M20 65L220 65 M20 85L220 85 M20 105L220 105 M20 125L220 125 M20 145L220 145 M20 165L220 165" />
+        <!-- front frame -->
+        <path class="goal-frame" d="M20 170 L20 25 L220 25 L220 170" />
       </svg>
     </div>
     <div id="goal-burst" aria-hidden="true">
+      <div class="goal-flash"></div>
       <span class="goal-burst-text">GOAL!</span>
       <div class="goal-confetti"></div>
     </div>

@@ -819,11 +819,19 @@ img { display: block; max-width: 100%; }
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.goal-net .goal-strut {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .goal-net .goal-mesh {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.5);
-  stroke-width: 1.1;
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 1.3;
 }
+.goal-net .goal-mesh-back { stroke: rgba(255, 255, 255, 0.32); }
 #goal-burst {
   position: fixed;
   z-index: 3; /* in front of the ball */
@@ -844,6 +852,18 @@ img { display: block; max-width: 100%; }
   color: transparent;
   filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
 }
+.goal-flash {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 220px;
+  height: 220px;
+  margin: -110px 0 0 -110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.5) 35%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
 .goal-confetti { position: absolute; left: 50%; top: 64%; width: 0; height: 0; }
 .goal-confetti span {
   position: absolute;
@@ -852,6 +872,7 @@ img { display: block; max-width: 100%; }
   width: 9px;
   height: 9px;
   border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 @media (max-width: 700px) {
   #goal-net-zone,
