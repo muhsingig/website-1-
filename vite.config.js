@@ -18,6 +18,7 @@ export default defineConfig({
         about: resolve(__dirname, 'about.html'),
         winners: resolve(__dirname, 'winners.html'),
         stats: resolve(__dirname, 'stats.html'),
+        gallery: resolve(__dirname, 'gallery.html'),
       },
     },
   },

@@ -44,6 +44,7 @@
       <a href="/standings.html">Standings</a>
       <a href="/winners.html">Winners</a>
       <a href="/stats.html">Stats</a>
+      <a href="/gallery.html">Gallery</a>
       <a href="/about.html">About</a>
     </div>
     <button class="profile-btn glass-pill">
@@ -273,15 +274,11 @@
 
     <!-- Goal net (sits behind the 3D ball) + goal celebration (in front) -->
     <div id="goal-net-zone" aria-hidden="true">
-      <svg class="goal-net" viewBox="0 0 240 190" preserveAspectRatio="xMidYMid meet">
-        <!-- back panel netting -->
-        <path class="goal-mesh goal-mesh-back" d="M90 10L90 120 M125 10L125 120 M160 10L160 120 M55 40L190 40 M55 70L190 70 M55 100L190 100" />
-        <!-- depth struts + back frame -->
-        <path class="goal-strut" d="M20 25L55 10 M220 25L190 10 M20 170L55 120 M220 170L190 120 M55 120L55 10L190 10L190 120" />
-        <!-- front face netting -->
-        <path class="goal-mesh" d="M45 25L45 170 M70 25L70 170 M95 25L95 170 M120 25L120 170 M145 25L145 170 M170 25L170 170 M195 25L195 170 M20 45L220 45 M20 65L220 65 M20 85L220 85 M20 105L220 105 M20 125L220 125 M20 145L220 145 M20 165L220 165" />
-        <!-- front frame -->
-        <path class="goal-frame" d="M20 170 L20 25 L220 25 L220 170" />
+      <svg class="goal-net" viewBox="0 0 240 200" preserveAspectRatio="xMidYMid meet">
+        <!-- draped diamond netting (path generated in main.js) -->
+        <path class="goal-mesh" d="" />
+        <!-- goal frame: posts + crossbar -->
+        <path class="goal-frame" d="M20 184 L20 24 L220 24 L220 184" />
       </svg>
     </div>
     <div id="goal-burst" aria-hidden="true">

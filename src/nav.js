@@ -36,7 +36,7 @@ function initMobileNav() {
     if (navbar.classList.contains('nav-open') && !navbar.contains(e.target)) close();
   });
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 1024) close();
+    if (window.innerWidth > 1180) close();
   });
 }
 

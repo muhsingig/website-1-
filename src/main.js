@@ -255,6 +255,48 @@ const goalConfetti = goalBurst && goalBurst.querySelector('.goal-confetti');
 const goalFlash = goalBurst && goalBurst.querySelector('.goal-flash');
 let goalScored = false;
 
+// Generate a draped diamond net (two families of curved diagonals over the
+// goal opening, sagging toward the ground like real netting).
+function buildGoalNet() {
+  if (!goalNetSvg) return;
+  const mesh = goalNetSvg.querySelector('.goal-mesh');
+  if (!mesh) return;
+  const cols = 20;
+  const rows = 15;
+  const left = 20, right = 220, top = 24, bot = 182;
+  const node = (r, c) => {
+    const u = c / cols;
+    const v = r / rows;
+    let x = left + u * (right - left);
+    let y = top + v * (bot - top);
+    const bulge = Math.sin(Math.PI * u);   // 0 at posts, 1 at centre
+    y += bulge * (2 + v * v * 18);          // sags, deeper toward the ground
+    x += (u - 0.5) * bulge * 3;             // gentle pinch inward
+    return `${x.toFixed(1)} ${y.toFixed(1)}`;
+  };
+  let d = '';
+  for (let s = -rows; s <= cols; s++) {     // "\" diagonals
+    let started = false;
+    for (let r = 0; r <= rows; r++) {
+      const c = s + r;
+      if (c < 0 || c > cols) continue;
+      d += (started ? 'L' : 'M') + node(r, c) + ' ';
+      started = true;
+    }
+  }
+  for (let s = 0; s <= cols + rows; s++) {  // "/" diagonals
+    let started = false;
+    for (let r = 0; r <= rows; r++) {
+      const c = s - r;
+      if (c < 0 || c > cols) continue;
+      d += (started ? 'L' : 'M') + node(r, c) + ' ';
+      started = true;
+    }
+  }
+  mesh.setAttribute('d', d.trim());
+}
+buildGoalNet();
+
 function projectScreen(x, y, z) {
   const v = new THREE.Vector3(x, y, z).project(camera);
   return { x: (v.x * 0.5 + 0.5) * window.innerWidth, y: (-v.y * 0.5 + 0.5) * window.innerHeight };
@@ -267,8 +309,8 @@ function positionGoal() {
   const rWorld = (2.4 * f.scale) / 2;           // ball radius in world units at footer
   const edge = projectScreen(f.x + rWorld, f.y, f.z);
   const rpx = Math.abs(edge.x - c.x) || 110;    // ball radius in screen px
-  const w = rpx * 3.1;
-  const h = w * 0.82;
+  const w = rpx * 3.4;
+  const h = w * 0.9;
   goalNetZone.style.left = `${c.x}px`;
   goalNetZone.style.top = `${c.y}px`;
   goalNetZone.style.width = `${w}px`;

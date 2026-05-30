@@ -1,0 +1,134 @@
+// Iconic FIFA World Cup moments (men's tournament), researched & factual.
+// flags = flagcdn ISO codes. c1/c2 = tile gradient (team-inspired colours).
+// img = OPTIONAL licensed image URL — if set, the tile shows it; otherwise a
+// styled flag/colour tile is shown (the historic press photos are copyrighted
+// and are not embedded here).
+
+export const moments = [
+  {
+    year: 1950, tag: 'Upset', flags: ['uy', 'br'], c1: '#2a7de1', c2: '#15366f', img: '',
+    title: 'The Maracanazo',
+    match: 'Uruguay 2–1 Brazil · Deciding match',
+    venue: 'Maracanã, Rio de Janeiro',
+    desc: 'Uruguay silence a world-record crowd of nearly 200,000 to snatch the title from hosts Brazil.',
+  },
+  {
+    year: 1958, tag: 'A star is born', flags: ['br'], c1: '#009c3b', c2: '#b88c00', img: '',
+    title: 'A 17-year-old Pelé',
+    match: 'Brazil 5–2 Sweden · Final',
+    venue: 'Råsunda, Solna',
+    desc: 'Pelé becomes the youngest scorer and champion in World Cup history, announcing himself to the world.',
+  },
+  {
+    year: 1966, tag: 'Final', flags: ['gb-eng'], c1: '#cf0a2c', c2: '#7a0a1e', img: '',
+    title: "Hurst's hat-trick",
+    match: 'England 4–2 West Germany · Final',
+    venue: 'Wembley, London',
+    desc: "Geoff Hurst scores the only hat-trick in a World Cup final — 'they think it's all over… it is now.'",
+  },
+  {
+    year: 1970, tag: 'Team goal', flags: ['br'], c1: '#009c3b', c2: '#b88c00', img: '',
+    title: "Brazil's perfect goal",
+    match: 'Brazil 4–1 Italy · Final',
+    venue: 'Estadio Azteca, Mexico City',
+    desc: 'A flowing move finished by captain Carlos Alberto — often called the greatest team goal ever scored.',
+  },
+  {
+    year: 1974, tag: 'Skill', flags: ['nl'], c1: '#ff6b00', c2: '#a83e00', img: '',
+    title: 'The Cruyff Turn',
+    match: 'Netherlands v Sweden · Group stage',
+    venue: 'Westfalenstadion, Dortmund',
+    desc: 'Johan Cruyff drags the ball behind his standing leg and spins away — a move now taught to players everywhere.',
+  },
+  {
+    year: 1982, tag: 'Celebration', flags: ['it'], c1: '#0066b3', c2: '#013a66', img: '',
+    title: "Tardelli's scream",
+    match: 'Italy 3–1 West Germany · Final',
+    venue: 'Santiago Bernabéu, Madrid',
+    desc: "Marco Tardelli wheels away in tears of joy — 'l'urlo di Tardelli', the cry that defined a final.",
+  },
+  {
+    year: 1986, tag: 'Drama', flags: ['ar', 'gb-eng'], c1: '#74acdf', c2: '#2a6cb0', img: '',
+    title: 'Hand of God & Goal of the Century',
+    match: 'Argentina 2–1 England · Quarter-final',
+    venue: 'Estadio Azteca, Mexico City',
+    desc: 'In four minutes Maradona scores the two most famous goals in history — one with his fist, one a 60-metre solo run.',
+  },
+  {
+    year: 1990, tag: 'Joy', flags: ['cm'], c1: '#1a8f4c', c2: '#0d5e30', img: '',
+    title: "Roger Milla's dance",
+    match: "Cameroon's run · Italia '90",
+    venue: 'Italy',
+    desc: 'A 38-year-old Milla sprints to the corner flag and dances — pure joy that lit up the tournament and African football.',
+  },
+  {
+    year: 1994, tag: 'Heartbreak', flags: ['it', 'br'], c1: '#0066b3', c2: '#013a66', img: '',
+    title: "Baggio's penalty",
+    match: 'Brazil 0–0 Italy (3–2 pens) · Final',
+    venue: 'Rose Bowl, Pasadena',
+    desc: 'Roberto Baggio blazes the decisive penalty over the bar, handing Brazil a fourth world title.',
+  },
+  {
+    year: 1998, tag: 'Glory', flags: ['fr'], c1: '#1e3a8a', c2: '#c8102e', img: '',
+    title: "Zidane's two headers",
+    match: 'France 3–0 Brazil · Final',
+    venue: 'Stade de France, Saint-Denis',
+    desc: 'Zinedine Zidane heads France to a first-ever world title on home soil.',
+  },
+  {
+    year: 2002, tag: 'Redemption', flags: ['br'], c1: '#009c3b', c2: '#b88c00', img: '',
+    title: "Ronaldo's redemption",
+    match: 'Brazil 2–0 Germany · Final',
+    venue: 'International Stadium, Yokohama',
+    desc: 'Four years on from heartbreak, Ronaldo scores both goals and finishes with 8 — a fifth star for Brazil.',
+  },
+  {
+    year: 2006, tag: 'Drama', flags: ['fr', 'it'], c1: '#0066b3', c2: '#1e3a8a', img: '',
+    title: 'The headbutt',
+    match: 'Italy 1–1 France (5–3 pens) · Final',
+    venue: 'Olympiastadion, Berlin',
+    desc: "Zidane's career ends with a red card for a headbutt on Materazzi; Italy win the shoot-out.",
+  },
+  {
+    year: 2010, tag: 'Glory', flags: ['es'], c1: '#c60b1e', c2: '#ffc400', img: '',
+    title: 'Iniesta wins it',
+    match: 'Spain 1–0 Netherlands (a.e.t.) · Final',
+    venue: 'Soccer City, Johannesburg',
+    desc: "Andrés Iniesta's extra-time strike gives Spain its first-ever World Cup.",
+  },
+  {
+    year: 2014, tag: 'Shock', flags: ['de', 'br'], c1: '#111111', c2: '#d9a521', img: '',
+    title: 'The Mineirazo',
+    match: 'Germany 7–1 Brazil · Semi-final',
+    venue: 'Mineirão, Belo Horizonte',
+    desc: 'Germany stun hosts Brazil 7–1, scoring four goals in a stunning six-minute first-half spell.',
+  },
+  {
+    year: 2014, tag: 'Final', flags: ['de', 'ar'], c1: '#111111', c2: '#d9a521', img: '',
+    title: "Götze's winner",
+    match: 'Germany 1–0 Argentina (a.e.t.) · Final',
+    venue: 'Maracanã, Rio de Janeiro',
+    desc: "Mario Götze's chest-and-volley in extra time wins Germany a fourth star.",
+  },
+  {
+    year: 2018, tag: 'New era', flags: ['fr'], c1: '#1e3a8a', c2: '#c8102e', img: '',
+    title: 'Mbappé arrives',
+    match: 'France 4–2 Croatia · Final',
+    venue: 'Luzhniki Stadium, Moscow',
+    desc: 'A 19-year-old Kylian Mbappé scores in the final as France lift their second world title.',
+  },
+  {
+    year: 2022, tag: 'Coronation', flags: ['ar', 'fr'], c1: '#74acdf', c2: '#2a6cb0', img: '',
+    title: "Messi's crowning glory",
+    match: 'Argentina 3–3 France (4–2 pens) · Final',
+    venue: 'Lusail Stadium, Lusail',
+    desc: 'Widely called the greatest final ever — Messi finally lifts the trophy after a breathless 3–3 and shoot-out.',
+  },
+  {
+    year: 2022, tag: 'Goal', flags: ['fr'], c1: '#1e3a8a', c2: '#c8102e', img: '',
+    title: 'A hat-trick in the final',
+    match: 'Argentina 3–3 France · Final',
+    venue: 'Lusail Stadium, Lusail',
+    desc: 'Kylian Mbappé becomes the first man since 1966 to score a hat-trick in a World Cup final — and still ends as runner-up.',
+  },
+];

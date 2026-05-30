@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <title>Scores & Fixtures — FIFA World Cup 2026</title>
+  <title>Gallery — FIFA World Cup 2026</title>
 </head>
 <body class="subpage">
 
@@ -23,14 +23,14 @@
       </span>
     </a>
     <div class="nav-links">
-      <a href="/fixtures.html" class="active">Fixtures</a>
+      <a href="/fixtures.html">Fixtures</a>
       <a href="/host-cities.html">Host Cities</a>
       <a href="/teams.html">Teams</a>
       <a href="/squads.html">Squads</a>
       <a href="/standings.html">Standings</a>
       <a href="/winners.html">Winners</a>
       <a href="/stats.html">Stats</a>
-      <a href="/gallery.html">Gallery</a>
+      <a href="/gallery.html" class="active">Gallery</a>
       <a href="/about.html">About</a>
     </div>
     <button class="profile-btn glass-pill">
@@ -68,17 +68,17 @@
 
   <!-- ===================== PAGE HERO ===================== -->
   <header class="page-hero">
-    <span class="page-eyebrow">Group Stage · 11–27 June 2026</span>
-    <h1 class="page-title">Scores &amp; Fixtures</h1>
-    <p class="page-sub">All 72 group-stage matches across 16 venues in Canada, Mexico and the USA. Kickoff times shown in U.S. Eastern Time.</p>
+    <span class="page-eyebrow">1930 – 2022 · Moments that made history</span>
+    <h1 class="page-title">Gallery</h1>
+    <p class="page-sub">The goals, the drama and the joy that defined nearly a century of the FIFA World Cup — the moments football will never forget.</p>
   </header>
 
-  <!-- ===================== FIXTURES ===================== -->
+  <!-- ===================== GALLERY ===================== -->
   <main class="page-wrap">
-    <div id="fixtures-root"></div>
+    <div class="gl-grid" id="gallery-root"></div>
     <div class="page-note">
       <div class="page-note-inner">
-        <strong>Group stage only.</strong> The knockout bracket (Round of 32 onward) is confirmed once group positions are decided.
+        <strong>About the imagery.</strong> The original photographs of these moments are copyrighted by their owners, so each tile is an illustrated, team-coloured card rather than the press photo. Licensed images can be dropped into <code>src/gallery-data.js</code> (the <code>img</code> field) to display them.
       </div>
     </div>
   </main>
@@ -107,21 +107,21 @@
             <a href="/fixtures.html">Fixtures</a>
             <a href="/standings.html">Standings</a>
             <a href="/teams.html">Teams</a>
-            <a href="#">Tickets</a>
+            <a href="/squads.html">Squads</a>
           </div>
           <div class="footer-col">
-            <span class="footer-col-title">Fan Zone</span>
-            <a href="/host-cities.html">Host Cities</a>
-            <a href="#">Fan Festivals</a>
-            <a href="#">Volunteers</a>
-            <a href="#">Merch</a>
+            <span class="footer-col-title">History</span>
+            <a href="/winners.html">Winners</a>
+            <a href="/stats.html">All-time Stats</a>
+            <a href="/gallery.html">Gallery</a>
+            <a href="/about.html">About</a>
           </div>
           <div class="footer-col">
             <span class="footer-col-title">More</span>
-            <a href="/about.html">About</a>
+            <a href="/host-cities.html">Host Cities</a>
             <a href="#">News</a>
             <a href="#">Media</a>
-            <a href="#">Contact</a>
+            <a href="#">Tickets</a>
           </div>
         </div>
         <div class="footer-news">
@@ -149,6 +149,6 @@
     </div>
   </footer>
 
-  <script type="module" src="/src/fixtures.js"></script>
+  <script type="module" src="/src/gallery.js"></script>
 </body>
 </html>
