@@ -3,6 +3,7 @@ import { titlesByNation } from './winners-data.js';
 import { flagUrl } from './wc-data.js';
 import { initCountdown } from './countdown.js';
 import './nav.js';
+import { mountAurora } from './soft-aurora.js';
 
 const navbar = document.getElementById('navbar');
 if (navbar) {
@@ -48,8 +49,37 @@ const appearances = [
   { n: 'Philipp Lahm', c: 'Germany', f: 'de', m: 20 },
 ];
 
+const assists = [
+  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', a: 8 },
+  { n: 'Diego Maradona', c: 'Argentina', f: 'ar', a: 8 },
+  { n: 'Pierre Littbarski', c: 'Germany', f: 'de', a: 7 },
+  { n: 'Grzegorz Lato', c: 'Poland', f: 'pl', a: 7 },
+  { n: 'Pelé', c: 'Brazil', f: 'br', a: 6 },
+  { n: 'David Beckham', c: 'England', f: 'gb-eng', a: 6 },
+  { n: 'Thomas Müller', c: 'Germany', f: 'de', a: 6 },
+  { n: 'Francesco Totti', c: 'Italy', f: 'it', a: 6 },
+];
+
+// Goal involvements = goals + assists.
+const involvements = [
+  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', g: 13, a: 8 },
+  { n: 'Pelé', c: 'Brazil', f: 'br', g: 12, a: 6 },
+  { n: 'Diego Maradona', c: 'Argentina', f: 'ar', g: 8, a: 8 },
+];
+
+// Player-of-the-Match awards (presented by FIFA since 2002).
+const motm = [
+  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', m: 11 },
+  { n: 'Cristiano Ronaldo', c: 'Portugal', f: 'pt', m: 6 },
+  { n: 'Arjen Robben', c: 'Netherlands', f: 'nl', m: 6 },
+];
+
 const records = [
   { k: 'Most titles (nation)', v: 'Brazil — 5' },
+  { k: 'Most Golden Balls (best player)', v: 'Lionel Messi — 2 (2014, 2022)' },
+  { k: 'Most knockout-stage goals', v: 'Ronaldo & Mbappé — 8' },
+  { k: 'Most assists (one tournament)', v: 'Pelé — 6 (1970)' },
+  { k: 'Most goal involvements', v: 'Lionel Messi — 21 (13 G + 8 A)' },
   { k: 'Most finals reached (nation)', v: 'Germany — 8' },
   { k: 'Only ever-present nation', v: 'Brazil — all 22 tournaments' },
   { k: 'Most career goals (player)', v: 'Miroslav Klose — 16' },
@@ -107,6 +137,37 @@ function rankTable(rootId, rows, valueKey, valueLabel) {
 
 rankTable('scorers-root', topScorers, 'g', 'Goals');
 rankTable('apps-root', appearances, 'm', 'Matches');
+rankTable('assists-root', assists, 'a', 'Assists');
+rankTable('motm-root', motm, 'm', 'Awards');
+
+// Goal involvements table (goals + assists breakdown)
+const involveRoot = document.getElementById('involve-root');
+if (involveRoot) {
+  involveRoot.innerHTML = `
+    <div class="st-table">
+      <div class="st-row st-row-ga st-head">
+        <span class="st-rank">#</span>
+        <span class="st-player">Player</span>
+        <span class="st-country">Nation</span>
+        <span class="st-val">G</span>
+        <span class="st-val">A</span>
+        <span class="st-val">G+A</span>
+      </div>
+      ${involvements
+        .map(
+          (r, i) => `
+        <div class="st-row st-row-ga">
+          <span class="st-rank">${i + 1}</span>
+          <span class="st-player">${r.n}</span>
+          <span class="st-country">${flag(r.f)}<span class="st-cname">${r.c}</span></span>
+          <span class="st-val">${r.g}</span>
+          <span class="st-val">${r.a}</span>
+          <span class="st-val st-val-win">${r.g + r.a}</span>
+        </div>`
+        )
+        .join('')}
+    </div>`;
+}
 
 const titlesRoot = document.getElementById('titles-root');
 if (titlesRoot) {
@@ -145,3 +206,19 @@ if (recordsRoot) {
 }
 
 initCountdown();
+
+// Aurora background on the hero, using the adidas Trionda 2026 ball colours
+// (USA blue + Canada red) layered over the green hero base.
+const auroraEl = document.getElementById('stats-aurora');
+if (auroraEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  mountAurora(auroraEl, {
+    color1: '#2b6cff',
+    color2: '#e8113a',
+    speed: 0.5,
+    scale: 1.4,
+    brightness: 0.95,
+    bandHeight: 0.45,
+    enableMouseInteraction: true,
+    mouseInfluence: 0.18,
+  });
+}

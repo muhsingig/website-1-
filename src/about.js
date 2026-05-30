@@ -1,6 +1,7 @@
 import './style.css';
 import { initCountdown } from './countdown.js';
 import './nav.js';
+import { revealAll } from './scroll-reveal.js';
 
 const navbar = document.getElementById('navbar');
 if (navbar) {
@@ -10,3 +11,6 @@ if (navbar) {
 }
 
 initCountdown();
+
+// ScrollReveal effect on the About prose (headings + paragraphs)
+revealAll('.ab-h2, .ab-p');
