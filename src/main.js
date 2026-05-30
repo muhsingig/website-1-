@@ -65,7 +65,7 @@ const SECTIONS = {
   hero:   { x: 0.5,  y: -0.45, z: 0,    scale: BALL_SCALE },
   stats:  { x: 2.2,  y: 0.0,   z: 0,    scale: BALL_SCALE },
   how:    { x: -2.2, y: 0.0,   z: 0,    scale: BALL_SCALE },
-  footer: { x: 2.5,  y: -1.3,  z: -2.0, scale: FOOTER_SCALE },
+  footer: { x: 2.0,  y: -1.1,  z: -2.0, scale: FOOTER_SCALE },
 };
 
 /* ============================================================
@@ -242,6 +242,96 @@ function applyWaypoint(from, to, p) {
   ball.scale.setScalar(baseScale * s);
 }
 
+/* ============================================================
+   FOOTER GOAL NET + CELEBRATION
+   The net is anchored to the footer ball waypoint by projecting that
+   3D position to screen coordinates, so it always frames the ball.
+   ============================================================ */
+const goalNetZone = document.getElementById('goal-net-zone');
+const goalNetSvg = goalNetZone && goalNetZone.querySelector('.goal-net');
+const goalBurst = document.getElementById('goal-burst');
+const goalBurstText = goalBurst && goalBurst.querySelector('.goal-burst-text');
+const goalConfetti = goalBurst && goalBurst.querySelector('.goal-confetti');
+let goalScored = false;
+
+function projectScreen(x, y, z) {
+  const v = new THREE.Vector3(x, y, z).project(camera);
+  return { x: (v.x * 0.5 + 0.5) * window.innerWidth, y: (-v.y * 0.5 + 0.5) * window.innerHeight };
+}
+
+function positionGoal() {
+  if (!goalNetZone) return;
+  const f = SECTIONS.footer;
+  const c = projectScreen(f.x, f.y, f.z);
+  const rWorld = (2.4 * f.scale) / 2;           // ball radius in world units at footer
+  const edge = projectScreen(f.x + rWorld, f.y, f.z);
+  const rpx = Math.abs(edge.x - c.x) || 110;    // ball radius in screen px
+  const w = rpx * 3.1;
+  const h = w * 0.82;
+  goalNetZone.style.left = `${c.x}px`;
+  goalNetZone.style.top = `${c.y}px`;
+  goalNetZone.style.width = `${w}px`;
+  goalNetZone.style.height = `${h}px`;
+  if (goalBurst) {
+    goalBurst.style.left = `${c.x}px`;
+    goalBurst.style.top = `${c.y - h * 0.5}px`;
+  }
+}
+
+function spawnConfetti() {
+  if (!goalConfetti) return;
+  goalConfetti.innerHTML = '';
+  const colors = ['#2b6cff', '#e8113a', '#00a651', '#d9a521', '#ffffff'];
+  for (let i = 0; i < 16; i++) {
+    const s = document.createElement('span');
+    s.style.background = colors[i % colors.length];
+    goalConfetti.appendChild(s);
+    const ang = (Math.PI * 2 * i) / 16 + Math.random() * 0.4;
+    const dist = 60 + Math.random() * 90;
+    gsap.fromTo(
+      s,
+      { x: 0, y: 0, opacity: 1, scale: 1 },
+      {
+        x: Math.cos(ang) * dist,
+        y: Math.sin(ang) * dist + 50,
+        opacity: 0,
+        scale: 0.4,
+        rotation: Math.random() * 360,
+        duration: 1.1,
+        ease: 'power2.out',
+        onComplete: () => s.remove(),
+      }
+    );
+  }
+}
+
+function celebrateGoal() {
+  if (goalScored || !goalNetZone) return;
+  goalScored = true;
+  if (goalNetSvg) {
+    gsap.fromTo(
+      goalNetSvg,
+      { scale: 1 },
+      { scale: 1.06, duration: 0.12, yoyo: true, repeat: 3, ease: 'sine.inOut', transformOrigin: '50% 40%' }
+    );
+  }
+  if (goalBurstText) {
+    gsap.killTweensOf(goalBurstText);
+    gsap.fromTo(
+      goalBurstText,
+      { scale: 0.3, opacity: 0, y: 14 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2.2)' }
+    );
+    gsap.to(goalBurstText, { opacity: 0, scale: 1.18, duration: 0.55, delay: 1.5, ease: 'power1.in' });
+  }
+  spawnConfetti();
+}
+
+function resetGoal() {
+  goalScored = false;
+  if (goalBurstText) gsap.set(goalBurstText, { opacity: 0, scale: 0.3 });
+}
+
 function setupScrollBall() {
   ScrollTrigger.create({
     trigger: '#stats-section',
@@ -268,9 +358,21 @@ function setupScrollBall() {
     start: 'top bottom',
     end: 'top top',
     scrub: 2,
-    onUpdate: (self) => applyWaypoint(SECTIONS.how, SECTIONS.footer, self.progress),
+    onUpdate: (self) => {
+      applyWaypoint(SECTIONS.how, SECTIONS.footer, self.progress);
+      if (goalNetZone) {
+        if (!goalNetZone.dataset.pos) { positionGoal(); goalNetZone.dataset.pos = '1'; }
+        goalNetZone.classList.toggle('is-active', self.progress > 0.12);
+        if (self.progress > 0.9) celebrateGoal();
+        else if (self.progress < 0.55) resetGoal();
+      }
+    },
     onEnter: () => { currentSection = 'footer'; },
-    onLeaveBack: () => { currentSection = 'how'; },
+    onLeaveBack: () => {
+      currentSection = 'how';
+      if (goalNetZone) goalNetZone.classList.remove('is-active');
+      resetGoal();
+    },
   });
 
   // Section content reveals
@@ -348,6 +450,7 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  if (goalNetZone) positionGoal();
 });
 
 /* ============================================================

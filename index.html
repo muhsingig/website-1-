@@ -270,6 +270,18 @@
   <!-- ===================== FOOTER ===================== -->
   <footer id="site-footer">
     <div class="footer-bg-ball"></div>
+
+    <!-- Goal net (sits behind the 3D ball) + goal celebration (in front) -->
+    <div id="goal-net-zone" aria-hidden="true">
+      <svg class="goal-net" viewBox="0 0 220 180" preserveAspectRatio="xMidYMid meet">
+        <path class="goal-mesh" d="M30 18L30 165 M50 18L50 165 M70 18L70 165 M90 18L90 165 M110 18L110 165 M130 18L130 165 M150 18L150 165 M170 18L170 165 M190 18L190 165 M15 35L205 35 M15 53L205 53 M15 71L205 71 M15 89L205 89 M15 107L205 107 M15 125L205 125 M15 143L205 143 M15 160L205 160" />
+        <path class="goal-frame" d="M15 165 L15 18 L205 18 L205 165" />
+      </svg>
+    </div>
+    <div id="goal-burst" aria-hidden="true">
+      <span class="goal-burst-text">GOAL!</span>
+      <div class="goal-confetti"></div>
+    </div>
     <div class="footer-inner">
 
       <div class="footer-top">
