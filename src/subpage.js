@@ -1,3 +1,4 @@
+// Shared bootstrap for simple static subpages (Mascots, Match Ball).
 import './style.css';
 import { initCountdown } from './countdown.js';
 import './nav.js';

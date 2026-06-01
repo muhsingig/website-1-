@@ -10,33 +10,53 @@ if (navbar) {
   });
 }
 
-function formatDate(iso) {
-  const d = new Date(iso + 'T12:00:00');
-  return d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+// Short display names (FIFA uses "USA")
+const DISPLAY = { 'United States': 'USA' };
+const show = (n) => DISPLAY[n] || n;
+
+// Build the kickoff instant from the ET time in the data.
+// June/July US Eastern = EDT = UTC-4, so UTC hour = ET hour + 4.
+function kickoff(m) {
+  const [y, mo, d] = m.date.split('-').map(Number);
+  const [hh, mm] = m.time.replace(/\s*ET/i, '').split(':').map(Number);
+  return new Date(Date.UTC(y, mo - 1, d, hh + 4, mm || 0));
 }
+
+// Local (viewer's timezone) helpers — matches FIFA's "shown in your local time".
+const localDateKey = (dt) => dt.toLocaleDateString('en-CA'); // YYYY-MM-DD, sortable
+const localDateLabel = (dt) =>
+  dt
+    .toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+    .replace(',', '');
+const localTime = (dt) => dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
 function flag(name) {
   const code = flagByName[name];
-  return code ? `<img class="fx-flag" src="${flagUrl(code, 40)}" alt="" width="28" height="21" loading="lazy" />` : '';
+  return code
+    ? `<img class="fx-flag" src="${flagUrl(code, 80)}" alt="" width="34" height="25" loading="lazy" />`
+    : '';
 }
 
 function matchRow(m) {
+  const dt = kickoff(m);
   return `
     <article class="fx-match">
-      <span class="fx-group">Group ${m.group}</span>
       <div class="fx-teams">
-        <span class="fx-team fx-home"><span class="fx-name">${m.t1}</span>${flag(m.t1)}</span>
-        <span class="fx-time">${m.time.replace(' ET', '')}<span class="fx-tz">ET</span></span>
-        <span class="fx-team fx-away">${flag(m.t2)}<span class="fx-name">${m.t2}</span></span>
+        <span class="fx-team fx-home"><span class="fx-name">${show(m.t1)}</span>${flag(m.t1)}</span>
+        <span class="fx-time">${localTime(dt)}</span>
+        <span class="fx-team fx-away">${flag(m.t2)}<span class="fx-name">${show(m.t2)}</span></span>
       </div>
-      <span class="fx-venue">${m.venue} · ${m.city}</span>
+      <p class="fx-meta">First Stage&nbsp; ·&nbsp; Group ${m.group}&nbsp; ·&nbsp; ${m.venue} (${m.city})</p>
     </article>`;
 }
 
-function dateBlock(date, matches) {
+function dateBlock(label, matches) {
   return `
     <section class="fx-day">
-      <h2 class="fx-date">${formatDate(date)}</h2>
+      <div class="fx-day-head">
+        <h2 class="fx-date">${label}</h2>
+        <a class="fx-viewgroups" href="/standings.html">View groups</a>
+      </div>
       <div class="fx-list">
         ${matches.map(matchRow).join('')}
       </div>
@@ -45,13 +65,21 @@ function dateBlock(date, matches) {
 
 const root = document.getElementById('fixtures-root');
 if (root) {
-  const byDate = new Map();
+  // Group by LOCAL calendar date so kickoff times display in the viewer's zone.
+  const byDay = new Map();
   for (const m of fixtures) {
-    if (!byDate.has(m.date)) byDate.set(m.date, []);
-    byDate.get(m.date).push(m);
+    const dt = kickoff(m);
+    const key = localDateKey(dt);
+    if (!byDay.has(key)) byDay.set(key, { label: localDateLabel(dt), items: [] });
+    byDay.get(key).items.push({ m, dt });
   }
-  const sorted = [...byDate.keys()].sort();
-  root.innerHTML = sorted.map((d) => dateBlock(d, byDate.get(d))).join('');
+  const days = [...byDay.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  root.innerHTML = days
+    .map(([, day]) => {
+      day.items.sort((a, b) => a.dt - b.dt);
+      return dateBlock(day.label, day.items.map((x) => x.m));
+    })
+    .join('');
 }
 
 initCountdown();

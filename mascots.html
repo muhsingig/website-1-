@@ -7,13 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
-  <title>Squads — FIFA World Cup 2026</title>
+  <title>Mascots — FIFA World Cup 2026</title>
 </head>
 <body class="subpage">
 
   <div class="noise-overlay"></div>
 
-  <!-- ===================== NAVBAR ===================== -->
   <nav class="navbar" id="navbar">
     <a class="nav-logo" href="/index.html" aria-label="FIFA World Cup 2026 — home">
       <span class="logo-chip">
@@ -26,16 +25,15 @@
       <a href="/fixtures.html">Fixtures</a>
       <a href="/host-cities.html">Host Cities</a>
       <a href="/teams.html">Teams</a>
-      <a href="/squads.html" class="active">Squads</a>
+      <a href="/squads.html">Squads</a>
       <a href="/standings.html">Standings</a>
       <a href="/winners.html">Winners</a>
       <a href="/stats.html">Stats</a>
       <a href="/gallery.html">Gallery</a>
-      <a href="/about.html">About</a>
+      <a href="/about.html" class="active">About</a>
     </div>
   </nav>
 
-  <!-- ===================== COUNTDOWN ===================== -->
   <div class="countdown-bar" id="wc-countdown">
     <div class="cd-inner">
       <div class="cd-brand">
@@ -62,28 +60,76 @@
     </div>
   </div>
 
-  <!-- ===================== PAGE HERO ===================== -->
   <header class="page-hero">
-    <span class="page-eyebrow">48 Nations · 1,248 Players</span>
-    <h1 class="page-title">Squads</h1>
-    <p class="page-sub">Provisional 26-man squads for every nation at the FIFA World Cup 2026. Tap a country to open its full roster by position.</p>
+    <span class="page-eyebrow">Official Mascots · Unveiled 25 September 2025</span>
+    <h1 class="page-title">Meet the Mascots</h1>
+    <p class="page-sub">For the first time, the FIFA World Cup has three official mascots — one for each host nation. Maple, Zayu and Clutch each play a position on the pitch and will star in the FIFA Heroes game.</p>
   </header>
 
-  <!-- ===================== SQUADS ===================== -->
   <main class="page-wrap">
-    <div class="sq-toolbar">
-      <input type="search" id="sq-search" class="sq-search" placeholder="Search a country or player…" aria-label="Search squads" />
-      <div class="sq-filters" id="sq-filters"></div>
+    <div class="ms-grid">
+
+      <article class="ms-card" style="--tc:#d52b1e;--fg:#ffffff">
+        <div class="ms-top">
+          <span class="ms-flag-chip"><img src="https://flagcdn.com/w80/ca.png" alt="Canada flag" width="34" height="25" /></span>
+          <span class="ms-emblem">01</span>
+          <div class="ms-head">
+            <span class="ms-role">The Moose · Goalkeeper · No. 1</span>
+            <h2 class="ms-name">Maple</h2>
+          </div>
+        </div>
+        <div class="ms-body">
+          <p class="ms-country"><strong>Canada</strong></p>
+          <p class="ms-desc">An artistic, big-hearted moose who anchors the net wearing the No. 1. Maple represents creativity and resilience, and proudly carries the spirit of Canada.</p>
+        </div>
+      </article>
+
+      <article class="ms-card" style="--tc:#006847;--fg:#ffffff">
+        <div class="ms-top">
+          <span class="ms-flag-chip"><img src="https://flagcdn.com/w80/mx.png" alt="Mexico flag" width="34" height="25" /></span>
+          <span class="ms-emblem">09</span>
+          <div class="ms-head">
+            <span class="ms-role">The Jaguar · Forward · No. 9</span>
+            <h2 class="ms-name">Zayu</h2>
+          </div>
+        </div>
+        <div class="ms-body">
+          <p class="ms-country"><strong>Mexico</strong></p>
+          <p class="ms-desc">A fearless jaguar and natural-born striker who wears the iconic green No. 9. Zayu plays up front with flair, energy and the passion of Mexican football.</p>
+        </div>
+      </article>
+
+      <article class="ms-card" style="--tc:#1d3faf;--fg:#ffffff">
+        <div class="ms-top">
+          <span class="ms-flag-chip"><img src="https://flagcdn.com/w80/us.png" alt="United States flag" width="34" height="25" /></span>
+          <span class="ms-emblem">★</span>
+          <div class="ms-head">
+            <span class="ms-role">The Bald Eagle · Midfielder</span>
+            <h2 class="ms-name">Clutch</h2>
+          </div>
+        </div>
+        <div class="ms-body">
+          <p class="ms-country"><strong>United States</strong></p>
+          <p class="ms-desc">An adventurous bald eagle who runs the midfield with boundless curiosity and optimism, soaring across the host nation and embracing every game and moment.</p>
+        </div>
+      </article>
+
     </div>
-    <div id="squads-root"></div>
+
+    <section class="ab-section" style="margin-top:2.8rem">
+      <h2 class="ab-h2">A first for the World Cup</h2>
+      <p class="ab-p">Maple, Zayu and Clutch were revealed on 25 September 2025 — the first time three mascots have represented a single FIFA World Cup, one for each of the co-hosts. Beyond the stadiums, the trio appear as playable characters in the <strong>FIFA Heroes</strong> game, each with a unique on-pitch ability alongside real World Cup stars.</p>
+    </section>
+
     <div class="page-note">
       <div class="page-note-inner">
-        <strong>Provisional squads.</strong> Lists reflect each nation's established recent call-ups. Final 26-player squads are locked at FIFA's registration deadline in early June 2026 and may differ.
+        <strong>About the imagery.</strong> The official mascot artwork is © FIFA, so it isn't reproduced here — each mascot is shown as a host-nation colour card. Names, animals, positions and details follow FIFA's official reveal.
       </div>
     </div>
+
+    <p class="sub-back"><a href="/about.html">← Back to About</a></p>
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
   <footer id="site-footer">
     <div class="footer-bg-ball"></div>
     <div class="footer-inner">
@@ -110,18 +156,18 @@
             <a href="/squads.html">Squads</a>
           </div>
           <div class="footer-col">
-            <span class="footer-col-title">Fan Zone</span>
-            <a href="/host-cities.html">Host Cities</a>
-            <a href="#">Fan Festivals</a>
-            <a href="#">Volunteers</a>
-            <a href="#">Merch</a>
+            <span class="footer-col-title">Explore</span>
+            <a href="/about.html">About</a>
+            <a href="/mascots.html">Mascots</a>
+            <a href="/match-ball.html">Match Ball</a>
+            <a href="/gallery.html">Gallery</a>
           </div>
           <div class="footer-col">
-            <span class="footer-col-title">More</span>
-            <a href="/about.html">About</a>
+            <span class="footer-col-title">History</span>
+            <a href="/winners.html">Winners</a>
+            <a href="/stats.html">All-time Stats</a>
+            <a href="/host-cities.html">Host Cities</a>
             <a href="#">News</a>
-            <a href="#">Media</a>
-            <a href="#">Contact</a>
           </div>
         </div>
         <div class="footer-news">
@@ -149,6 +195,6 @@
     </div>
   </footer>
 
-  <script type="module" src="/src/squads.js"></script>
+  <script type="module" src="/src/subpage.js"></script>
 </body>
 </html>
