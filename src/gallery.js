@@ -18,11 +18,16 @@ function flagImgs(codes) {
 }
 
 function tile(m, i) {
-  const bg = m.img
-    ? `style="--c1:${m.c1};--c2:${m.c2};background-image:linear-gradient(180deg, rgba(7,18,12,0.15), rgba(7,18,12,0.85)), url('${m.img}')" data-img="1"`
-    : `style="--c1:${m.c1};--c2:${m.c2}"`;
+  const hasImg = !!m.img;
+  // If the image fails to load, drop back to the coloured gradient tile.
+  const photo = hasImg
+    ? `<img class="gl-photo" src="${m.img}" alt="${m.title}" loading="lazy"
+         onerror="this.closest('.gl-tile').classList.remove('gl-has-photo');this.remove()" />
+       <span class="gl-shade"></span>`
+    : '';
   return `
-    <figure class="gl-tile" ${bg} data-i="${i}">
+    <figure class="gl-tile${hasImg ? ' gl-has-photo' : ''}" style="--c1:${m.c1};--c2:${m.c2}" data-i="${i}">
+      ${photo}
       <div class="gl-top">
         <span class="gl-year">${m.year}</span>
         <span class="gl-tag">${m.tag}</span>

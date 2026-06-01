@@ -118,7 +118,7 @@ export const moments = [
     desc: 'A 19-year-old Kylian Mbappé scores in the final as France lift their second world title.',
   },
   {
-    year: 2022, tag: 'Coronation', flags: ['ar', 'fr'], c1: '#74acdf', c2: '#2a6cb0', img: '',
+    year: 2022, tag: 'Coronation', flags: ['ar', 'fr'], c1: '#74acdf', c2: '#2a6cb0', img: '/gallery/messi-2022.jpg',
     title: "Messi's crowning glory",
     match: 'Argentina 3–3 France (4–2 pens) · Final',
     venue: 'Lusail Stadium, Lusail',
