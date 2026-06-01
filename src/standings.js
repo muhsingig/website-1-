@@ -16,12 +16,12 @@ function teamRow(team, pos) {
       <td class="pos-col"><span class="pos">${pos}</span></td>
       <td class="team-col">
         <img class="team-flag" src="${flagUrl(team.flag, 40)}" alt="" width="26" height="20" loading="lazy" />
-        <span>${team.name}</span>
+        <span class="tname">${team.name}</span>
       </td>
       <td>0</td><td>0</td><td>0</td><td>0</td>
-      <td>0</td><td>0</td><td>0</td>
+      <td class="hide-sm">0</td><td class="hide-sm">0</td><td class="hide-sm">0</td>
       <td class="pts-col">0</td>
-      <td class="form-col">
+      <td class="form-col hide-sm">
         <span class="form-dot"></span><span class="form-dot"></span><span class="form-dot"></span><span class="form-dot"></span><span class="form-dot"></span>
       </td>
     </tr>`;
@@ -40,9 +40,9 @@ function groupBlock(group) {
               <th class="pos-col">#</th>
               <th class="team-col">Team</th>
               <th>MP</th><th>W</th><th>D</th><th>L</th>
-              <th>GF</th><th>GA</th><th>GD</th>
+              <th class="hide-sm">GF</th><th class="hide-sm">GA</th><th class="hide-sm">GD</th>
               <th class="pts-col">Pts</th>
-              <th class="form-col">Form</th>
+              <th class="form-col hide-sm">Form</th>
             </tr>
           </thead>
           <tbody>

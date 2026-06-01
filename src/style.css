@@ -1345,6 +1345,23 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   gap: 0.55rem;
+  min-width: 0;
+}
+.team-col .tname {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .group-table-wrap { padding: 0.3rem 0.5rem 0.6rem; }
+  .standings-table { font-size: 0.82rem; }
+  .standings-table .hide-sm { display: none; }
+  .standings-table th,
+  .standings-table td { padding: 0.55rem 0.3rem; }
+  .standings-table .pos-col { width: 26px; }
+  .pos { width: 20px; height: 20px; font-size: 0.66rem; }
+  .team-flag { width: 22px; height: 16px; }
 }
 .team-flag {
   width: 26px;

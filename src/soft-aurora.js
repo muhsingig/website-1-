@@ -31,6 +31,7 @@ uniform float uScale;
 uniform float uBrightness;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
+uniform vec3 uColor3;
 uniform float uNoiseFreq;
 uniform float uNoiseAmp;
 uniform float uBandHeight;
@@ -137,6 +138,7 @@ void main() {
   vec3 col = vec3(0.0);
   col += 0.99 * auroraGlow(t, shift) * cosineGradient(uv.x + uTime * uSpeed * 0.2 * uColorSpeed, vec3(0.5), vec3(0.5), vec3(1.0), vec3(0.3, 0.20, 0.20)) * uColor1;
   col += 0.99 * auroraGlow(t + uLayerOffset, shift) * cosineGradient(uv.x + uTime * uSpeed * 0.1 * uColorSpeed, vec3(0.5), vec3(0.5), vec3(2.0, 1.0, 0.0), vec3(0.5, 0.20, 0.25)) * uColor2;
+  col += 0.99 * auroraGlow(t + uLayerOffset * 2.0, shift) * cosineGradient(uv.x + uTime * uSpeed * 0.15 * uColorSpeed, vec3(0.5), vec3(0.5), vec3(1.5, 0.8, 0.0), vec3(0.2, 0.35, 0.25)) * uColor3;
 
   col *= uBrightness;
   float alpha = clamp(length(col), 0.0, 1.0);
@@ -152,6 +154,7 @@ export function mountAurora(container, opts = {}) {
     brightness = 1.0,
     color1 = '#f7f7f7',
     color2 = '#e100ff',
+    color3 = '#00a651',
     noiseFrequency = 2.5,
     noiseAmplitude = 1.0,
     bandHeight = 0.5,
@@ -200,6 +203,7 @@ export function mountAurora(container, opts = {}) {
       uBrightness: { value: brightness },
       uColor1: { value: hexToVec3(color1) },
       uColor2: { value: hexToVec3(color2) },
+      uColor3: { value: hexToVec3(color3) },
       uNoiseFreq: { value: noiseFrequency },
       uNoiseAmp: { value: noiseAmplitude },
       uBandHeight: { value: bandHeight },

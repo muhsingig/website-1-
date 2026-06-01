@@ -212,12 +212,16 @@ initCountdown();
 const auroraEl = document.getElementById('stats-aurora');
 if (auroraEl && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   mountAurora(auroraEl, {
+    // adidas Trionda 2026 ball palette — USA blue, Canada red, Mexico green
     color1: '#2b6cff',
     color2: '#e8113a',
+    color3: '#00a651',
     speed: 0.5,
     scale: 1.4,
-    brightness: 0.95,
+    brightness: 1.1,
     bandHeight: 0.45,
+    layerOffset: 1.5,
+    colorSpeed: 1.1,
     enableMouseInteraction: true,
     mouseInfluence: 0.18,
   });

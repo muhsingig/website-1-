@@ -68,10 +68,10 @@ const DESKTOP_SECTIONS = {
 // Mobile: ball smaller and placed in the lower half so it never covers the
 // headline; footer goal centred so the celebration is visible.
 const MOBILE_SECTIONS = {
-  hero:   { x: 0.0,  y: -1.35, z: 0,    scale: 0.62 },
-  stats:  { x: 1.05, y: 0.1,   z: 0,    scale: 0.62 },
-  how:    { x: -1.05, y: 0.1,  z: 0,    scale: 0.62 },
-  footer: { x: 0.0,  y: -0.5,  z: -1.0, scale: 0.46 },
+  hero:   { x: 0.0,  y: -1.15, z: 0,    scale: 0.95 },
+  stats:  { x: 0.9,  y: 0.05,  z: 0,    scale: 0.85 },
+  how:    { x: -0.9, y: 0.05,  z: 0,    scale: 0.85 },
+  footer: { x: 0.0,  y: -0.45, z: -0.8, scale: 0.62 },
 };
 const isMobileView = () => window.innerWidth <= 700;
 let SECTIONS = isMobileView() ? MOBILE_SECTIONS : DESKTOP_SECTIONS;
