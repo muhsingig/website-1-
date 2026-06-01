@@ -798,7 +798,7 @@ img { display: block; max-width: 100%; }
 /* ---- Footer goal net + celebration ---- */
 #goal-net-zone {
   position: fixed;
-  z-index: 3; /* in front of the 3D ball canvas (z-index 2) — ball sits in the net */
+  z-index: 1; /* behind the 3D ball (canvas z-index 2) — the ball sits inside the net */
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.92);
@@ -873,10 +873,6 @@ img { display: block; max-width: 100%; }
   height: 9px;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-}
-@media (max-width: 700px) {
-  #goal-net-zone,
-  #goal-burst { display: none; }
 }
 .footer-inner {
   position: relative;
@@ -1098,25 +1094,23 @@ img { display: block; max-width: 100%; }
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 5.5rem 1.4rem 2rem;
+    padding: 9rem 1.4rem 2rem; /* clear the fixed countdown + floating nav pill */
   }
-  #hero-canvas { z-index: 15; }
   .hero-text {
     text-align: left;
     z-index: 20;
     pointer-events: none;
   }
   .hero-headline {
-    font-size: clamp(3.8rem, 17vw, 5.5rem);
+    font-size: clamp(3.4rem, 15vw, 5rem);
     mix-blend-mode: normal;
   }
-  .pricing-strip { pointer-events: all; }
   .event-card { display: none; }
+  /* The tournament badge overlaps the floating nav on small screens — hide it */
+  .ph-badge { display: none; }
 
   .sig-wrap { right: 1.4rem; bottom: 1.5rem; }
   .sig-wrap svg { width: 100px; height: auto; }
-
-  .ph-badge { top: 4.5rem; left: 1.2rem; }
 
   .how-cta { flex-direction: column; align-items: flex-end; }
 }
@@ -1935,7 +1929,8 @@ img { display: block; max-width: 100%; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 0.8rem;
-  margin-bottom: 1rem;
+  max-width: 940px;
+  margin: 0 auto 1rem;
 }
 .wn-honour {
   display: grid;
@@ -1973,7 +1968,8 @@ img { display: block; max-width: 100%; }
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   overflow: hidden;
-  margin-bottom: 0.9rem;
+  max-width: 940px;
+  margin: 0 auto 0.9rem;
   box-shadow: 0 6px 18px -16px rgba(0, 0, 0, 0.5);
 }
 .wn-year {
@@ -2028,6 +2024,7 @@ img { display: block; max-width: 100%; }
 .wn-meta {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.4rem 1.1rem;
   padding-top: 0.8rem;
   font-size: 0.78rem;

@@ -59,14 +59,31 @@ scene.add(new THREE.HemisphereLight(0xfff0dd, 0xcfc0ae, 0.4));
 /* ============================================================
    SECTION WAYPOINTS
    ============================================================ */
-const BALL_SCALE = 0.97;
-const FOOTER_SCALE = 0.5;
-const SECTIONS = {
-  hero:   { x: 0.5,  y: -0.45, z: 0,    scale: BALL_SCALE },
-  stats:  { x: 2.2,  y: 0.0,   z: 0,    scale: BALL_SCALE },
-  how:    { x: -2.2, y: 0.0,   z: 0,    scale: BALL_SCALE },
-  footer: { x: 2.0,  y: -1.1,  z: -2.0, scale: FOOTER_SCALE },
+const DESKTOP_SECTIONS = {
+  hero:   { x: 0.5,  y: -0.45, z: 0,    scale: 0.97 },
+  stats:  { x: 2.2,  y: 0.0,   z: 0,    scale: 0.97 },
+  how:    { x: -2.2, y: 0.0,   z: 0,    scale: 0.97 },
+  footer: { x: 2.0,  y: -1.1,  z: -2.0, scale: 0.5 },
 };
+// Mobile: ball smaller and placed in the lower half so it never covers the
+// headline; footer goal centred so the celebration is visible.
+const MOBILE_SECTIONS = {
+  hero:   { x: 0.0,  y: -1.35, z: 0,    scale: 0.62 },
+  stats:  { x: 1.05, y: 0.1,   z: 0,    scale: 0.62 },
+  how:    { x: -1.05, y: 0.1,  z: 0,    scale: 0.62 },
+  footer: { x: 0.0,  y: -0.5,  z: -1.0, scale: 0.46 },
+};
+const isMobileView = () => window.innerWidth <= 700;
+let SECTIONS = isMobileView() ? MOBILE_SECTIONS : DESKTOP_SECTIONS;
+
+// Pull the camera back on narrow / portrait screens so the ball fits the frame.
+function fitCamera() {
+  const aspect = window.innerWidth / window.innerHeight;
+  const z = aspect < 0.8 ? 8.6 : aspect < 1.1 ? 6.9 : 5.5;
+  camera.position.z = z;
+  camera.updateProjectionMatrix();
+}
+fitCamera();
 
 /* ============================================================
    STATE
@@ -240,6 +257,12 @@ function applyWaypoint(from, to, p) {
   const s = lerp(from.scale, to.scale, p);
   ball.position.set(x, y, z);
   ball.scale.setScalar(baseScale * s);
+}
+
+// Snap the ball to a section's waypoint (used after a responsive layout swap).
+function snapToSection(name) {
+  const wp = SECTIONS[name] || SECTIONS.hero;
+  applyWaypoint(wp, wp, 1);
 }
 
 /* ============================================================
@@ -505,9 +528,14 @@ animate();
    ============================================================ */
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
+  fitCamera();
   renderer.setSize(window.innerWidth, window.innerHeight);
-  if (goalNetZone) positionGoal();
+  SECTIONS = isMobileView() ? MOBILE_SECTIONS : DESKTOP_SECTIONS;
+  snapToSection(currentSection);
+  if (goalNetZone) {
+    goalNetZone.dataset.pos = '';
+    positionGoal();
+  }
 });
 
 /* ============================================================
