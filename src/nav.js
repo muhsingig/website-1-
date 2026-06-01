@@ -3,8 +3,34 @@
 //  2. PillNav-style hover-circle fill on each desktop link (vanilla adaptation
 //     of the ReactBits PillNav effect, using GSAP).
 import { gsap } from 'gsap';
+import { mountAurora } from './soft-aurora.js';
 
 const PILL_EASE = 'power3.out';
+
+// Inject the SoftAurora behind the page hero (every subpage that has a
+// .page-hero). Uses the adidas Trionda ball palette, matching the Stats page.
+function initHeroAurora() {
+  const hero = document.querySelector('.page-hero');
+  if (!hero || hero.querySelector('.hero-aurora')) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const el = document.createElement('div');
+  el.className = 'hero-aurora';
+  el.setAttribute('aria-hidden', 'true');
+  hero.insertBefore(el, hero.firstChild);
+  mountAurora(el, {
+    color1: '#2b6cff', // USA blue
+    color2: '#e8113a', // Canada red
+    color3: '#00a651', // Mexico green
+    speed: 0.5,
+    scale: 1.4,
+    brightness: 1.1,
+    bandHeight: 0.45,
+    layerOffset: 1.5,
+    colorSpeed: 1.1,
+    enableMouseInteraction: true,
+    mouseInfluence: 0.18,
+  });
+}
 
 function initMobileNav() {
   const navbar = document.getElementById('navbar');
@@ -116,6 +142,7 @@ function initPillNav() {
 function initNav() {
   initMobileNav();
   initPillNav();
+  initHeroAurora();
 }
 
 if (document.readyState !== 'loading') initNav();
