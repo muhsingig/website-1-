@@ -1,14 +1,33 @@
-Drop gallery images here. Files in this folder are served from the site root.
+GALLERY IMAGES
+==============
 
-Example: public/gallery/messi-2022.jpg  ->  https://your-site/gallery/messi-2022.jpg
+Every Gallery tile is photo-ready. To show a real photo on a moment, drop a
+licensed image into this folder named exactly as listed below (.jpg). Files
+here are served from the site root (public/gallery/x.jpg -> /gallery/x.jpg).
 
-The "Messi's crowning glory" (2022) tile in src/gallery-data.js is wired to
-/gallery/messi-2022.jpg. Save your licensed copy of that photo as:
+If a file is missing, the tile gracefully falls back to its coloured gradient
+design — nothing breaks. The 2022 Messi tile additionally falls back to a free
+Pexels stock photo until you add your own.
 
-    public/gallery/messi-2022.jpg
+Filenames (one per moment):
+  maracanazo-1950.jpg
+  pele-1958.jpg
+  hurst-1966.jpg
+  brazil-1970.jpg
+  cruyff-1974.jpg
+  tardelli-1982.jpg
+  maradona-1986.jpg
+  milla-1990.jpg
+  baggio-1994.jpg
+  zidane-1998.jpg
+  ronaldo-2002.jpg
+  zidane-2006.jpg
+  iniesta-2010.jpg
+  mineirazo-2014.jpg
+  gotze-2014.jpg
+  mbappe-2018.jpg
+  messi-2022.jpg
+  mbappe-final-2022.jpg
 
-and it will appear automatically. If the file is missing, the tile falls back
-to its coloured gradient design (nothing breaks).
-
-Only use images you have the right to use — the famous press/Getty photos are
-copyrighted.
+Only use images you have the right to publish. The famous Getty/FIFA/AP press
+photos are copyrighted.

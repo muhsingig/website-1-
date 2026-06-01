@@ -18,15 +18,13 @@ function flagImgs(codes) {
 }
 
 function tile(m, i) {
-  const hasImg = !!m.img;
-  // If the image fails to load, drop back to the coloured gradient tile.
-  const photo = hasImg
-    ? `<img class="gl-photo" src="${m.img}" alt="${m.title}" loading="lazy"
-         onerror="this.closest('.gl-tile').classList.remove('gl-has-photo');this.remove()" />
-       <span class="gl-shade"></span>`
-    : '';
+  // Every tile is photo-ready: drop public/gallery/<slug>.jpg to show it.
+  // Missing file -> optional free fallback -> coloured gradient tile.
+  const src = m.img || `/gallery/${m.slug}.jpg`;
+  const photo = `<img class="gl-photo" src="${src}" alt="${m.title}" loading="lazy"${m.imgFallback ? ` data-fallback="${m.imgFallback}"` : ''} />
+       <span class="gl-shade"></span>`;
   return `
-    <figure class="gl-tile${hasImg ? ' gl-has-photo' : ''}" style="--c1:${m.c1};--c2:${m.c2}" data-i="${i}">
+    <figure class="gl-tile gl-has-photo" style="--c1:${m.c1};--c2:${m.c2}" data-i="${i}">
       ${photo}
       <div class="gl-top">
         <span class="gl-year">${m.year}</span>
@@ -45,6 +43,21 @@ function tile(m, i) {
 const root = document.getElementById('gallery-root');
 if (root) {
   root.innerHTML = moments.map(tile).join('');
+
+  // Image fallback chain: local file -> optional free fallback -> gradient tile.
+  root.querySelectorAll('.gl-photo').forEach((img) => {
+    img.addEventListener('error', () => {
+      const fb = img.dataset.fallback;
+      if (fb && !img.dataset.triedFb) {
+        img.dataset.triedFb = '1';
+        img.src = fb;
+      } else {
+        const t = img.closest('.gl-tile');
+        if (t) t.classList.remove('gl-has-photo');
+        img.remove();
+      }
+    });
+  });
 
   // Lightweight fade-up as tiles scroll into view
   const io = new IntersectionObserver(
