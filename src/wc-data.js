@@ -122,6 +122,61 @@ export const flagByName = Object.fromEntries(
   groups.flatMap((g) => g.teams.map((t) => [t.name, t.flag]))
 );
 
+// Per-team meta for the Teams page.
+//  rank = FIFA Men's World Ranking (recent snapshot; top-20 are exact)
+//  apps = FIFA World Cup participations through 2022 (0 = 2026 debut)
+//  display = optional shorter display name
+export const teamMeta = {
+  Mexico: { rank: 15, apps: 17 },
+  'South Africa': { rank: 56, apps: 3 },
+  'Korea Republic': { rank: 23, apps: 11 },
+  Czechia: { rank: 43, apps: 9 },
+  Canada: { rank: 30, apps: 2 },
+  'Bosnia and Herzegovina': { rank: 74, apps: 1 },
+  Qatar: { rank: 52, apps: 1 },
+  Switzerland: { rank: 19, apps: 12 },
+  Brazil: { rank: 6, apps: 22 },
+  Morocco: { rank: 8, apps: 6 },
+  Haiti: { rank: 83, apps: 1 },
+  Scotland: { rank: 37, apps: 8 },
+  'United States': { rank: 16, apps: 11, display: 'USA' },
+  Paraguay: { rank: 39, apps: 8 },
+  Australia: { rank: 27, apps: 6 },
+  'Türkiye': { rank: 26, apps: 2 },
+  Germany: { rank: 10, apps: 20 },
+  'Curaçao': { rank: 82, apps: 0 },
+  "Côte d'Ivoire": { rank: 41, apps: 3 },
+  Ecuador: { rank: 22, apps: 4 },
+  Netherlands: { rank: 7, apps: 11 },
+  Japan: { rank: 18, apps: 7 },
+  Sweden: { rank: 42, apps: 12 },
+  Tunisia: { rank: 40, apps: 6 },
+  Belgium: { rank: 9, apps: 14 },
+  Egypt: { rank: 33, apps: 3 },
+  Iran: { rank: 21, apps: 6 },
+  'New Zealand': { rank: 89, apps: 2 },
+  Spain: { rank: 2, apps: 16 },
+  'Cabo Verde': { rank: 70, apps: 0 },
+  'Saudi Arabia': { rank: 58, apps: 6 },
+  Uruguay: { rank: 17, apps: 14 },
+  France: { rank: 1, apps: 16 },
+  Senegal: { rank: 14, apps: 3 },
+  Iraq: { rank: 59, apps: 1 },
+  Norway: { rank: 25, apps: 3 },
+  Argentina: { rank: 3, apps: 18 },
+  Algeria: { rank: 28, apps: 4 },
+  Austria: { rank: 24, apps: 7 },
+  Jordan: { rank: 62, apps: 0 },
+  Portugal: { rank: 5, apps: 8 },
+  'DR Congo': { rank: 60, apps: 1 },
+  Uzbekistan: { rank: 57, apps: 0 },
+  Colombia: { rank: 13, apps: 6 },
+  England: { rank: 4, apps: 16 },
+  Croatia: { rank: 11, apps: 6 },
+  Ghana: { rank: 73, apps: 4 },
+  Panama: { rank: 31, apps: 1 },
+};
+
 // FIFA World Cup 2026 group-stage schedule (all 72 matches).
 // Kickoff times in U.S. Eastern Time (ET). Times after midnight ET shown on the listed date.
 export const fixtures = [
