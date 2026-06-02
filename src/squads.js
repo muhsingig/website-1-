@@ -44,21 +44,29 @@ function posBlock(players, code, label) {
 function teamBlock(name, groupId) {
   const s = squads[name];
   if (!s) return '';
-  const haystack = (name + ' ' + s.players.map((p) => p.n).join(' ')).toLowerCase();
+  const players = s.players || [];
+  const announced = players.length > 0;
+  const haystack = (name + ' ' + players.map((p) => p.n).join(' ')).toLowerCase();
+  const countChip = announced
+    ? `<span class="sq-count">${players.length}</span>`
+    : `<span class="sq-count sq-soon">Soon</span>`;
+  const body = announced
+    ? POS.map(([c, l]) => posBlock(players, c, l)).join('')
+    : `<p class="sq-tba">Final squad to be announced soon.</p>`;
   return `
     <details class="sq-team" data-search="${haystack.replace(/"/g, '')}" data-group="${groupId}">
       <summary class="sq-summary">
         ${flagImg(name)}
         <span class="sq-meta">
           <span class="sq-name">${name}</span>
-          <span class="sq-coach">Coach · ${s.coach}</span>
+          <span class="sq-coach">${s.coach ? 'Coach · ' + s.coach : 'Squad pending'}</span>
         </span>
         <span class="sq-grouptag">Group ${groupId}</span>
-        <span class="sq-count">26</span>
+        ${countChip}
         <span class="sq-chev" aria-hidden="true">▾</span>
       </summary>
       <div class="sq-body">
-        ${POS.map(([c, l]) => posBlock(s.players, c, l)).join('')}
+        ${body}
       </div>
     </details>`;
 }
