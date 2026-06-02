@@ -100,7 +100,7 @@ export const squads = {
     ],
   },
   'Czechia': {
-    coach: 'Ivan Hašek',
+    coach: 'Miroslav Koubek',
     players: [
       { n: 'Jindřich Staněk', p: 'GK', c: 'Slavia Prague' },
       { n: 'Matěj Kovář', p: 'GK', c: 'Bayer Leverkusen' },
