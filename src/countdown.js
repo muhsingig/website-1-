@@ -1,6 +1,6 @@
 // Working countdown to the FIFA World Cup 2026 opening match
 // Mexico City · Estadio Azteca · 11 June 2026
-const KICKOFF = new Date('2026-06-11T20:00:00Z').getTime();
+const KICKOFF = new Date('2026-06-11T19:00:00Z').getTime();
 
 export function initCountdown() {
   const root = document.getElementById('wc-countdown');
