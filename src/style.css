@@ -393,11 +393,11 @@ img { display: block; max-width: 100%; }
 
 .ec-photo {
   position: relative;
-  aspect-ratio: 1 / 1.05;
+  aspect-ratio: 3 / 4.4;
   border-radius: 18px;
   overflow: hidden;
 }
-.ec-photo img { width: 100%; height: 100%; object-fit: cover; }
+.ec-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .ec-photo-shade {
   position: absolute;
   inset: 0;
