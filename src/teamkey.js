@@ -11,12 +11,14 @@ const ALIAS = {
   iranislamicrepublic: 'iran',
   ivorycoast: 'cotedivoire',
   capeverde: 'caboverde',
+  capeverdeislands: 'caboverde',
   czechrepublic: 'czechia',
   northmacedonia: 'macedonia',
   bosniaandherzegovina: 'bosnia',
+  bosniaherzegovina: 'bosnia',
   drcongo: 'congodr',
   democraticrepublicofthecongo: 'congodr',
-  curacao: 'curacao',
+  turkey: 'turkiye',
 };
 
 export function normTeam(name) {
