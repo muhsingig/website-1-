@@ -2077,6 +2077,29 @@ img { display: block; max-width: 100%; }
 /* ---------- About ---------- */
 .ab-wrap { max-width: 980px; }
 .sr-word { display: inline-block; }
+/* Animated gradient text in the adidas Trionda ball colours (vanilla GradientText) */
+.gradient-text {
+  background-image: linear-gradient(
+    to right,
+    var(--ball-blue),
+    var(--ball-red),
+    var(--ball-green),
+    var(--ball-gold),
+    var(--ball-blue)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-text-move 8s linear infinite;
+}
+@keyframes gradient-text-move {
+  to { background-position: 200% center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gradient-text { animation: none; }
+}
 .ab-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
