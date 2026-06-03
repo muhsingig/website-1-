@@ -1,6 +1,7 @@
 import './style.css';
 import { fixtures, flagByName, flagUrl } from './wc-data.js';
 import { initCountdown } from './countdown.js';
+import { downloadTeamICS } from './calendar.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -80,6 +81,22 @@ if (root) {
       return dateBlock(day.label, day.items.map((x) => x.m));
     })
     .join('');
+}
+
+// ---------- Match reminders (.ics calendar download) ----------
+const rem = document.getElementById('fx-reminders');
+if (rem) {
+  const teams = [...new Set(fixtures.flatMap((m) => [m.t1, m.t2]))].sort();
+  rem.innerHTML = `
+    <span class="fx-rem-label">🔔 Match reminders</span>
+    <select id="fx-rem-team" class="fx-rem-select" aria-label="Choose a team">
+      ${teams.map((t) => `<option value="${t}"${t === 'Argentina' ? ' selected' : ''}>${show(t)}</option>`).join('')}
+    </select>
+    <button id="fx-rem-btn" class="fx-rem-btn" type="button">Add to calendar</button>
+    <span class="fx-rem-hint">Downloads that team's matches with a reminder 1 hour before each kickoff — works with Google, Apple &amp; Outlook calendars.</span>`;
+  rem.querySelector('#fx-rem-btn').addEventListener('click', () => {
+    downloadTeamICS(rem.querySelector('#fx-rem-team').value);
+  });
 }
 
 initCountdown();

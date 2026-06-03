@@ -1463,8 +1463,44 @@ img { display: block; max-width: 100%; }
 .fx-note {
   font-size: 0.82rem;
   color: rgba(10, 23, 18, 0.55);
-  margin-bottom: 1.6rem;
+  margin-bottom: 1rem;
 }
+.fx-reminders {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.6rem;
+  box-shadow: 0 6px 18px -16px rgba(0, 0, 0, 0.5);
+}
+.fx-rem-label { font-weight: 700; color: var(--ink); }
+.fx-rem-select {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: #fff;
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.fx-rem-btn {
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: transform 0.2s var(--ease-out);
+}
+.fx-rem-btn:hover { transform: translateY(-2px); }
+.fx-rem-hint { flex-basis: 100%; font-size: 0.78rem; color: rgba(10, 23, 18, 0.55); }
 .fx-day { margin-bottom: 1.8rem; }
 .fx-day-head {
   display: flex;
