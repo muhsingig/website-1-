@@ -2,6 +2,8 @@ import './style.css';
 import { fixtures, flagByName, flagUrl } from './wc-data.js';
 import { initCountdown } from './countdown.js';
 import { downloadTeamICS } from './calendar.js';
+import { pairKey } from './teamkey.js';
+import './live.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -41,7 +43,7 @@ function flag(name) {
 function matchRow(m) {
   const dt = kickoff(m);
   return `
-    <article class="fx-match">
+    <article class="fx-match" data-key="${pairKey(m.t1, m.t2)}" data-home="${m.t1}">
       <div class="fx-teams">
         <span class="fx-team fx-home"><span class="fx-name">${show(m.t1)}</span>${flag(m.t1)}</span>
         <span class="fx-time">${localTime(dt)}</span>
