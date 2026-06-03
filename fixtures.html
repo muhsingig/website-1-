@@ -73,7 +73,14 @@
   <main class="page-wrap">
     <p class="fx-note">Match time shown in your local time.</p>
     <div class="fx-reminders" id="fx-reminders"></div>
+
+    <div class="fx-tabs" id="fx-tabs" role="tablist">
+      <button class="fx-tab is-active" data-target="fixtures-root" role="tab" aria-selected="true">Group Stage</button>
+      <button class="fx-tab" data-target="knockout-root" role="tab" aria-selected="false">Knockout Stage</button>
+    </div>
+
     <div id="fixtures-root"></div>
+    <div id="knockout-root" class="is-hidden"></div>
     <div class="page-note">
       <div class="page-note-inner">
         <strong>Group stage only.</strong> The knockout bracket (Round of 32 onward) is confirmed once group positions are decided.

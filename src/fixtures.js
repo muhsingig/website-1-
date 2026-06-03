@@ -1,5 +1,5 @@
 import './style.css';
-import { fixtures, flagByName, flagUrl } from './wc-data.js';
+import { fixtures, flagByName, flagUrl, knockout } from './wc-data.js';
 import { initCountdown } from './countdown.js';
 import { downloadTeamICS } from './calendar.js';
 import { pairKey } from './teamkey.js';
@@ -83,6 +83,62 @@ if (root) {
       return dateBlock(day.label, day.items.map((x) => x.m));
     })
     .join('');
+}
+
+// ---------- Knockout stage ----------
+const koDate = (d) => {
+  const [y, mo, da] = d.split('-').map(Number);
+  return new Date(Date.UTC(y, mo - 1, da, 12))
+    .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+};
+
+function koMatch(m) {
+  return `
+    <article class="ko-match">
+      <span class="ko-num">Match ${m.n}</span>
+      <div class="ko-pair">
+        <span class="ko-slot">${m.t1}</span>
+        <span class="ko-vs">v</span>
+        <span class="ko-slot">${m.t2}</span>
+      </div>
+      <p class="ko-meta">${koDate(m.date)}&nbsp; ·&nbsp; ${m.venue} (${m.city})</p>
+    </article>`;
+}
+
+function koRound(r) {
+  return `
+    <section class="ko-round">
+      <h2 class="ko-round-title">${r.round}</h2>
+      <div class="ko-list">${r.matches.map(koMatch).join('')}</div>
+    </section>`;
+}
+
+const koRoot = document.getElementById('knockout-root');
+if (koRoot) {
+  koRoot.innerHTML = `
+    <p class="ko-intro">The bracket below shows the path to the Final at MetLife Stadium. Match-ups fill in automatically once group positions are decided.</p>
+    ${knockout.map(koRound).join('')}`;
+}
+
+// ---------- Group / Knockout tabs ----------
+const tabs = document.getElementById('fx-tabs');
+if (tabs) {
+  const panels = {
+    'fixtures-root': document.getElementById('fixtures-root'),
+    'knockout-root': document.getElementById('knockout-root'),
+  };
+  tabs.querySelectorAll('.fx-tab').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tabs.querySelectorAll('.fx-tab').forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      for (const [id, el] of Object.entries(panels)) {
+        if (el) el.classList.toggle('is-hidden', id !== btn.dataset.target);
+      }
+    });
+  });
 }
 
 // ---------- Match reminders (.ics calendar download) ----------

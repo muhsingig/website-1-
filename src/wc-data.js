@@ -269,3 +269,72 @@ export const fixtures = [
   { date: '2026-06-27', group: 'J', t1: 'Algeria', t2: 'Austria', venue: 'Arrowhead Stadium', city: 'Kansas City', time: '22:00 ET' },
   { date: '2026-06-27', group: 'J', t1: 'Jordan', t2: 'Argentina', venue: 'AT&T Stadium', city: 'Dallas', time: '22:00 ET' },
 ];
+
+// ---------------------------------------------------------------------------
+// Knockout stage (matches 73–104). Slots stay as placeholders until the group
+// positions are decided. Source: official FIFA 2026 knockout bracket.
+// ---------------------------------------------------------------------------
+export const knockout = [
+  {
+    round: 'Round of 32',
+    matches: [
+      { n: 73, date: '2026-06-28', t1: 'Runners-up A', t2: 'Runners-up B', venue: 'SoFi Stadium', city: 'Los Angeles' },
+      { n: 74, date: '2026-06-29', t1: 'Winners E', t2: '3rd A/B/C/D/F', venue: 'Gillette Stadium', city: 'Boston' },
+      { n: 75, date: '2026-06-29', t1: 'Winners F', t2: 'Runners-up C', venue: 'Estadio BBVA', city: 'Monterrey' },
+      { n: 76, date: '2026-06-29', t1: 'Winners C', t2: 'Runners-up F', venue: 'NRG Stadium', city: 'Houston' },
+      { n: 77, date: '2026-06-30', t1: 'Winners I', t2: '3rd C/D/F/G/H', venue: 'MetLife Stadium', city: 'New York / New Jersey' },
+      { n: 78, date: '2026-06-30', t1: 'Runners-up E', t2: 'Runners-up I', venue: 'AT&T Stadium', city: 'Dallas' },
+      { n: 79, date: '2026-06-30', t1: 'Winners A', t2: '3rd C/E/F/H/I', venue: 'Estadio Azteca', city: 'Mexico City' },
+      { n: 80, date: '2026-07-01', t1: 'Winners L', t2: '3rd E/H/I/J/K', venue: 'Mercedes-Benz Stadium', city: 'Atlanta' },
+      { n: 81, date: '2026-07-01', t1: 'Winners D', t2: '3rd B/E/F/I/J', venue: "Levi's Stadium", city: 'San Francisco Bay Area' },
+      { n: 82, date: '2026-07-01', t1: 'Winners G', t2: '3rd A/E/H/I/J', venue: 'Lumen Field', city: 'Seattle' },
+      { n: 83, date: '2026-07-02', t1: 'Runners-up K', t2: 'Runners-up L', venue: 'BMO Field', city: 'Toronto' },
+      { n: 84, date: '2026-07-02', t1: 'Winners H', t2: 'Runners-up J', venue: 'SoFi Stadium', city: 'Los Angeles' },
+      { n: 85, date: '2026-07-02', t1: 'Winners B', t2: '3rd E/F/G/I/J', venue: 'BC Place', city: 'Vancouver' },
+      { n: 86, date: '2026-07-03', t1: 'Winners J', t2: 'Runners-up H', venue: 'Hard Rock Stadium', city: 'Miami' },
+      { n: 87, date: '2026-07-03', t1: 'Winners K', t2: '3rd D/E/I/J/L', venue: 'Arrowhead Stadium', city: 'Kansas City' },
+      { n: 88, date: '2026-07-03', t1: 'Runners-up D', t2: 'Runners-up G', venue: 'AT&T Stadium', city: 'Dallas' },
+    ],
+  },
+  {
+    round: 'Round of 16',
+    matches: [
+      { n: 89, date: '2026-07-04', t1: 'Winners 74', t2: 'Winners 77', venue: 'Lincoln Financial Field', city: 'Philadelphia' },
+      { n: 90, date: '2026-07-04', t1: 'Winners 73', t2: 'Winners 75', venue: 'NRG Stadium', city: 'Houston' },
+      { n: 91, date: '2026-07-05', t1: 'Winners 76', t2: 'Winners 78', venue: 'MetLife Stadium', city: 'New York / New Jersey' },
+      { n: 92, date: '2026-07-05', t1: 'Winners 79', t2: 'Winners 80', venue: 'Estadio Azteca', city: 'Mexico City' },
+      { n: 93, date: '2026-07-06', t1: 'Winners 83', t2: 'Winners 84', venue: 'AT&T Stadium', city: 'Dallas' },
+      { n: 94, date: '2026-07-06', t1: 'Winners 81', t2: 'Winners 82', venue: 'Lumen Field', city: 'Seattle' },
+      { n: 95, date: '2026-07-07', t1: 'Winners 86', t2: 'Winners 88', venue: 'Mercedes-Benz Stadium', city: 'Atlanta' },
+      { n: 96, date: '2026-07-07', t1: 'Winners 85', t2: 'Winners 87', venue: 'BC Place', city: 'Vancouver' },
+    ],
+  },
+  {
+    round: 'Quarter-finals',
+    matches: [
+      { n: 97, date: '2026-07-09', t1: 'Winners 89', t2: 'Winners 90', venue: 'Gillette Stadium', city: 'Boston' },
+      { n: 98, date: '2026-07-10', t1: 'Winners 93', t2: 'Winners 94', venue: 'SoFi Stadium', city: 'Los Angeles' },
+      { n: 99, date: '2026-07-11', t1: 'Winners 91', t2: 'Winners 92', venue: 'Hard Rock Stadium', city: 'Miami' },
+      { n: 100, date: '2026-07-11', t1: 'Winners 95', t2: 'Winners 96', venue: 'Arrowhead Stadium', city: 'Kansas City' },
+    ],
+  },
+  {
+    round: 'Semi-finals',
+    matches: [
+      { n: 101, date: '2026-07-14', t1: 'Winners 97', t2: 'Winners 98', venue: 'AT&T Stadium', city: 'Dallas' },
+      { n: 102, date: '2026-07-15', t1: 'Winners 99', t2: 'Winners 100', venue: 'Mercedes-Benz Stadium', city: 'Atlanta' },
+    ],
+  },
+  {
+    round: 'Third-place play-off',
+    matches: [
+      { n: 103, date: '2026-07-18', t1: 'Losers 101', t2: 'Losers 102', venue: 'Hard Rock Stadium', city: 'Miami' },
+    ],
+  },
+  {
+    round: 'Final',
+    matches: [
+      { n: 104, date: '2026-07-19', t1: 'Winners 101', t2: 'Winners 102', venue: 'MetLife Stadium', city: 'New York / New Jersey' },
+    ],
+  },
+];
