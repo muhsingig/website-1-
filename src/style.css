@@ -1396,6 +1396,34 @@ img { display: block; max-width: 100%; }
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.14);
 }
+.form-dot.w { background: var(--accent); }
+.form-dot.d { background: #d9a521; }
+.form-dot.l { background: #e8113a; }
+
+.group-head { display: flex; align-items: center; justify-content: space-between; }
+.group-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: #e8113a;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+}
+.group-live::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  animation: fx-live-pulse 1.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .group-live::before { animation: none; }
+}
 
 /* ---------- Countdown bar ---------- */
 .countdown-bar {

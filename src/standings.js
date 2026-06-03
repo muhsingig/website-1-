@@ -1,5 +1,6 @@
 import './style.css';
 import { groups, flagUrl } from './wc-data.js';
+import { computeStandings } from './standings-compute.js';
 import { initCountdown } from './countdown.js';
 import './nav.js';
 
@@ -10,28 +11,43 @@ if (navbar) {
   });
 }
 
-function teamRow(team, pos) {
+const POLL_MS = 45_000;
+const compute = (matches) => computeStandings(groups, matches);
+
+// ---- Render ----
+function formDots(stat) {
+  const last = stat.results.slice(-5); // chronological, newest at the right
+  const dots = [];
+  for (let i = 0; i < 5; i++) {
+    const r = last[i - (5 - last.length)];
+    dots.push(`<span class="form-dot${r ? ' ' + r.o : ''}"></span>`);
+  }
+  return dots.join('');
+}
+
+function teamRow(stat, pos) {
+  const gd = stat.gf - stat.ga;
   return `
     <tr class="${pos <= 2 ? 'qual' : ''}">
       <td class="pos-col"><span class="pos">${pos}</span></td>
       <td class="team-col">
-        <img class="team-flag" src="${flagUrl(team.flag, 40)}" alt="" width="26" height="20" loading="lazy" />
-        <span class="tname">${team.name}</span>
+        <img class="team-flag" src="${flagUrl(stat.flag, 40)}" alt="" width="26" height="20" loading="lazy" />
+        <span class="tname">${stat.name}</span>
       </td>
-      <td>0</td><td>0</td><td>0</td><td>0</td>
-      <td class="hide-sm">0</td><td class="hide-sm">0</td><td class="hide-sm">0</td>
-      <td class="pts-col">0</td>
-      <td class="form-col hide-sm">
-        <span class="form-dot"></span><span class="form-dot"></span><span class="form-dot"></span><span class="form-dot"></span><span class="form-dot"></span>
-      </td>
+      <td>${stat.mp}</td><td>${stat.w}</td><td>${stat.d}</td><td>${stat.l}</td>
+      <td class="hide-sm">${stat.gf}</td><td class="hide-sm">${stat.ga}</td>
+      <td class="hide-sm">${gd > 0 ? '+' + gd : gd}</td>
+      <td class="pts-col">${stat.pts}</td>
+      <td class="form-col hide-sm">${formDots(stat)}</td>
     </tr>`;
 }
 
-function groupBlock(group) {
+function groupBlock(g) {
   return `
     <section class="group-block glass-card">
       <div class="group-head">
-        <span class="group-label">Group ${group.id}</span>
+        <span class="group-label">Group ${g.id}</span>
+        ${g.live ? '<span class="group-live">LIVE</span>' : ''}
       </div>
       <div class="group-table-wrap">
         <table class="standings-table">
@@ -46,7 +62,7 @@ function groupBlock(group) {
             </tr>
           </thead>
           <tbody>
-            ${group.teams.map((t, i) => teamRow(t, i + 1)).join('')}
+            ${g.teams.map((t, i) => teamRow(t, i + 1)).join('')}
           </tbody>
         </table>
       </div>
@@ -54,8 +70,30 @@ function groupBlock(group) {
 }
 
 const root = document.getElementById('groups-root');
+function render(model) {
+  if (root) root.innerHTML = model.map(groupBlock).join('');
+}
+
+// Initial paint (all zeros) so the page shows instantly, then live data.
+render(compute([]));
+
+async function poll() {
+  let data;
+  try {
+    const res = await fetch('/api/scores', { cache: 'no-store' });
+    data = await res.json();
+  } catch {
+    return;
+  }
+  render(compute(data.matches || []));
+}
+
 if (root) {
-  root.innerHTML = groups.map(groupBlock).join('');
+  poll();
+  setInterval(poll, POLL_MS);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) poll();
+  });
 }
 
 initCountdown();
