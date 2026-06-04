@@ -3063,7 +3063,7 @@ img { display: block; max-width: 100%; }
 /* ============================================================
    Homepage "Today's Matches" widget
    ============================================================ */
-#home-today.home-today { max-width: none; margin: 0; padding: 2.4rem 1.5rem; position: relative; z-index: 2; background: var(--cream); }
+#home-today.home-today { max-width: none; margin: 0; padding: 2.4rem 1.5rem; position: relative; z-index: 3; background: transparent; }
 /* Compact widget, aligned to the left. */
 .home-today > * { max-width: 420px; margin-left: 0; margin-right: auto; }
 .ht-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.9rem; flex-wrap: wrap; }
