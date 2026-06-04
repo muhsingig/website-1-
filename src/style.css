@@ -7,6 +7,7 @@
   --cream-mid: #e4e8de;
   --cream-deep: #d6dccc;
   --ink: #0a1712;
+  --ink-bg: #0a1712; /* stays dark in both themes — for dark surfaces (hero, headers, dark buttons) */
   --ink-soft: #13241c;
   --ink-muted: #4a574f;
   --ink-faint: #8a958e;
@@ -172,7 +173,7 @@ img { display: block; max-width: 100%; }
 .logo-chip {
   display: inline-flex;
   align-items: center;
-  background: var(--ink);
+  background: var(--ink-bg);
   border-radius: 8px;
   padding: 4px 8px;
 }
@@ -484,7 +485,7 @@ img { display: block; max-width: 100%; }
   border: 1px solid rgba(0, 0, 0, 0.1);
   color: var(--ink);
 }
-.btn-dark { background: var(--ink); color: #fff; }
+.btn-dark { background: var(--ink-bg); color: #fff; }
 .btn-ghost:hover, .btn-dark:hover { transform: translateY(-2px); }
 .ec-free {
   display: block;
@@ -553,7 +554,7 @@ img { display: block; max-width: 100%; }
 .price { font-size: 0.85rem; color: var(--ink-muted); }
 .price strong { color: var(--ink); font-weight: 700; }
 .price-cta {
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
   padding: 0.55rem 1.2rem;
   border-radius: 999px;
@@ -778,7 +779,7 @@ img { display: block; max-width: 100%; }
    ============================================================ */
 #site-footer {
   position: relative;
-  background: var(--ink);
+  background: var(--ink-bg);
   color: rgba(255, 255, 255, 0.75);
   padding: 10rem 4rem 1rem;
   min-height: 100vh;
@@ -1133,7 +1134,7 @@ img { display: block; max-width: 100%; }
 
 .page-hero {
   position: relative;
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
   padding: 9rem 2rem 4.5rem;
   text-align: center;
@@ -1301,7 +1302,7 @@ img { display: block; max-width: 100%; }
 }
 .group-head {
   padding: 1rem 1.4rem;
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
 }
 .group-label {
@@ -1561,7 +1562,7 @@ img { display: block; max-width: 100%; }
 }
 .fx-tab:hover { color: var(--ink); }
 .fx-tab.is-active {
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
 }
 
@@ -1933,7 +1934,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
   text-align: center;
   padding: 1.3rem 0.8rem;
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
   border-radius: 16px;
 }
@@ -2107,7 +2108,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
   text-align: center;
   padding: 1.4rem 0.9rem;
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
   border-radius: 16px;
 }
@@ -2280,7 +2281,7 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
   font-family: var(--font-display);
   font-size: 1.7rem;
@@ -2393,7 +2394,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
   text-align: center;
   padding: 1.3rem 0.8rem;
-  background: var(--ink);
+  background: var(--ink-bg);
   color: #fff;
   border-radius: 16px;
 }
@@ -2555,7 +2556,7 @@ img { display: block; max-width: 100%; }
   transition: all 0.18s var(--ease-out);
 }
 .sq-chip:hover { border-color: var(--accent); color: var(--ink); }
-.sq-chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.sq-chip.active { background: var(--ink-bg); border-color: var(--ink); color: #fff; }
 .sq-group { margin-bottom: 2.4rem; }
 .sq-group-title {
   font-family: var(--font-display);
@@ -2992,8 +2993,31 @@ img { display: block; max-width: 100%; }
   --ink-muted: #aab4ac;
   --ink-faint: #7c877f;
   --white: #15201b;
+  --ink-bg: #07110d; /* dark surfaces stay dark */
 }
 [data-theme="dark"] body { background: var(--cream); }
+
+/* Homepage hero: the big FIFA WORLD CUP text would be black-on-dark, so animate
+   it in the Trionda gradient instead. */
+[data-theme="dark"] .hero-headline { mix-blend-mode: normal; }
+[data-theme="dark"] .hl-line {
+  background-image: linear-gradient(to right, var(--ball-blue), var(--ball-red), var(--ball-green), var(--ball-gold), var(--ball-blue));
+  background-size: 200% auto;
+  background-position: 0 center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-text-move 8s linear infinite;
+}
+[data-theme="dark"] .hl-line:hover { background-position: 0 center; transform: translateX(10px); }
+[data-theme="dark"] .hero-eyebrow { color: var(--ball-gold); }
+[data-theme="dark"] .hero-brand { color: var(--ink); }
+[data-theme="dark"] .sig-wrap path { stroke: rgba(255, 255, 255, 0.5); }
+[data-theme="dark"] .scroll-line { background: rgba(255, 255, 255, 0.4); }
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="dark"] .hl-line { animation: none; }
+}
 /* Common light surfaces → dark cards */
 [data-theme="dark"] .glass-card,
 [data-theme="dark"] .tm-card,
@@ -3035,7 +3059,8 @@ img { display: block; max-width: 100%; }
 /* ============================================================
    Homepage "Today's Matches" widget
    ============================================================ */
-.home-today { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 1rem; position: relative; z-index: 2; }
+#home-today.home-today { max-width: none; margin: 0; padding: 3.5rem 1.5rem; position: relative; z-index: 2; background: var(--cream); }
+.home-today > * { max-width: 1100px; margin-left: auto; margin-right: auto; }
 .ht-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
 .ht-title { font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 0.95; }
 .ht-date { color: var(--ink-muted); font-size: 0.95rem; margin-top: 0.3rem; }
