@@ -1817,7 +1817,7 @@ img { display: block; max-width: 100%; }
 /* Photo frames — contain (no cropping) on a tinted box so the whole
    character/ball is always visible and cards stay the same height. */
 .ms-photo-box {
-  height: 270px;
+  height: 320px;
   margin-bottom: 0.9rem;
   padding: 0.5rem;
   border-radius: 10px;
@@ -1825,6 +1825,7 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 @supports (background: color-mix(in srgb, red, white)) {
   .ms-card .ms-photo-box { background: color-mix(in srgb, var(--tc) 10%, #ffffff); }
