@@ -3064,8 +3064,8 @@ img { display: block; max-width: 100%; }
    Homepage "Today's Matches" widget
    ============================================================ */
 #home-today.home-today { max-width: none; margin: 0; padding: 2.4rem 1.5rem; position: relative; z-index: 2; background: var(--cream); }
-/* Compact widget, aligned to the right. */
-.home-today > * { max-width: 420px; margin-left: auto; margin-right: 0; }
+/* Compact widget, aligned to the left. */
+.home-today > * { max-width: 420px; margin-left: 0; margin-right: auto; }
 .ht-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.9rem; flex-wrap: wrap; }
 .ht-title { font-size: 1.5rem; line-height: 1; }
 .ht-date { color: var(--ink-muted); font-size: 0.8rem; margin-top: 0.25rem; flex-basis: 100%; }
@@ -3240,6 +3240,47 @@ img { display: block; max-width: 100%; }
 }
 /* Decorative skyline-bars graphic behind the hero ball — hide it in dark mode. */
 [data-theme="dark"] #hero-section::after { display: none; }
+
+/* Prominent white text → Trionda gradient in dark mode (names, nav, brand
+   titles). Scores, times, body copy and meta stay solid for readability. */
+[data-theme="dark"] .nav-links a,
+[data-theme="dark"] .nav-links .pill-label,
+[data-theme="dark"] .fx-name,
+[data-theme="dark"] .tm-name,
+[data-theme="dark"] .sq-name,
+[data-theme="dark"] .sq-pname,
+[data-theme="dark"] .hm-name,
+[data-theme="dark"] .tname,
+[data-theme="dark"] .gb-name,
+[data-theme="dark"] .pl-name,
+[data-theme="dark"] .tmd-name,
+[data-theme="dark"] .ms-name,
+[data-theme="dark"] .cd-title,
+[data-theme="dark"] .hero-brand {
+  background-image: linear-gradient(to right, var(--ball-blue), var(--ball-red), var(--ball-green), var(--ball-gold), var(--ball-blue));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-text-move 8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="dark"] .nav-links a,
+  [data-theme="dark"] .nav-links .pill-label,
+  [data-theme="dark"] .fx-name,
+  [data-theme="dark"] .tm-name,
+  [data-theme="dark"] .sq-name,
+  [data-theme="dark"] .sq-pname,
+  [data-theme="dark"] .hm-name,
+  [data-theme="dark"] .tname,
+  [data-theme="dark"] .gb-name,
+  [data-theme="dark"] .pl-name,
+  [data-theme="dark"] .tmd-name,
+  [data-theme="dark"] .ms-name,
+  [data-theme="dark"] .cd-title,
+  [data-theme="dark"] .hero-brand { animation: none; }
+}
 
 /* A few remaining dark-mode niceties */
 [data-theme="dark"] .fx-reminders,
