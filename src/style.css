@@ -3219,6 +3219,26 @@ img { display: block; max-width: 100%; }
   color: var(--ink-muted);
 }
 
+/* Homepage match-card: drop the turbulence distortion and the bright white
+   glass in dark mode (it rendered as wavy 'lines' behind the trophy). */
+[data-theme="dark"] .ec-bend { filter: none; }
+[data-theme="dark"] .ec-edge {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+[data-theme="dark"] .ec-face {
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6);
+}
+[data-theme="dark"] .event-card:hover .ec-edge {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
 /* A few remaining dark-mode niceties */
 [data-theme="dark"] .fx-reminders,
 [data-theme="dark"] .sq-search { border-color: rgba(255, 255, 255, 0.12); }
