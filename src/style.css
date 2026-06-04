@@ -3293,3 +3293,10 @@ img { display: block; max-width: 100%; }
 [data-theme="dark"] .group-block { border-color: rgba(255, 255, 255, 0.08); }
 [data-theme="dark"] .gb-empty { border-color: rgba(255, 255, 255, 0.18); }
 [data-theme="dark"] .standings-table th { color: var(--ink-faint); }
+
+/* Solid black navbar in dark mode (the translucent glass was reading grey). */
+[data-theme="dark"] .navbar {
+  background: rgba(6, 8, 7, 0.94);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .navbar.nav-open .nav-links { background: rgba(6, 8, 7, 0.97); }
