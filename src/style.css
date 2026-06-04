@@ -3238,6 +3238,8 @@ img { display: block; max-width: 100%; }
     inset 0 2px 0 rgba(255, 255, 255, 0.2),
     inset 0 -1px 0 rgba(255, 255, 255, 0.08);
 }
+/* Decorative skyline-bars graphic behind the hero ball — hide it in dark mode. */
+[data-theme="dark"] #hero-section::after { display: none; }
 
 /* A few remaining dark-mode niceties */
 [data-theme="dark"] .fx-reminders,
