@@ -3288,8 +3288,6 @@ img { display: block; max-width: 100%; }
    titles). Scores, times, body copy and meta stay solid for readability. */
 [data-theme="dark"] .nav-links a,
 [data-theme="dark"] .nav-links .pill-label,
-[data-theme="dark"] .sq-name,
-[data-theme="dark"] .sq-pname,
 [data-theme="dark"] .hm-name,
 [data-theme="dark"] .gb-name,
 [data-theme="dark"] .pl-name,
@@ -3307,8 +3305,6 @@ img { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   [data-theme="dark"] .nav-links a,
   [data-theme="dark"] .nav-links .pill-label,
-  [data-theme="dark"] .sq-name,
-  [data-theme="dark"] .sq-pname,
   [data-theme="dark"] .hm-name,
   [data-theme="dark"] .gb-name,
   [data-theme="dark"] .pl-name,
