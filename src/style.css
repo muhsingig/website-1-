@@ -1814,8 +1814,63 @@ img { display: block; max-width: 100%; }
 .ms-country { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem; }
 .ms-desc { font-size: 0.92rem; line-height: 1.6; color: rgba(10, 23, 18, 0.78); }
 
+/* Photo frames — contain (no cropping) on a tinted box so the whole
+   character/ball is always visible and cards stay the same height. */
+.ms-photo-box {
+  height: 270px;
+  margin-bottom: 0.9rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background: #f3f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@supports (background: color-mix(in srgb, red, white)) {
+  .ms-card .ms-photo-box { background: color-mix(in srgb, var(--tc) 10%, #ffffff); }
+}
+.ms-photo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 6px;
+}
+.ms-trio {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  object-fit: contain;
+  background: #f3f5f7;
+  border-radius: 12px;
+  padding: 0.6rem;
+  margin: 1rem 0 1.25rem;
+}
+
 /* ---------- Match Ball ---------- */
 .mb-wrap { max-width: 980px; }
+.mb-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.mb-photo-box {
+  height: 260px;
+  padding: 0.5rem;
+  border-radius: 12px;
+  background: #f3f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mb-photo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
 .mb-hero {
   display: grid;
   grid-template-columns: 260px 1fr;
