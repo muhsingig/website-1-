@@ -3240,6 +3240,12 @@ img { display: block; max-width: 100%; }
 }
 /* Decorative skyline-bars graphic behind the hero ball — hide it in dark mode. */
 [data-theme="dark"] #hero-section::after { display: none; }
+/* Subtle Trionda glow behind the ball so its dark panels don't vanish into black. */
+[data-theme="dark"] #hero-section::before {
+  width: 96vmin;
+  height: 96vmin;
+  background: radial-gradient(circle, rgba(43, 108, 255, 0.16) 0%, rgba(0, 166, 81, 0.12) 38%, rgba(232, 17, 58, 0.06) 55%, transparent 70%);
+}
 
 /* Prominent white text → Trionda gradient in dark mode (names, nav, brand
    titles). Scores, times, body copy and meta stay solid for readability. */
