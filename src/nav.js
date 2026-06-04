@@ -4,6 +4,8 @@
 //     of the ReactBits PillNav effect, using GSAP).
 import { gsap } from 'gsap';
 import { mountAurora } from './soft-aurora.js';
+import './prefs.js';
+import './global-ui.js';
 
 const PILL_EASE = 'power3.out';
 

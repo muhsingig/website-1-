@@ -2,6 +2,7 @@ import './style.css';
 import { titlesByNation } from './winners-data.js';
 import { flagUrl } from './wc-data.js';
 import { initCountdown } from './countdown.js';
+import './golden-boot.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');

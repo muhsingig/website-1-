@@ -71,23 +71,78 @@ function dateBlock(label, matches) {
     </section>`;
 }
 
+// Compute matchday (1–3) per fixture = position of its date within its group's
+// sorted unique dates.
+const mdayOf = new Map();
+{
+  const datesByGroup = {};
+  for (const m of fixtures) (datesByGroup[m.group] ||= new Set()).add(m.date);
+  const sorted = {};
+  for (const g in datesByGroup) sorted[g] = [...datesByGroup[g]].sort();
+  for (const m of fixtures) mdayOf.set(m, sorted[m.group].indexOf(m.date) + 1);
+}
+
 const root = document.getElementById('fixtures-root');
-if (root) {
-  // Group by LOCAL calendar date so kickoff times display in the viewer's zone.
+
+function renderFixtures(list) {
+  if (!root) return;
   const byDay = new Map();
-  for (const m of fixtures) {
+  for (const m of list) {
     const dt = kickoff(m);
     const key = localDateKey(dt);
     if (!byDay.has(key)) byDay.set(key, { label: localDateLabel(dt), items: [] });
     byDay.get(key).items.push({ m, dt });
   }
   const days = [...byDay.entries()].sort((a, b) => a[0].localeCompare(b[0]));
-  root.innerHTML = days
-    .map(([, day]) => {
-      day.items.sort((a, b) => a.dt - b.dt);
-      return dateBlock(day.label, day.items.map((x) => x.m));
-    })
-    .join('');
+  root.innerHTML = days.length
+    ? days
+        .map(([, day]) => {
+          day.items.sort((a, b) => a.dt - b.dt);
+          return dateBlock(day.label, day.items.map((x) => x.m));
+        })
+        .join('')
+    : '<p class="fx-empty">No matches match those filters.</p>';
+}
+
+// ---------- Fixtures filter (group / team / matchday) ----------
+const filterEl = document.getElementById('fx-filter');
+if (root && filterEl) {
+  const teams = [...new Set(fixtures.flatMap((m) => [m.t1, m.t2]))].sort();
+  const groupsList = [...new Set(fixtures.map((m) => m.group))].sort();
+  filterEl.innerHTML = `
+    <label class="fx-f"><span>Group</span>
+      <select id="fxf-group"><option value="">All</option>${groupsList.map((g) => `<option value="${g}">Group ${g}</option>`).join('')}</select>
+    </label>
+    <label class="fx-f"><span>Team</span>
+      <select id="fxf-team"><option value="">All</option>${teams.map((t) => `<option value="${t}">${show(t)}</option>`).join('')}</select>
+    </label>
+    <label class="fx-f"><span>Matchday</span>
+      <select id="fxf-md"><option value="">All</option><option value="1">Matchday 1</option><option value="2">Matchday 2</option><option value="3">Matchday 3</option></select>
+    </label>
+    <button id="fxf-reset" class="fx-f-reset" type="button">Reset</button>`;
+
+  const gSel = filterEl.querySelector('#fxf-group');
+  const tSel = filterEl.querySelector('#fxf-team');
+  const mSel = filterEl.querySelector('#fxf-md');
+
+  function apply() {
+    const g = gSel.value, t = tSel.value, md = mSel.value;
+    const list = fixtures.filter(
+      (m) =>
+        (!g || m.group === g) &&
+        (!t || m.t1 === t || m.t2 === t) &&
+        (!md || String(mdayOf.get(m)) === md)
+    );
+    renderFixtures(list);
+  }
+  [gSel, tSel, mSel].forEach((s) => s.addEventListener('change', apply));
+  filterEl.querySelector('#fxf-reset').addEventListener('click', () => {
+    gSel.value = tSel.value = mSel.value = '';
+    apply();
+  });
+  renderFixtures(fixtures);
+} else {
+  renderFixtures(fixtures);
 }
 
 // ---------- Knockout stage ----------
@@ -235,6 +290,8 @@ if (tabsBar && koPanels && groupPanel) {
         b.setAttribute('aria-selected', on ? 'true' : 'false');
       });
       showPanel(btn.dataset.target);
+      const ff = document.getElementById('fx-filter');
+      if (ff) ff.classList.toggle('is-hidden', btn.dataset.target !== 'fixtures-root');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });

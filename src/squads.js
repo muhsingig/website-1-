@@ -1,6 +1,6 @@
 import './style.css';
 import { squads } from './squads-data.js';
-import { groups, flagUrl, flagByName } from './wc-data.js';
+import { groups, flagUrl, flagByName, fixtures } from './wc-data.js';
 import { initCountdown } from './countdown.js';
 import './nav.js';
 
@@ -25,7 +25,9 @@ function flagImg(name) {
     : '';
 }
 
-function posBlock(players, code, label) {
+const POS_FULL = { GK: 'Goalkeeper', DEF: 'Defender', MID: 'Midfielder', FWD: 'Forward' };
+
+function posBlock(players, code, label, team) {
   const list = players.filter((p) => p.p === code);
   if (!list.length) return '';
   return `
@@ -34,7 +36,8 @@ function posBlock(players, code, label) {
       <ul class="sq-players">
         ${list
           .map(
-            (p) => `<li class="sq-player"><span class="sq-pname">${p.n}</span><span class="sq-club">${p.c}</span></li>`
+            (p) =>
+              `<li class="sq-player" role="button" tabindex="0" data-player="${p.n.replace(/"/g, '')}" data-pos="${p.p}" data-club="${p.c.replace(/"/g, '')}" data-team="${team.replace(/"/g, '')}"><span class="sq-pname">${p.n}</span><span class="sq-club">${p.c}</span></li>`
           )
           .join('')}
       </ul>
@@ -51,7 +54,7 @@ function teamBlock(name, groupId) {
     ? `<span class="sq-count">${players.length}</span>`
     : `<span class="sq-count sq-soon">Soon</span>`;
   const body = announced
-    ? POS.map(([c, l]) => posBlock(players, c, l)).join('')
+    ? POS.map(([c, l]) => posBlock(players, c, l, name)).join('')
     : `<p class="sq-tba">Final squad to be announced soon.</p>`;
   return `
     <details class="sq-team" data-search="${haystack.replace(/"/g, '')}" data-group="${groupId}">
@@ -128,6 +131,80 @@ function applyFilters() {
 }
 if (search) {
   search.addEventListener('input', applyFilters);
+}
+
+// Pre-fill from a global-search ?q= deep link.
+const qParam = new URLSearchParams(location.search).get('q');
+if (qParam && search) {
+  search.value = qParam;
+  applyFilters();
+  setTimeout(() => search.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+}
+
+// ---------- Player profile modal ----------
+const mdate = (d) => {
+  const [y, mo, da] = d.split('-').map(Number);
+  return new Date(Date.UTC(y, mo - 1, da, 12))
+    .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+};
+const pmodal = document.createElement('div');
+pmodal.className = 'pl-modal';
+pmodal.hidden = true;
+pmodal.innerHTML = `
+  <div class="pl-backdrop" data-pl-close></div>
+  <div class="pl-dialog" role="dialog" aria-modal="true">
+    <button class="pl-close" data-pl-close aria-label="Close">✕</button>
+    <div class="pl-content"></div>
+  </div>`;
+document.body.appendChild(pmodal);
+const plContent = pmodal.querySelector('.pl-content');
+
+function openPlayer(d) {
+  const code = flagByName[d.team];
+  const flag = code ? `<img class="pl-flag" src="${flagUrl(code, 80)}" alt="" />` : '';
+  const ms = fixtures.filter((m) => m.t1 === d.team || m.t2 === d.team);
+  const matchesHTML = ms.length
+    ? `<div class="pl-matches">${ms
+        .map((m) => `<div class="pl-match"><span>${mdate(m.date)}</span><span>${m.t1} v ${m.t2}</span></div>`)
+        .join('')}</div>`
+    : '';
+  plContent.innerHTML = `
+    <div class="pl-hero">
+      ${flag}
+      <div>
+        <h2 class="pl-name">${d.player}</h2>
+        <p class="pl-sub">${POS_FULL[d.pos] || d.pos} · ${d.team}</p>
+      </div>
+    </div>
+    <div class="pl-rows">
+      <div class="pl-row"><span>Position</span><span>${POS_FULL[d.pos] || d.pos}</span></div>
+      <div class="pl-row"><span>Club</span><span>${d.club}</span></div>
+      <div class="pl-row"><span>National team</span><span>${d.team}</span></div>
+    </div>
+    ${ms.length ? '<h4 class="pl-h">World Cup 2026 matches</h4>' : ''}
+    ${matchesHTML}
+    <p class="pl-note">Squad data from ESPN's tracker. Detailed player stats arrive once the tournament begins.</p>`;
+  pmodal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  pmodal.querySelector('.pl-close').focus();
+}
+function closePlayer() {
+  pmodal.hidden = true;
+  document.body.style.overflow = '';
+}
+pmodal.addEventListener('click', (e) => { if (e.target.hasAttribute('data-pl-close')) closePlayer(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !pmodal.hidden) closePlayer(); });
+if (root) {
+  const handle = (el) => el && openPlayer(el.dataset);
+  root.addEventListener('click', (e) => {
+    const li = e.target.closest('.sq-player');
+    if (li) { e.preventDefault(); handle(li); }
+  });
+  root.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const li = e.target.closest('.sq-player');
+    if (li) { e.preventDefault(); handle(li); }
+  });
 }
 
 initCountdown();

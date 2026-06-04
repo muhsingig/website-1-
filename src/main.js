@@ -7,6 +7,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initCountdown } from './countdown.js';
 import './nav.js';
+import './home-today.js';
 
 gsap.registerPlugin(ScrollTrigger);
 initCountdown();

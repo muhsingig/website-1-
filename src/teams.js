@@ -2,6 +2,7 @@ import './style.css';
 import { groups, flagUrl, teamMeta, fixtures } from './wc-data.js';
 import { teamInfo } from './team-info.js';
 import { squads } from './squads-data.js';
+import { getFav, setFav, isFav } from './prefs.js';
 import { initCountdown } from './countdown.js';
 import './nav.js';
 
@@ -172,6 +173,7 @@ function profileHTML(name) {
     ${teamMatchesHTML(name)}
 
     <div class="tmd-actions">
+      <button class="tmd-follow${isFav(name) ? ' is-following' : ''}" data-follow="${name}">${isFav(name) ? '★ Following' : '☆ Follow this team'}</button>
       <a class="tmd-squad-link" href="/squads.html">View full squad →</a>
     </div>
     <p class="tmd-sources">Sources: FIFA, Wikipedia</p>`;
@@ -204,7 +206,15 @@ function closeModal() {
 }
 
 modal.addEventListener('click', (e) => {
-  if (e.target.hasAttribute('data-close')) closeModal();
+  if (e.target.hasAttribute('data-close')) { closeModal(); return; }
+  const fbtn = e.target.closest('.tmd-follow');
+  if (fbtn) {
+    const name = fbtn.dataset.follow;
+    const nowFav = !isFav(name);
+    setFav(nowFav ? name : '');
+    fbtn.classList.toggle('is-following', nowFav);
+    fbtn.textContent = nowFav ? '★ Following' : '☆ Follow this team';
+  }
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !modal.hidden) closeModal();
@@ -228,5 +238,9 @@ function wire(rootEl) {
 }
 wire(hostsRoot);
 wire(qualifiedRoot);
+
+// Open a team directly from a ?team= deep link (global search / homepage).
+const teamParam = new URLSearchParams(location.search).get('team');
+if (teamParam && byName[teamParam]) openTeam(teamParam);
 
 initCountdown();
