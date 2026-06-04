@@ -35,11 +35,13 @@ export default async function handler(req, res) {
       id: m.id,
       utcDate: m.utcDate,
       status: m.status, // SCHEDULED | TIMED | IN_PLAY | PAUSED | FINISHED
+      stage: m.stage ?? '', // GROUP_STAGE | LAST_32 | LAST_16 | QUARTER_FINALS | SEMI_FINALS | THIRD_PLACE | FINAL
       minute: m.minute ?? null,
       home: m.homeTeam?.name ?? m.homeTeam?.shortName ?? '',
       away: m.awayTeam?.name ?? m.awayTeam?.shortName ?? '',
       homeScore: m.score?.fullTime?.home ?? null,
       awayScore: m.score?.fullTime?.away ?? null,
+      venue: m.venue ?? '',
     }));
     const data = { matches, updated: new Date().toISOString() };
     cache = { at: now, data };

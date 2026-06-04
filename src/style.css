@@ -1631,6 +1631,19 @@ img { display: block; max-width: 100%; }
   color: rgba(10, 23, 18, 0.55);
   text-align: center;
 }
+.ko-match.is-live { border-color: rgba(232, 17, 58, 0.5); box-shadow: 0 0 0 1px rgba(232, 17, 58, 0.3), 0 10px 26px -18px rgba(232, 17, 58, 0.55); }
+.ko-status { margin-bottom: 0.55rem; }
+.ko-team { display: inline-flex; align-items: center; gap: 0.45rem; }
+.ko-pair .ko-team:first-child { justify-content: flex-end; }
+.ko-pair .ko-team:last-child { justify-content: flex-start; }
+.ko-team .fx-flag { width: 26px; height: 19px; }
+.ko-score {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--ink);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
 @media (max-width: 600px) {
   .ko-round-title { font-size: 1.35rem; }
   .ko-slot { font-size: 0.86rem; }

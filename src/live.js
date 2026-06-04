@@ -2,8 +2,7 @@
 // in place of the kickoff time, a pulsing LIVE minute badge while in play, and FT
 // when finished. If there's no API token / no live data, rows keep showing times.
 import { normTeam, pairKey } from './teamkey.js';
-
-const POLL_MS = 45_000; // 45s — comfortably inside football-data's 10 req/min
+import { onScores, startFeed } from './scores-feed.js';
 
 function badgeLabel(m) {
   if (m.status === 'IN_PLAY') return m.minute ? `${m.minute}'` : 'LIVE';
@@ -47,23 +46,8 @@ function applyMatch(m) {
   badge.classList.toggle('is-final', done);
 }
 
-async function poll() {
-  let data;
-  try {
-    const res = await fetch('/api/scores', { cache: 'no-store' });
-    data = await res.json();
-  } catch {
-    return; // network hiccup — keep last state, try again next tick
-  }
-  (data.matches || []).forEach(applyMatch);
-}
-
 // Only run where fixture rows exist.
 if (document.querySelector('.fx-match') || document.getElementById('fixtures-root')) {
-  poll();
-  setInterval(poll, POLL_MS);
-  // Refresh immediately when the tab regains focus.
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) poll();
-  });
+  onScores((data) => (data.matches || []).forEach(applyMatch));
+  startFeed();
 }

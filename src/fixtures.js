@@ -2,7 +2,8 @@ import './style.css';
 import { fixtures, flagByName, flagUrl, knockout } from './wc-data.js';
 import { initCountdown } from './countdown.js';
 import { downloadTeamICS } from './calendar.js';
-import { pairKey } from './teamkey.js';
+import { pairKey, normTeam } from './teamkey.js';
+import { onScores, startFeed } from './scores-feed.js';
 import './live.js';
 import './nav.js';
 
@@ -33,8 +34,12 @@ const localDateLabel = (dt) =>
     .replace(',', '');
 const localTime = (dt) => dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 
+// Flag lookup that also works for provider spellings (e.g. "South Korea").
+const FLAG_BY_NORM = {};
+for (const [name, code] of Object.entries(flagByName)) FLAG_BY_NORM[normTeam(name)] = code;
+
 function flag(name) {
-  const code = flagByName[name];
+  const code = flagByName[name] || FLAG_BY_NORM[normTeam(name)];
   return code
     ? `<img class="fx-flag" src="${flagUrl(code, 80)}" alt="" width="34" height="25" loading="lazy" />`
     : '';
@@ -113,6 +118,64 @@ function koRound(r) {
     </section>`;
 }
 
+// --- Live knockout: map our round names to the provider's stage codes ---
+const STAGE_OF = {
+  'Round of 32': 'LAST_32',
+  'Round of 16': 'LAST_16',
+  'Quarter-finals': 'QUARTER_FINALS',
+  'Semi-finals': 'SEMI_FINALS',
+  'Third-place play-off': 'THIRD_PLACE',
+  'Final': 'FINAL',
+};
+
+function koBadge(m) {
+  if (m.status === 'IN_PLAY') return m.minute ? `${m.minute}'` : 'LIVE';
+  if (m.status === 'PAUSED') return 'HT';
+  if (m.status === 'FINISHED') return 'FT';
+  return '';
+}
+
+// A real (drawn) knockout match from the live feed, with teams + score.
+function koLiveCard(m) {
+  const live = m.status === 'IN_PLAY' || m.status === 'PAUSED';
+  const done = m.status === 'FINISHED';
+  const hasScore = m.homeScore != null && m.awayScore != null;
+  const center = hasScore
+    ? `<span class="ko-score">${m.homeScore} – ${m.awayScore}</span>`
+    : '<span class="ko-vs">v</span>';
+  const b = koBadge(m);
+  const status = b ? `<div class="ko-status"><span class="fx-live${done ? ' is-final' : ''}">${b}</span></div>` : '';
+  const dt = koDate(m.utcDate.slice(0, 10));
+  return `
+    <article class="ko-match${live ? ' is-live' : ''}">
+      ${status}
+      <div class="ko-pair">
+        <span class="ko-slot ko-team">${show(m.home)}${flag(m.home)}</span>
+        ${center}
+        <span class="ko-slot ko-team">${flag(m.away)}${show(m.away)}</span>
+      </div>
+      <p class="ko-meta">${dt}${m.venue ? `&nbsp; ·&nbsp; ${m.venue}` : ''}</p>
+    </article>`;
+}
+
+// Render a round: real fixtures from the feed once teams are drawn, else the
+// static placeholder bracket.
+function roundHTML(roundName, matches) {
+  const stage = STAGE_OF[roundName];
+  const liveMatches = (matches || [])
+    .filter((m) => m.stage === stage && m.home && m.away)
+    .sort((a, b) => String(a.utcDate).localeCompare(String(b.utcDate)));
+  if (liveMatches.length) {
+    return `
+      <section class="ko-round">
+        <h2 class="ko-round-title">${roundName}</h2>
+        <div class="ko-list">${liveMatches.map(koLiveCard).join('')}</div>
+      </section>`;
+  }
+  const stat = knockout.find((r) => r.round === roundName);
+  return stat ? koRound(stat) : '';
+}
+
 // One tab per round. Third-place play-off is grouped into the Final tab.
 const koTabGroups = [
   { label: 'Round of 32', rounds: ['Round of 32'] },
@@ -129,19 +192,23 @@ const groupPanel = document.getElementById('fixtures-root');
 if (tabsBar && koPanels && groupPanel) {
   const panelIds = ['fixtures-root'];
 
-  // Build one panel per knockout tab.
+  // Create one (empty) panel div per knockout tab.
   koPanels.innerHTML = koTabGroups
     .map((g, i) => {
       const id = `ko-panel-${i}`;
       panelIds.push(id);
-      const rounds = g.rounds
-        .map((rn) => knockout.find((r) => r.round === rn))
-        .filter(Boolean)
-        .map(koRound)
-        .join('');
-      return `<div id="${id}" class="fx-panel is-hidden">${rounds}</div>`;
+      return `<div id="${id}" class="fx-panel is-hidden"></div>`;
     })
     .join('');
+
+  // Fill / refresh every panel's contents (static placeholders, or live cards).
+  const renderPanels = (matches) => {
+    koTabGroups.forEach((g, i) => {
+      const el = document.getElementById(`ko-panel-${i}`);
+      if (el) el.innerHTML = g.rounds.map((rn) => roundHTML(rn, matches)).join('');
+    });
+  };
+  renderPanels([]); // initial paint with the static bracket
 
   // Build the tab buttons: Group Stage first, then each knockout round.
   const tabDefs = [{ label: 'Group Stage', target: 'fixtures-root' }].concat(
@@ -171,6 +238,10 @@ if (tabsBar && koPanels && groupPanel) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  // Auto-fill real teams + live scores as soon as the feed has them.
+  onScores((data) => renderPanels(data.matches || []));
+  startFeed();
 }
 
 // ---------- Match reminders (.ics calendar download) ----------
