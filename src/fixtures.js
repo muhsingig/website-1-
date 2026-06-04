@@ -113,30 +113,62 @@ function koRound(r) {
     </section>`;
 }
 
-const koRoot = document.getElementById('knockout-root');
-if (koRoot) {
-  koRoot.innerHTML = `
-    <p class="ko-intro">The bracket below shows the path to the Final at MetLife Stadium. Match-ups fill in automatically once group positions are decided.</p>
-    ${knockout.map(koRound).join('')}`;
-}
+// One tab per round. Third-place play-off is grouped into the Final tab.
+const koTabGroups = [
+  { label: 'Round of 32', rounds: ['Round of 32'] },
+  { label: 'Round of 16', rounds: ['Round of 16'] },
+  { label: 'Quarter-finals', rounds: ['Quarter-finals'] },
+  { label: 'Semi-finals', rounds: ['Semi-finals'] },
+  { label: 'Final', rounds: ['Third-place play-off', 'Final'] },
+];
 
-// ---------- Group / Knockout tabs ----------
-const tabs = document.getElementById('fx-tabs');
-if (tabs) {
-  const panels = {
-    'fixtures-root': document.getElementById('fixtures-root'),
-    'knockout-root': document.getElementById('knockout-root'),
+const tabsBar = document.getElementById('fx-tabs');
+const koPanels = document.getElementById('ko-panels');
+const groupPanel = document.getElementById('fixtures-root');
+
+if (tabsBar && koPanels && groupPanel) {
+  const panelIds = ['fixtures-root'];
+
+  // Build one panel per knockout tab.
+  koPanels.innerHTML = koTabGroups
+    .map((g, i) => {
+      const id = `ko-panel-${i}`;
+      panelIds.push(id);
+      const rounds = g.rounds
+        .map((rn) => knockout.find((r) => r.round === rn))
+        .filter(Boolean)
+        .map(koRound)
+        .join('');
+      return `<div id="${id}" class="fx-panel is-hidden">${rounds}</div>`;
+    })
+    .join('');
+
+  // Build the tab buttons: Group Stage first, then each knockout round.
+  const tabDefs = [{ label: 'Group Stage', target: 'fixtures-root' }].concat(
+    koTabGroups.map((g, i) => ({ label: g.label, target: `ko-panel-${i}` }))
+  );
+  tabsBar.innerHTML = tabDefs
+    .map(
+      (t, i) =>
+        `<button class="fx-tab${i === 0 ? ' is-active' : ''}" data-target="${t.target}" role="tab" aria-selected="${i === 0}">${t.label}</button>`
+    )
+    .join('');
+
+  const showPanel = (target) => {
+    panelIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('is-hidden', id !== target);
+    });
   };
-  tabs.querySelectorAll('.fx-tab').forEach((btn) => {
+  tabsBar.querySelectorAll('.fx-tab').forEach((btn) => {
     btn.addEventListener('click', () => {
-      tabs.querySelectorAll('.fx-tab').forEach((b) => {
+      tabsBar.querySelectorAll('.fx-tab').forEach((b) => {
         const on = b === btn;
         b.classList.toggle('is-active', on);
         b.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-      for (const [id, el] of Object.entries(panels)) {
-        if (el) el.classList.toggle('is-hidden', id !== btn.dataset.target);
-      }
+      showPanel(btn.dataset.target);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 }

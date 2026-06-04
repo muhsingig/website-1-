@@ -1533,14 +1533,21 @@ img { display: block; max-width: 100%; }
 /* ---------- Group / Knockout tabs ---------- */
 .is-hidden { display: none !important; }
 .fx-tabs {
-  display: inline-flex;
+  display: flex;
   gap: 0.3rem;
   padding: 0.3rem;
   margin: 0 0 1.6rem;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 999px;
+  max-width: 100%;
+  width: max-content;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.fx-tabs::-webkit-scrollbar { display: none; }
 .fx-tab {
+  flex: 0 0 auto;
+  white-space: nowrap;
   border: none;
   background: transparent;
   font: inherit;
