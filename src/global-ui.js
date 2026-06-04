@@ -140,7 +140,21 @@ function injectTools() {
   });
 }
 
+// Add a "My Team" link to the navbar on every page (before PillNav runs).
+function injectMyTeamLink() {
+  const links = document.querySelector('#navbar .nav-links');
+  if (!links || links.querySelector('a[href="/my-team.html"]')) return;
+  const a = document.createElement('a');
+  a.href = '/my-team.html';
+  a.textContent = 'My Team';
+  if (location.pathname.replace(/\/$/, '').endsWith('/my-team.html') || location.pathname.endsWith('my-team.html')) {
+    a.className = 'active';
+  }
+  links.insertBefore(a, links.firstChild);
+}
+
 function init() {
+  injectMyTeamLink();
   injectTools();
   // Keyboard: "/" opens search, Esc closes.
   document.addEventListener('keydown', (e) => {

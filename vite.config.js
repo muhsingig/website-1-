@@ -21,6 +21,7 @@ export default defineConfig({
         gallery: resolve(__dirname, 'gallery.html'),
         mascots: resolve(__dirname, 'mascots.html'),
         matchBall: resolve(__dirname, 'match-ball.html'),
+        myTeam: resolve(__dirname, 'my-team.html'),
       },
     },
   },
