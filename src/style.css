@@ -3392,7 +3392,4 @@ img { display: block; max-width: 100%; }
   .hm-flag { width: 22px; height: 16px; }
   .ht-title { font-size: 1.35rem; }
 
-  /* Footer goal-net + ball celebration clashes with the newsletter card on
-     small screens — hide the decorative net/burst so the footer reads cleanly. */
-  #goal-net-zone, #goal-burst { display: none; }
 }
