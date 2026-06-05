@@ -889,10 +889,11 @@ img { display: block; max-width: 100%; }
 
 .footer-top {
   display: grid;
-  grid-template-columns: 1.4fr 1.5fr 1fr;
+  grid-template-columns: 1.4fr 1.5fr;
   gap: 3rem;
   flex: 1;
 }
+.footer-news { display: none; } /* newsletter / email signup removed */
 .footer-logo {
   display: inline-flex;
   align-items: center;
