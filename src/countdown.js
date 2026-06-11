@@ -14,6 +14,7 @@ export function initCountdown() {
 
   const pad = (n) => String(n).padStart(2, '0');
 
+  let timer;
   function tick() {
     const diff = KICKOFF - Date.now();
     if (diff <= 0) {
@@ -23,7 +24,7 @@ export function initCountdown() {
       ss.textContent = '00';
       const lbl = root.querySelector('.cd-status');
       if (lbl) lbl.textContent = 'The tournament is live';
-      clearInterval(timer);
+      if (timer) clearInterval(timer);
       return;
     }
     const s = Math.floor(diff / 1000);
@@ -34,5 +35,7 @@ export function initCountdown() {
   }
 
   tick();
-  const timer = setInterval(tick, 1000);
+  if (KICKOFF - Date.now() > 0) {
+    timer = setInterval(tick, 1000);
+  }
 }
