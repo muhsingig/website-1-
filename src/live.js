@@ -1,8 +1,7 @@
-// Polls our /api/scores proxy and live-updates the Fixtures rows: shows the score
-// in place of the kickoff time, a pulsing LIVE minute badge while in play, and FT
-// when finished. If there's no API token / no live data, rows keep showing times.
+// Paints scores onto the Fixtures rows: shows the score in place of the kickoff
+// time with an FT badge (or a LIVE minute badge for in-play data).
 import { normTeam, pairKey } from './teamkey.js';
-import { onScores, startFeed } from './scores-feed.js';
+import { onScores } from './scores-feed.js';
 
 function badgeLabel(m) {
   if (m.status === 'IN_PLAY') return m.minute ? `${m.minute}'` : 'LIVE';
@@ -46,8 +45,7 @@ function applyMatch(m) {
   badge.classList.toggle('is-final', done);
 }
 
-// Only run where fixture rows exist.
-if (document.querySelector('.fx-match') || document.getElementById('fixtures-root')) {
+// Call after (re)rendering fixture rows.
+export function paintScores() {
   onScores((data) => (data.matches || []).forEach(applyMatch));
-  startFeed();
 }

@@ -1,7 +1,6 @@
 import './style.css';
 import { squads } from './squads-data.js';
 import { groups, flagUrl, flagByName, fixtures } from './wc-data.js';
-import { initCountdown } from './countdown.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -55,7 +54,7 @@ function teamBlock(name, groupId) {
     : `<span class="sq-count sq-soon">Soon</span>`;
   const body = announced
     ? POS.map(([c, l]) => posBlock(players, c, l, name)).join('')
-    : `<p class="sq-tba">Final squad to be announced soon.</p>`;
+    : `<p class="sq-tba">Squad list not added here yet — see FIFA.com for the full 26-man list.</p>`;
   return `
     <details class="sq-team" data-search="${haystack.replace(/"/g, '')}" data-group="${groupId}">
       <summary class="sq-summary">
@@ -207,4 +206,3 @@ if (root) {
   });
 }
 
-initCountdown();

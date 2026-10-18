@@ -1,9 +1,9 @@
 // Global navbar tools shared across every page (imported via nav.js, which all
-// pages load): dark-mode toggle, global search overlay, and a match-alert bell.
-import { groups, fixtures, knockout, flagByName, flagUrl } from './wc-data.js';
+// pages load): dark-mode toggle and global search overlay.
+import { groups, fixtures, flagByName, flagUrl } from './wc-data.js';
+import { results } from './results-2026.js';
 import { squads } from './squads-data.js';
-import { getTheme, toggleTheme, getFav } from './prefs.js';
-import { enableAlerts } from './notify.js';
+import { getTheme, toggleTheme } from './prefs.js';
 
 const enc = (s) => encodeURIComponent(s);
 function flagImg(name, cls = 'gs-flag') {
@@ -24,11 +24,17 @@ function buildIndex() {
       items.push({ type: 'Player', name: p.n, sub: `${p.p} · ${team}`, flag: team, url: `/squads.html?q=${enc(p.n)}` });
     }
   }
-  const addMatch = (m, label) => items.push({
-    type: 'Match', name: `${m.t1} v ${m.t2}`, sub: `${label} · ${m.venue}`, flag: '', url: '/fixtures.html',
+  // Final scores for every match, keyed the same way as the fixtures list.
+  const scoreOf = new Map(results.map((r) => [`${r.home}|${r.away}`, r]));
+  const fmt = (r) => `${r.home} ${r.homeScore}–${r.awayScore} ${r.away}${r.pens ? ` (${r.pens} pens)` : r.aet ? ' (a.e.t.)' : ''}`;
+  fixtures.forEach((m) => {
+    const r = scoreOf.get(`${m.t1}|${m.t2}`);
+    items.push({ type: 'Match', name: r ? fmt(r) : `${m.t1} v ${m.t2}`, sub: `Group ${m.group} · ${m.venue}`, flag: '', url: '/fixtures.html' });
   });
-  fixtures.forEach((m) => addMatch(m, `Group ${m.group}`));
-  knockout.forEach((r) => r.matches.forEach((m) => addMatch(m, r.round)));
+  const ROUND = { LAST_32: 'Round of 32', LAST_16: 'Round of 16', QUARTER_FINALS: 'Quarter-final', SEMI_FINALS: 'Semi-final', THIRD_PLACE: 'Third place', FINAL: 'Final' };
+  results.filter((r) => r.stage !== 'GROUP_STAGE').forEach((r) => {
+    items.push({ type: 'Match', name: fmt(r), sub: ROUND[r.stage], flag: '', url: r.stage === 'FINAL' ? '/champions-2026.html' : '/fixtures.html' });
+  });
   return items;
 }
 let INDEX = null;
@@ -116,7 +122,6 @@ function injectTools() {
   tools.className = 'nav-tools';
   tools.innerHTML = `
     <button class="nav-tool" id="nav-search" type="button" aria-label="Search">🔍</button>
-    <button class="nav-tool" id="nav-bell" type="button" aria-label="Match alerts">🔔</button>
     <button class="nav-tool" id="nav-theme" type="button" aria-label="Toggle dark mode">${themeIcon()}</button>`;
   // Insert before the hamburger toggle if present, else append.
   const toggle = navbar.querySelector('.nav-toggle');
@@ -126,17 +131,6 @@ function injectTools() {
   tools.querySelector('#nav-theme').addEventListener('click', (e) => {
     toggleTheme();
     e.currentTarget.textContent = themeIcon();
-  });
-  tools.querySelector('#nav-bell').addEventListener('click', async () => {
-    const fav = getFav();
-    if (!fav) {
-      alert('Pick your team first — open the Teams page, click a team, and choose “★ Follow”. Then turn on alerts here.');
-      return;
-    }
-    const res = await enableAlerts(fav);
-    if (res === 'denied') alert('Notifications are blocked in your browser settings. Tip: the Fixtures page “Add to calendar” works even when this site is closed.');
-    else if (res === 'unsupported') alert('Your browser doesn\'t support notifications. Use the Fixtures page “Add to calendar” instead.');
-    else if (res === 'ok') alert(`Alerts on for ${fav}. While this tab stays open you'll get a heads-up before their matches. For alerts when the site is closed, use “Add to calendar” on the Fixtures page.`);
   });
 }
 
@@ -150,7 +144,9 @@ function injectMyTeamLink() {
   if (location.pathname.replace(/\/$/, '').endsWith('/my-team.html') || location.pathname.endsWith('my-team.html')) {
     a.className = 'active';
   }
-  links.insertBefore(a, links.firstChild);
+  // Keep "Champions" as the first link; My Team sits right after it.
+  const champ = links.querySelector('a[href="/champions-2026.html"]');
+  links.insertBefore(a, champ ? champ.nextSibling : links.firstChild);
 }
 
 function init() {
@@ -165,10 +161,6 @@ function init() {
       closeSearch();
     }
   });
-  // If a fav exists and permission already granted, (re)schedule this session.
-  if (getFav() && 'Notification' in window && Notification.permission === 'granted') {
-    enableAlerts(getFav());
-  }
 }
 
 if (document.readyState !== 'loading') init();

@@ -1,5 +1,4 @@
 import './style.css';
-import { initCountdown } from './countdown.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -9,4 +8,3 @@ if (navbar) {
   });
 }
 
-initCountdown();

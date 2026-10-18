@@ -24,6 +24,7 @@ export function computeStandings(groups, matches) {
     const done = m.status === 'FINISHED';
     if (!live && !done) continue;
     if (m.homeScore == null || m.awayScore == null) continue;
+    if (m.stage && m.stage !== 'GROUP_STAGE') continue; // knockout games don't count
 
     const home = byKey.get(normTeam(m.home));
     const away = byKey.get(normTeam(m.away));

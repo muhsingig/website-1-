@@ -1,7 +1,6 @@
 import './style.css';
 import { tournaments, titlesByNation } from './winners-data.js';
 import { flagUrl } from './wc-data.js';
-import { initCountdown } from './countdown.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -32,10 +31,11 @@ if (honour) {
 }
 
 /* ---- Tournament timeline (newest first) ---- */
+const latest = tournaments[tournaments.length - 1];
 function card(t) {
   const hostFlags = t.hostFlags.map((c) => flag(c, 'wn-host-flag')).join('');
   return `
-    <article class="wn-card">
+    <article class="wn-card${t.year === latest.year ? ' is-latest' : ''}">
       <div class="wn-year">${t.year}</div>
       <div class="wn-main">
         <div class="wn-final">
@@ -67,4 +67,3 @@ if (root) {
   root.innerHTML = [...tournaments].reverse().map(card).join('');
 }
 
-initCountdown();

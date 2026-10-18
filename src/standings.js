@@ -1,7 +1,7 @@
 import './style.css';
 import { groups, flagUrl } from './wc-data.js';
 import { computeStandings } from './standings-compute.js';
-import { initCountdown } from './countdown.js';
+import { results } from './results-2026.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -11,8 +11,9 @@ if (navbar) {
   });
 }
 
-const POLL_MS = 45_000;
 const compute = (matches) => computeStandings(groups, matches);
+// Everyone who reached the Round of 32 (top two + the eight best third-placed sides).
+const advanced = new Set(results.filter((m) => m.stage === 'LAST_32').flatMap((m) => [m.home, m.away]));
 
 // ---- Render ----
 function formDots(stat) {
@@ -28,7 +29,7 @@ function formDots(stat) {
 function teamRow(stat, pos) {
   const gd = stat.gf - stat.ga;
   return `
-    <tr class="${pos <= 2 ? 'qual' : ''}">
+    <tr class="${advanced.has(stat.name) ? 'qual' : ''}">
       <td class="pos-col"><span class="pos">${pos}</span></td>
       <td class="team-col">
         <img class="team-flag" src="${flagUrl(stat.flag, 40)}" alt="" width="26" height="20" loading="lazy" />
@@ -47,7 +48,7 @@ function groupBlock(g) {
     <section class="group-block glass-card">
       <div class="group-head">
         <span class="group-label">Group ${g.id}</span>
-        ${g.live ? '<span class="group-live">LIVE</span>' : ''}
+        <span class="group-final">Final</span>
       </div>
       <div class="group-table-wrap">
         <table class="standings-table">
@@ -74,26 +75,6 @@ function render(model) {
   if (root) root.innerHTML = model.map(groupBlock).join('');
 }
 
-// Initial paint (all zeros) so the page shows instantly, then live data.
-render(compute([]));
+// Tournament complete — paint the final group tables.
+render(compute(results));
 
-async function poll() {
-  let data;
-  try {
-    const res = await fetch('/api/scores', { cache: 'no-store' });
-    data = await res.json();
-  } catch {
-    return;
-  }
-  render(compute(data.matches || []));
-}
-
-if (root) {
-  poll();
-  setInterval(poll, POLL_MS);
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) poll();
-  });
-}
-
-initCountdown();

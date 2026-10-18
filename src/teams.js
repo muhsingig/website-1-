@@ -1,9 +1,9 @@
 import './style.css';
-import { groups, flagUrl, teamMeta, fixtures } from './wc-data.js';
+import { groups, flagUrl, teamMeta } from './wc-data.js';
+import { teamJourney, scoreFor, ROUND_LABEL } from './results-2026.js';
 import { teamInfo } from './team-info.js';
 import { squads } from './squads-data.js';
 import { getFav, setFav, isFav } from './prefs.js';
-import { initCountdown } from './countdown.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -47,9 +47,9 @@ function card(name, { host = false } = {}) {
         </div>
       </div>
       <div class="tm-stats">
-        <div class="tm-row"><span>Stage</span><span>Group ${t.group}</span></div>
-        <div class="tm-row"><span>World Ranking</span><span>${meta.rank}</span></div>
-        <div class="tm-row"><span>Participations</span><span>${meta.apps}</span></div>
+        <div class="tm-row"><span>2026 finish</span><span>${teamJourney(name).finish}</span></div>
+        <div class="tm-row"><span>Group</span><span>${t.group}</span></div>
+        <div class="tm-row"><span>Participations</span><span>${meta.apps + 1}</span></div>
       </div>
       <span class="tm-cta">View profile →</span>
     </article>`;
@@ -84,12 +84,12 @@ const mdate = (d) => {
     .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
 };
 
-function tileBlock(meta, info) {
+function tileBlock(name, meta, info) {
   const tiles = [
-    { num: meta.apps ?? 0, lbl: 'World Cups' },
+    { num: teamJourney(name).finish, lbl: '2026 finish', small: true },
+    { num: (meta.apps ?? 0) + 1, lbl: 'World Cups' },
     { num: info?.best ?? '—', lbl: 'Best result', small: true },
     { num: info?.titles?.length ?? 0, lbl: 'Major titles' },
-    { num: `#${meta.rank ?? '–'}`, lbl: 'FIFA ranking' },
   ];
   return `<div class="tmd-tiles">${tiles
     .map(
@@ -100,21 +100,21 @@ function tileBlock(meta, info) {
 }
 
 function teamMatchesHTML(name) {
-  const ms = fixtures.filter((m) => m.t1 === name || m.t2 === name);
-  if (!ms.length) return '';
+  const { matches } = teamJourney(name);
+  if (!matches.length) return '';
   return `
     <section class="tmd-sec">
-      <h4 class="tmd-h">🏟️ World Cup 2026 matches</h4>
+      <h4 class="tmd-h">🏟️ World Cup 2026 results</h4>
       <div class="tmd-matches">
-        ${ms
-          .map(
-            (m) => `
+        ${matches
+          .map((m) => {
+            const opp = m.home === name ? m.away : m.home;
+            return `
           <div class="tmd-match">
-            <span class="tmd-match-date">${mdate(m.date)}</span>
-            <span class="tmd-match-teams">${m.t1} <em>vs</em> ${m.t2}</span>
-            <span class="tmd-match-venue">📍 ${m.venue} · ${m.city}</span>
-          </div>`
-          )
+            <span class="tmd-match-date">${mdate(m.utcDate.slice(0, 10))} · ${ROUND_LABEL[m.stage]}</span>
+            <span class="tmd-match-teams">${name} <strong>${scoreFor(m, name)}</strong> ${opp}</span>
+          </div>`;
+          })
           .join('')}
       </div>
     </section>`;
@@ -163,7 +163,7 @@ function profileHTML(name) {
       </div>
     </header>
 
-    ${tileBlock(meta, info)}
+    ${tileBlock(name, meta, info)}
 
     ${info.bio ? `<p class="tmd-bio">${info.bio}</p>` : ''}
 
@@ -243,4 +243,3 @@ wire(qualifiedRoot);
 const teamParam = new URLSearchParams(location.search).get('team');
 if (teamParam && byName[teamParam]) openTeam(teamParam);
 
-initCountdown();

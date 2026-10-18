@@ -1,6 +1,6 @@
 // Accurate per-team detail for the Teams page click-through.
 // Sources: FIFA, Wikipedia. Appearances + FIFA rank come from teamMeta; coach
-// + squad come from squads-data; 2026 matches come from fixtures. This file
+// + squad come from squads-data; 2026 results come from results-2026. This file
 // adds confederation, best World Cup result, honours, a short bio, a few
 // "did you know" facts and historic moments. Facts kept conservative/verifiable.
 // Keys match the team names used in wc-data.js exactly.
@@ -22,7 +22,7 @@ export const teamInfo = {
     ],
   },
   'South Africa': {
-    conf: 'CAF', best: 'Group stage',
+    conf: 'CAF', best: 'Round of 32 (2026)',
     titles: ['Africa Cup of Nations 1996'],
     bio: 'Africa Cup of Nations winners on debut as a host, back at the World Cup for the first time since they staged it in 2010.',
     facts: [
@@ -62,7 +62,7 @@ export const teamInfo = {
   },
   // ---------------- Group B ----------------
   'Canada': {
-    conf: 'CONCACAF', best: 'Group stage',
+    conf: 'CONCACAF', best: 'Round of 16 (2026)',
     titles: ['CONCACAF Gold Cup 2000'],
     bio: 'Co-hosts enjoying a golden era, appearing at back-to-back World Cups for the first time.',
     facts: [
@@ -75,7 +75,7 @@ export const teamInfo = {
     ],
   },
   'Bosnia and Herzegovina': {
-    conf: 'UEFA', best: 'Group stage',
+    conf: 'UEFA', best: 'Round of 32 (2026)',
     titles: [],
     bio: 'Back at a major tournament for the second time, chasing a first knockout appearance.',
     facts: [
@@ -100,7 +100,7 @@ export const teamInfo = {
     ],
   },
   'Switzerland': {
-    conf: 'UEFA', best: 'Quarter-finals (1934, 1938, 1954)',
+    conf: 'UEFA', best: 'Quarter-finals (1934, 1938, 1954, 2026)',
     titles: [],
     bio: 'Reliable tournament qualifiers known for organisation, reaching a fifth straight World Cup.',
     facts: [
@@ -229,7 +229,7 @@ export const teamInfo = {
     ],
   },
   'Curaçao': {
-    conf: 'CONCACAF', best: 'Debut (2026)',
+    conf: 'CONCACAF', best: 'Group stage (2026)',
     titles: ['Caribbean Cup 2017'],
     bio: 'Tiny Caribbean island making a remarkable first-ever World Cup appearance.',
     facts: [
@@ -329,7 +329,7 @@ export const teamInfo = {
     ],
   },
   'Egypt': {
-    conf: 'CAF', best: 'Group stage',
+    conf: 'CAF', best: 'Round of 16 (2026)',
     titles: ['Africa Cup of Nations ×7'],
     bio: 'Record seven-time African champions led by superstar Mohamed Salah.',
     facts: [
@@ -366,19 +366,20 @@ export const teamInfo = {
   },
   // ---------------- Group H ----------------
   'Spain': {
-    conf: 'UEFA', best: 'Champions (2010)',
-    titles: ['World Cup 2010', 'European Championship 1964, 2008, 2012, 2024'],
-    bio: 'World and European champions of the tiki-taka era, again among the favourites.',
+    conf: 'UEFA', best: 'Champions (2010, 2026)',
+    titles: ['World Cup 2010, 2026', 'European Championship 1964, 2008, 2012, 2024'],
+    bio: 'Double world champions: Spain added the 2026 title to 2010, beating Argentina 1–0 after extra time in the final.',
     facts: [
       'Their 2010 win completed a unique Euro–World Cup–Euro treble.',
       'They won Euro 2024 with a record seven wins from seven.',
     ],
     moments: [
       { year: '2010', text: 'Andrés Iniesta\'s extra-time goal beat the Netherlands for a first world title.' },
+      { year: '2026', text: 'Ferran Torres scored in the 106th minute of the final against Argentina for a second star.' },
     ],
   },
   'Cabo Verde': {
-    conf: 'CAF', best: 'Debut (2026)',
+    conf: 'CAF', best: 'Round of 32 (2026)',
     titles: [],
     bio: 'The "Blue Sharks" of a small island nation reaching their first-ever World Cup.',
     facts: [
@@ -453,7 +454,7 @@ export const teamInfo = {
     ],
   },
   'Norway': {
-    conf: 'UEFA', best: 'Round of 16 (1998)',
+    conf: 'UEFA', best: 'Quarter-finals (2026)',
     titles: [],
     bio: 'Back at the World Cup after a long absence, powered by superstars Erling Haaland and Martin Ødegaard.',
     facts: [
@@ -468,14 +469,15 @@ export const teamInfo = {
   'Argentina': {
     conf: 'CONMEBOL', best: 'Champions (1978, 1986, 2022)',
     titles: ['World Cup 1978, 1986, 2022', 'Copa América ×16', 'Confederations Cup 1992'],
-    bio: 'Reigning world champions, captained by Lionel Messi in what may be his final World Cup.',
+    bio: '2022 world champions and 2026 runners-up, beaten 1–0 by Spain after extra time in the final at Lionel Messi\'s sixth World Cup.',
     facts: [
-      'Messi could become the first man to play at six different World Cups.',
+      'Messi played at his sixth World Cup in 2026, finishing with 21 career World Cup goals and a record 12 assists.',
       'They won three straight major titles: Copa 2021, World Cup 2022, Copa 2024.',
     ],
     moments: [
       { year: '1986', text: 'Diego Maradona dragged Argentina to glory with the "Goal of the Century".' },
       { year: '2022', text: 'Beat France in a classic final on penalties for a third star.' },
+      { year: '2026', text: 'Reached a second straight final but lost 1–0 to Spain after extra time.' },
     ],
   },
   'Algeria': {
@@ -503,7 +505,7 @@ export const teamInfo = {
     ],
   },
   'Jordan': {
-    conf: 'AFC', best: 'Debut (2026)',
+    conf: 'AFC', best: 'Group stage (2026)',
     titles: [],
     bio: 'Asian Cup 2023 runners-up reaching their first-ever World Cup.',
     facts: [
@@ -528,7 +530,7 @@ export const teamInfo = {
     ],
   },
   'DR Congo': {
-    conf: 'CAF', best: 'Group stage (1974, as Zaire)',
+    conf: 'CAF', best: 'Round of 32 (2026)',
     titles: ['Africa Cup of Nations 1968, 1974'],
     bio: 'Two-time African champions back at the World Cup for the first time since 1974.',
     facts: [
@@ -540,7 +542,7 @@ export const teamInfo = {
     ],
   },
   'Uzbekistan': {
-    conf: 'AFC', best: 'Debut (2026)',
+    conf: 'AFC', best: 'Group stage (2026)',
     titles: [],
     bio: 'Central Asian side reaching a maiden World Cup after years of near misses.',
     facts: [

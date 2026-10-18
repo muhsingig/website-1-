@@ -1,10 +1,8 @@
 import './style.css';
 import { fixtures, flagByName, flagUrl, knockout } from './wc-data.js';
-import { initCountdown } from './countdown.js';
-import { downloadTeamICS } from './calendar.js';
 import { pairKey, normTeam } from './teamkey.js';
-import { onScores, startFeed } from './scores-feed.js';
-import './live.js';
+import { onScores } from './scores-feed.js';
+import { paintScores } from './live.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -102,6 +100,7 @@ function renderFixtures(list) {
         })
         .join('')
     : '<p class="fx-empty">No matches match those filters.</p>';
+  paintScores();
 }
 
 // ---------- Fixtures filter (group / team / matchday) ----------
@@ -186,7 +185,7 @@ const STAGE_OF = {
 function koBadge(m) {
   if (m.status === 'IN_PLAY') return m.minute ? `${m.minute}'` : 'LIVE';
   if (m.status === 'PAUSED') return 'HT';
-  if (m.status === 'FINISHED') return 'FT';
+  if (m.status === 'FINISHED') return m.pens ? 'PENS' : m.aet ? 'AET' : 'FT';
   return '';
 }
 
@@ -195,9 +194,13 @@ function koLiveCard(m) {
   const live = m.status === 'IN_PLAY' || m.status === 'PAUSED';
   const done = m.status === 'FINISHED';
   const hasScore = m.homeScore != null && m.awayScore != null;
+  const extra = m.pens ? `<span class="ko-extra">${m.pens} pens</span>` : m.aet ? '<span class="ko-extra">a.e.t.</span>' : '';
   const center = hasScore
-    ? `<span class="ko-score">${m.homeScore} – ${m.awayScore}</span>`
+    ? `<span class="ko-score-wrap"><span class="ko-score">${m.homeScore} – ${m.awayScore}</span>${extra}</span>`
     : '<span class="ko-vs">v</span>';
+  // Bold the side that went through.
+  const homeWon = hasScore && (m.pens ? parseInt(m.pens, 10) > parseInt(m.pens.split('–')[1], 10) : m.homeScore > m.awayScore);
+  const winCls = (isHome) => (done && hasScore ? (isHome === homeWon ? ' ko-win' : ' ko-lose') : '');
   const b = koBadge(m);
   const status = b ? `<div class="ko-status"><span class="fx-live${done ? ' is-final' : ''}">${b}</span></div>` : '';
   const dt = koDate(m.utcDate.slice(0, 10));
@@ -205,9 +208,9 @@ function koLiveCard(m) {
     <article class="ko-match${live ? ' is-live' : ''}">
       ${status}
       <div class="ko-pair">
-        <span class="ko-slot ko-team">${show(m.home)}${flag(m.home)}</span>
+        <span class="ko-slot ko-team${winCls(true)}">${show(m.home)}${flag(m.home)}</span>
         ${center}
-        <span class="ko-slot ko-team">${flag(m.away)}${show(m.away)}</span>
+        <span class="ko-slot ko-team${winCls(false)}">${flag(m.away)}${show(m.away)}</span>
       </div>
       <p class="ko-meta">${dt}${m.venue ? `&nbsp; ·&nbsp; ${m.venue}` : ''}</p>
     </article>`;
@@ -296,25 +299,7 @@ if (tabsBar && koPanels && groupPanel) {
     });
   });
 
-  // Auto-fill real teams + live scores as soon as the feed has them.
+  // Fill the knockout rounds with the real ties and final scores.
   onScores((data) => renderPanels(data.matches || []));
-  startFeed();
 }
 
-// ---------- Match reminders (.ics calendar download) ----------
-const rem = document.getElementById('fx-reminders');
-if (rem) {
-  const teams = [...new Set(fixtures.flatMap((m) => [m.t1, m.t2]))].sort();
-  rem.innerHTML = `
-    <span class="fx-rem-label">🔔 Match reminders</span>
-    <select id="fx-rem-team" class="fx-rem-select" aria-label="Choose a team">
-      ${teams.map((t) => `<option value="${t}"${t === 'Argentina' ? ' selected' : ''}>${show(t)}</option>`).join('')}
-    </select>
-    <button id="fx-rem-btn" class="fx-rem-btn" type="button">Add to calendar</button>
-    <span class="fx-rem-hint">Downloads that team's matches with a reminder 1 hour before each kickoff — works with Google, Apple &amp; Outlook calendars.</span>`;
-  rem.querySelector('#fx-rem-btn').addEventListener('click', () => {
-    downloadTeamICS(rem.querySelector('#fx-rem-team').value);
-  });
-}
-
-initCountdown();

@@ -1,13 +1,11 @@
 import './style.css';
-import { groups, fixtures, flagUrl, flagByName, teamMeta } from './wc-data.js';
+import { groups, flagUrl, flagByName, teamMeta } from './wc-data.js';
 import { teamInfo } from './team-info.js';
 import { squads } from './squads-data.js';
 import { computeStandings } from './standings-compute.js';
 import { getFav, setFav } from './prefs.js';
-import { downloadTeamICS } from './calendar.js';
-import { normTeam, pairKey } from './teamkey.js';
-import { onScores, startFeed } from './scores-feed.js';
-import { initCountdown } from './countdown.js';
+import { normTeam } from './teamkey.js';
+import { results, teamJourney, scoreFor, homeWon, ROUND_LABEL } from './results-2026.js';
 import './nav.js';
 
 const navbar = document.getElementById('navbar');
@@ -29,13 +27,8 @@ function textColor(hex) {
   const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
   return 0.299 * r + 0.587 * g + 0.114 * b > 150 ? '#0a1712' : '#ffffff';
 }
-function kickoff(m) {
-  const [y, mo, d] = m.date.split('-').map(Number);
-  const [hh, mm] = m.time.replace(/\s*ET/i, '').split(':').map(Number);
-  return new Date(Date.UTC(y, mo - 1, d, hh + 4, mm || 0));
-}
 const localDate = (dt) => dt.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
-const localTime = (dt) => dt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+const advanced = new Set(results.filter((m) => m.stage === 'LAST_32').flatMap((m) => [m.home, m.away]));
 
 const POS = [['GK', 'Goalkeepers'], ['DEF', 'Defenders'], ['MID', 'Midfielders'], ['FWD', 'Forwards']];
 
@@ -45,7 +38,7 @@ function renderPicker() {
   root.innerHTML = `
     <section class="mt-pick">
       <h2 class="mt-pick-title">Pick your team</h2>
-      <p class="mt-pick-sub">Choose the nation you'll follow all tournament. You can change it anytime.</p>
+      <p class="mt-pick-sub">Choose a nation to relive its 2026 World Cup — every result, its group table and squad. You can change it anytime.</p>
       <div class="mt-pick-grid">
         ${sorted
           .map(
@@ -61,23 +54,28 @@ function renderPicker() {
 }
 
 // ---------------- Dashboard ----------------
-function fixtureRow(m) {
-  const dt = kickoff(m);
+// One finished match from the followed team's 2026 campaign.
+function resultRow(m, fav, group) {
+  const draw = m.homeScore === m.awayScore && !m.pens;
+  const won = homeWon(m) === (m.home === fav);
+  const tag = draw ? 'D' : won ? 'W' : 'L';
+  const extra = m.pens ? ` (${m.pens} pens)` : m.aet ? ' (a.e.t.)' : '';
+  const round = m.stage === 'GROUP_STAGE' ? `Group ${group}` : ROUND_LABEL[m.stage];
   return `
-    <article class="fx-match" data-key="${pairKey(m.t1, m.t2)}" data-home="${m.t1}">
+    <article class="fx-match is-final">
       <div class="fx-teams">
-        <span class="fx-team fx-home"><span class="fx-name">${show(m.t1)}</span>${flag(m.t1)}</span>
-        <span class="fx-time">${localTime(dt)}</span>
-        <span class="fx-team fx-away">${flag(m.t2)}<span class="fx-name">${show(m.t2)}</span></span>
+        <span class="fx-team fx-home"><span class="fx-name">${show(m.home)}</span>${flag(m.home)}</span>
+        <span class="fx-time fx-score">${m.homeScore} – ${m.awayScore}</span>
+        <span class="fx-team fx-away">${flag(m.away)}<span class="fx-name">${show(m.away)}</span></span>
       </div>
-      <p class="fx-meta">${localDate(dt)}&nbsp; ·&nbsp; Group ${m.group}&nbsp; ·&nbsp; ${m.venue} (${m.city})</p>
+      <p class="fx-meta"><span class="fx-live is-final mt-res mt-res-${tag.toLowerCase()}">${tag}</span>${localDate(new Date(m.utcDate))}&nbsp; ·&nbsp; ${round}${extra}</p>
     </article>`;
 }
 
 function squadHTML(fav) {
   const s = squads[fav];
   if (!s || !(s.players || []).length) {
-    return `<p class="sq-tba">Final squad to be announced soon${s?.coach ? ` — coach ${s.coach}` : ''}.</p>`;
+    return `<p class="sq-tba">Squad list not added here yet${s?.coach ? ` — coach ${s.coach}` : ''}. See FIFA.com for the full 26-man list.</p>`;
   }
   return POS.map(([code, label]) => {
     const list = s.players.filter((p) => p.p === code);
@@ -105,13 +103,13 @@ function renderDashboard(fav) {
   const info = teamInfo[fav] || {};
   const coach = squads[fav]?.coach;
   const fg = textColor(t.color);
-  const myMatches = fixtures.filter((m) => m.t1 === fav || m.t2 === fav).sort((a, b) => kickoff(a) - kickoff(b));
+  const journey = teamJourney(fav);
 
   const tiles = [
-    { n: meta.apps ?? 0, l: 'World Cups' },
+    { n: journey.finish, l: '2026 finish', sm: true },
+    { n: (meta.apps ?? 0) + 1, l: 'World Cups' },
     { n: info.best ?? '—', l: 'Best result', sm: true },
     { n: info.titles?.length ?? 0, l: 'Major titles' },
-    { n: `#${meta.rank ?? '–'}`, l: 'FIFA ranking' },
   ];
 
   root.innerHTML = `
@@ -131,14 +129,14 @@ function renderDashboard(fav) {
 
     <section class="mt-block">
       <div class="mt-block-head">
-        <h3 class="mt-h">🗓️ ${show(fav)}'s fixtures</h3>
-        <button class="fx-rem-btn mt-ics" id="mt-ics">🔔 Add to calendar</button>
+        <h3 class="mt-h">🗓️ ${show(fav)}'s 2026 results</h3>
+        <span class="mt-finish${journey.finish === 'Champions' ? ' is-champ' : ''}">${journey.finish === 'Champions' ? '🏆 ' : ''}${journey.finish}</span>
       </div>
-      <div class="fx-list">${myMatches.map(fixtureRow).join('')}</div>
+      <div class="fx-list">${journey.matches.map((m) => resultRow(m, fav, t.group)).join('')}</div>
     </section>
 
     <section class="mt-block">
-      <h3 class="mt-h">📊 Group ${t.group} standings</h3>
+      <h3 class="mt-h">📊 Group ${t.group} — final table</h3>
       <div id="mt-standings"></div>
     </section>
 
@@ -151,15 +149,14 @@ function renderDashboard(fav) {
     ${listSection('🏆 Honours', info.titles && info.titles.length ? info.titles : ['No major senior titles yet'])}
     ${listSection('💡 Did you know', info.facts)}
     ${momentsSection(info.moments)}
-    <p class="tmd-sources">Sources: FIFA, Wikipedia. Live scores via football-data.org.</p>`;
+    <p class="tmd-sources">Sources: FIFA, Wikipedia. Results via football-data.org.</p>`;
 
   document.getElementById('mt-change').addEventListener('click', () => { setFav(''); render(); });
-  document.getElementById('mt-ics').addEventListener('click', () => downloadTeamICS(fav));
 
-  renderGroupStandings(latestMatches);
+  renderGroupStandings(results);
 }
 
-// Mini group standings for the followed team (live-recomputed).
+// Mini final group table for the followed team.
 function renderGroupStandings(matches) {
   const host = document.getElementById('mt-standings');
   const fav = getFav();
@@ -175,7 +172,7 @@ function renderGroupStandings(matches) {
           ${g.teams.map((s, i) => {
             const gd = s.gf - s.ga;
             const me = normTeam(s.name) === normTeam(fav);
-            return `<tr class="${i < 2 ? 'qual' : ''}${me ? ' mt-fav-row' : ''}">
+            return `<tr class="${advanced.has(s.name) ? 'qual' : ''}${me ? ' mt-fav-row' : ''}">
               <td class="pos-col"><span class="pos">${i + 1}</span></td>
               <td class="team-col"><img class="team-flag" src="${flagUrl(s.flag, 40)}" alt="" width="26" height="20" loading="lazy" /><span class="tname">${show(s.name)}</span></td>
               <td>${s.mp}</td><td>${s.w}</td><td>${s.d}</td><td>${s.l}</td>
@@ -186,37 +183,6 @@ function renderGroupStandings(matches) {
         </tbody>
       </table>
     </div></div>`;
-}
-
-// ---------------- Live feed (fixtures scores + standings) ----------------
-let latestMatches = [];
-function badge(m) {
-  if (m.status === 'IN_PLAY') return m.minute ? `${m.minute}'` : 'LIVE';
-  if (m.status === 'PAUSED') return 'HT';
-  if (m.status === 'FINISHED') return 'FT';
-  return null;
-}
-function applyLive(data) {
-  latestMatches = data.matches || [];
-  // Update fixture rows
-  latestMatches.forEach((m) => {
-    const live = m.status === 'IN_PLAY' || m.status === 'PAUSED';
-    const done = m.status === 'FINISHED';
-    if ((!live && !done) || m.homeScore == null) return;
-    const el = root.querySelector(`.fx-match[data-key="${pairKey(m.home, m.away)}"]`);
-    if (!el) return;
-    let hs = m.homeScore, as = m.awayScore;
-    if (normTeam(m.home) !== normTeam(el.dataset.home)) { hs = m.awayScore; as = m.homeScore; }
-    const timeEl = el.querySelector('.fx-time');
-    if (timeEl) { timeEl.textContent = `${hs} – ${as}`; timeEl.classList.add('fx-score'); }
-    el.classList.toggle('is-live', live);
-    let b = el.querySelector('.fx-live');
-    if (!b) { b = document.createElement('span'); b.className = 'fx-live'; el.querySelector('.fx-meta')?.prepend(b); }
-    b.textContent = badge(m);
-    b.classList.toggle('is-final', done);
-  });
-  // Recompute the group standings live
-  renderGroupStandings(latestMatches);
 }
 
 // ---------------- Player profile modal (reused minimal) ----------------
@@ -258,8 +224,5 @@ if (root) {
     if (li) openPlayer(li.dataset);
   });
   render();
-  onScores(applyLive);
-  startFeed();
 }
 
-initCountdown();

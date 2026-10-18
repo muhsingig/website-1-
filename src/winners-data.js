@@ -1,4 +1,4 @@
-// FIFA World Cup — every tournament 1930–2022 (22 editions).
+// FIFA World Cup — every tournament 1930–2026 (23 editions).
 // flag = flagcdn ISO code. West Germany uses Germany's flag (de);
 // Czechoslovakia uses the modern Czech flag (cz), which is visually identical.
 // score includes the final result; (a.e.t.) = after extra time, (pens) = penalty shoot-out.
@@ -27,6 +27,7 @@ export const tournaments = [
   { year: 2014, hostName: 'Brazil', hostFlags: ['br'], winner: 'Germany', winnerFlag: 'de', runnerUp: 'Argentina', runnerUpFlag: 'ar', score: '1–0 (a.e.t.)', third: 'Netherlands', venue: 'Maracanã, Rio de Janeiro', teams: 32, topScorer: 'James Rodríguez (COL) · 6' },
   { year: 2018, hostName: 'Russia', hostFlags: ['ru'], winner: 'France', winnerFlag: 'fr', runnerUp: 'Croatia', runnerUpFlag: 'hr', score: '4–2', third: 'Belgium', venue: 'Luzhniki Stadium, Moscow', teams: 32, topScorer: 'Harry Kane (ENG) · 6' },
   { year: 2022, hostName: 'Qatar', hostFlags: ['qa'], winner: 'Argentina', winnerFlag: 'ar', runnerUp: 'France', runnerUpFlag: 'fr', score: '3–3 (4–2 pens)', third: 'Croatia', venue: 'Lusail Stadium, Lusail', teams: 32, topScorer: 'Kylian Mbappé (FRA) · 8' },
+  { year: 2026, hostName: 'Canada, Mexico & USA', hostFlags: ['ca', 'mx', 'us'], winner: 'Spain', winnerFlag: 'es', runnerUp: 'Argentina', runnerUpFlag: 'ar', score: '1–0 (a.e.t.)', third: 'England', venue: 'MetLife Stadium, East Rutherford', teams: 48, topScorer: 'Kylian Mbappé (FRA) · 10' },
 ];
 
 // Roll of honour — titles by nation (Germany totals include West Germany).
@@ -34,9 +35,9 @@ export const titlesByNation = [
   { name: 'Brazil', flag: 'br', titles: 5, years: [1958, 1962, 1970, 1994, 2002], runnerUps: 2 },
   { name: 'Germany', flag: 'de', titles: 4, years: [1954, 1974, 1990, 2014], runnerUps: 4 },
   { name: 'Italy', flag: 'it', titles: 4, years: [1934, 1938, 1982, 2006], runnerUps: 2 },
-  { name: 'Argentina', flag: 'ar', titles: 3, years: [1978, 1986, 2022], runnerUps: 3 },
+  { name: 'Argentina', flag: 'ar', titles: 3, years: [1978, 1986, 2022], runnerUps: 4 },
   { name: 'France', flag: 'fr', titles: 2, years: [1998, 2018], runnerUps: 1 },
   { name: 'Uruguay', flag: 'uy', titles: 2, years: [1930, 1950], runnerUps: 0 },
+  { name: 'Spain', flag: 'es', titles: 2, years: [2010, 2026], runnerUps: 0 },
   { name: 'England', flag: 'gb-eng', titles: 1, years: [1966], runnerUps: 0 },
-  { name: 'Spain', flag: 'es', titles: 1, years: [2010], runnerUps: 0 },
 ];

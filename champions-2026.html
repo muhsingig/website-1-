@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <title>Champions 2026 — Spain | FIFA World Cup 2026</title>
+  <meta name="description" content="Spain are the 2026 FIFA World Cup champions after beating Argentina 1–0 in extra time. The final, the bracket, the awards and every record." />
+</head>
+<body class="subpage">
+
+  <div class="noise-overlay"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <a class="nav-logo" href="/index.html" aria-label="FIFA World Cup 2026 — home">
+      <span class="logo-chip">
+        <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+        <span class="logo-fallback" style="display:none">WC26</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="/champions-2026.html" class="active">Champions</a>
+      <a href="/fixtures.html">Results</a>
+      <a href="/host-cities.html">Host Cities</a>
+      <a href="/teams.html">Teams</a>
+      <a href="/squads.html">Squads</a>
+      <a href="/standings.html">Standings</a>
+      <a href="/winners.html">Winners</a>
+      <a href="/stats.html">Stats</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/about.html">About</a>
+    </div>
+  </nav>
+
+  <!-- ===================== CHAMPIONS BAR ===================== -->
+  <div class="countdown-bar champ-bar" id="wc-champion">
+    <div class="cd-inner">
+      <div class="cd-brand">
+        <span class="logo-chip">
+          <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+          <span class="logo-fallback" style="display:none">WC26</span>
+        </span>
+        <div class="cd-titles">
+          <span class="cd-title">World Cup 2026 Final</span>
+          <span class="cd-status">MetLife Stadium · 19 July 2026</span>
+        </div>
+      </div>
+      <a class="cb-result" href="/champions-2026.html" aria-label="Final: Spain 1, Argentina 0 after extra time">
+        <span class="cb-team cb-win"><img class="cb-flag" src="https://flagcdn.com/w80/es.png" alt="" width="28" height="20" /><span class="cb-name">Spain</span></span>
+        <span class="cb-score">1–0<small>a.e.t.</small></span>
+        <span class="cb-team"><img class="cb-flag" src="https://flagcdn.com/w80/ar.png" alt="" width="28" height="20" /><span class="cb-name">Argentina</span></span>
+      </a>
+      <a class="cd-cta" href="/champions-2026.html">🏆 The champions</a>
+    </div>
+  </div>
+
+  <!-- ===================== PAGE HERO ===================== -->
+  <header class="page-hero ch-hero">
+    <span class="page-eyebrow">FIFA World Cup 2026 · Champions</span>
+    <div class="ch-hero-crest">
+      <img class="ch-hero-flag" src="https://flagcdn.com/w320/es.png" alt="Spain flag" width="160" height="107" />
+      <span class="ch-stars" aria-label="Two World Cup titles">★ ★</span>
+    </div>
+    <h1 class="page-title">Spain</h1>
+    <p class="page-sub">Champions of the world for the second time. Ferran Torres’ 106th-minute winner beat Argentina 1–0 after extra time at MetLife Stadium on 19 July 2026.</p>
+    <div class="ch-hero-chips">
+      <span class="ch-chip">🏆 2010 · 2026</span>
+      <span class="ch-chip">8 played · 7 won · 1 drawn</span>
+      <span class="ch-chip">14 scored · 1 conceded</span>
+    </div>
+  </header>
+
+  <!-- ===================== CONTENT ===================== -->
+  <main class="page-wrap ch-wrap">
+
+    <section class="ch-section">
+      <h2 class="wn-section-title">The Final</h2>
+      <div class="ch-final" id="ch-final"></div>
+    </section>
+
+    <section class="ch-section">
+      <h2 class="wn-section-title">Final standings</h2>
+      <div class="ch-podium" id="ch-podium"></div>
+    </section>
+
+    <section class="ch-section ch-two">
+      <div>
+        <h2 class="wn-section-title">Spain’s road to glory</h2>
+        <ol class="ch-road" id="ch-road"></ol>
+      </div>
+      <figure class="ch-trophy">
+        <img src="/img/trophy.jpg" alt="The FIFA World Cup Trophy" loading="lazy" />
+        <figcaption>Captain Rodri lifted the trophy in New Jersey — Spain’s first world title since Johannesburg 2010.</figcaption>
+      </figure>
+    </section>
+
+    <section class="ch-section">
+      <h2 class="wn-section-title">The knockout bracket</h2>
+      <div class="ch-bracket-scroll" tabindex="0" aria-label="Knockout bracket, scrollable">
+        <div class="ch-bracket" id="ch-bracket"></div>
+      </div>
+      <p class="ch-third" id="ch-third"></p>
+    </section>
+
+    <section class="ch-section">
+      <h2 class="wn-section-title">Tournament awards</h2>
+      <div class="ch-awards" id="ch-awards"></div>
+    </section>
+
+    <section class="ch-section">
+      <h2 class="wn-section-title">Golden Boot — final table</h2>
+      <div id="ch-scorers"></div>
+    </section>
+
+    <section class="ch-section">
+      <h2 class="wn-section-title">2026 in numbers</h2>
+      <div class="st-cards" id="ch-numbers"></div>
+    </section>
+
+    <section class="ch-section">
+      <h2 class="wn-section-title">Records &amp; storylines</h2>
+      <div class="ch-stories" id="ch-stories"></div>
+    </section>
+
+    <nav class="ch-more" aria-label="More from the tournament">
+      <a class="ch-more-card" href="/fixtures.html"><span>All 104 results</span><small>Group stage to the final →</small></a>
+      <a class="ch-more-card" href="/standings.html"><span>Final group tables</span><small>All 12 groups →</small></a>
+      <a class="ch-more-card" href="/winners.html"><span>Every World Cup winner</span><small>1930 – 2026 →</small></a>
+    </nav>
+
+    <div class="page-note">
+      <div class="page-note-inner">
+        <strong>Sources.</strong> Results and scorers via football-data.org; awards, attendance and match facts from FIFA and Wikipedia. Unofficial fan site — not affiliated with FIFA.
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="site-footer">
+    <div class="footer-bg-ball"></div>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/index.html" aria-label="FIFA World Cup 2026 — home">
+            <img src="/logo-wc26.png" alt="FIFA World Cup 2026" class="brand-logo-lg"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+            <span class="logo-fallback-lg" style="display:none">WC26</span>
+          </a>
+          <p class="footer-tagline">Relive the FIFA World Cup 2026 — 48 nations, 104 matches, and Spain crowned world champions on 19 July.</p>
+          <div class="footer-socials">
+            <a class="glass-pill" href="#">𝕏 Twitter</a>
+            <a class="glass-pill" href="#">▶ Instagram</a>
+            <a class="glass-pill" href="#">in LinkedIn</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <span class="footer-col-title">Tournament</span>
+            <a href="/champions-2026.html">Champions 2026</a>
+            <a href="/fixtures.html">Results</a>
+            <a href="/standings.html">Standings</a>
+            <a href="/teams.html">Teams</a>
+            <a href="/squads.html">Squads</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">Explore</span>
+            <a href="/host-cities.html">Host Cities</a>
+            <a href="/gallery.html">Gallery</a>
+            <a href="/mascots.html">Mascots</a>
+            <a href="/match-ball.html">Match Ball</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">History</span>
+            <a href="/winners.html">Winners</a>
+            <a href="/stats.html">All-time Stats</a>
+            <a href="/about.html">About</a>
+          </div>
+        </div>
+        <div class="footer-news">
+          <div class="news-card">
+            <span class="news-title">Never miss a match</span>
+            <p class="news-desc">Drop your email for fixtures, results, and ticket drops near you.</p>
+            <form class="news-form" onsubmit="return false">
+              <input type="email" placeholder="you@email.com" aria-label="Email" />
+              <button type="submit" aria-label="Subscribe">→</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="fb-left">
+          <span>© 2026 World Cup 26. All rights reserved.</span>
+          <span class="fb-legal"><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Cookies</a></span>
+        </div>
+        <div class="fb-right">
+          <div class="city-ticker">
+            <span class="city-track">NEW YORK · LOS ANGELES · DALLAS · MEXICO CITY · TORONTO · MIAMI · SEATTLE · ATLANTA · VANCOUVER · MONTERREY · NEW YORK · LOS ANGELES · DALLAS · MEXICO CITY · TORONTO · MIAMI · SEATTLE · ATLANTA · VANCOUVER · MONTERREY · </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/champions.js"></script>
+</body>
+</html>

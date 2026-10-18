@@ -17,6 +17,7 @@ export default defineConfig({
         squads: resolve(__dirname, 'squads.html'),
         about: resolve(__dirname, 'about.html'),
         winners: resolve(__dirname, 'winners.html'),
+        champions: resolve(__dirname, 'champions-2026.html'),
         stats: resolve(__dirname, 'stats.html'),
         gallery: resolve(__dirname, 'gallery.html'),
         mascots: resolve(__dirname, 'mascots.html'),

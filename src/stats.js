@@ -1,7 +1,6 @@
 import './style.css';
 import { titlesByNation } from './winners-data.js';
 import { flagUrl } from './wc-data.js';
-import { initCountdown } from './countdown.js';
 import './golden-boot.js';
 import './nav.js';
 
@@ -16,41 +15,41 @@ function flag(code) {
   return `<img class="st-flag" src="${flagUrl(code, 80)}" alt="" width="30" height="22" loading="lazy" />`;
 }
 
-/* ===== Data (FIFA World Cup finals tournaments, through 2022) ===== */
+/* ===== Data (FIFA World Cup finals tournaments, through 2026) ===== */
 const headline = [
   { num: '5', label: 'Most titles', sub: 'Brazil (1958–2002)' },
-  { num: '16', label: 'Most career goals', sub: 'Miroslav Klose' },
-  { num: '26', label: 'Most matches played', sub: 'Lionel Messi' },
-  { num: '13', label: 'Most goals, one finals', sub: 'Just Fontaine, 1958' },
-  { num: '22/22', label: 'Ever-present nation', sub: 'Brazil — every World Cup' },
+  { num: '22', label: 'Most career goals', sub: 'Kylian Mbappé' },
+  { num: '12', label: 'Most career assists', sub: 'Lionel Messi' },
+  { num: '308', label: 'Most goals, one tournament', sub: 'USA · Canada · Mexico 2026' },
+  { num: '23/23', label: 'Ever-present nation', sub: 'Brazil — every World Cup' },
 ];
 
 const topScorers = [
+  { n: 'Kylian Mbappé', c: 'France', f: 'fr', g: 22, span: '2018–2026' },
+  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', g: 21, span: '2006–2026' },
   { n: 'Miroslav Klose', c: 'Germany', f: 'de', g: 16, span: '2002–2014' },
   { n: 'Ronaldo', c: 'Brazil', f: 'br', g: 15, span: '1998–2006' },
   { n: 'Gerd Müller', c: 'West Germany', f: 'de', g: 14, span: '1970–1974' },
+  { n: 'Harry Kane', c: 'England', f: 'gb-eng', g: 14, span: '2018–2026' },
   { n: 'Just Fontaine', c: 'France', f: 'fr', g: 13, span: '1958' },
-  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', g: 13, span: '2006–2022' },
   { n: 'Pelé', c: 'Brazil', f: 'br', g: 12, span: '1958–1970' },
-  { n: 'Kylian Mbappé', c: 'France', f: 'fr', g: 12, span: '2018–2022' },
   { n: 'Sándor Kocsis', c: 'Hungary', f: 'hu', g: 11, span: '1954' },
   { n: 'Jürgen Klinsmann', c: 'Germany', f: 'de', g: 11, span: '1990–1998' },
-  { n: 'Gabriel Batistuta', c: 'Argentina', f: 'ar', g: 10, span: '1994–2002' },
 ];
 
 const appearances = [
-  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', m: 26 },
+  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', m: 34 },
+  { n: 'Cristiano Ronaldo', c: 'Portugal', f: 'pt', m: 27 },
   { n: 'Lothar Matthäus', c: 'Germany', f: 'de', m: 25 },
   { n: 'Miroslav Klose', c: 'Germany', f: 'de', m: 24 },
   { n: 'Paolo Maldini', c: 'Italy', f: 'it', m: 23 },
+  { n: 'Manuel Neuer', c: 'Germany', f: 'de', m: 23 },
+  { n: 'Luka Modrić', c: 'Croatia', f: 'hr', m: 23 },
   { n: 'Diego Maradona', c: 'Argentina', f: 'ar', m: 21 },
-  { n: 'Władysław Żmuda', c: 'Poland', f: 'pl', m: 21 },
-  { n: 'Cafu', c: 'Brazil', f: 'br', m: 20 },
-  { n: 'Philipp Lahm', c: 'Germany', f: 'de', m: 20 },
 ];
 
 const assists = [
-  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', a: 8 },
+  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', a: 12 },
   { n: 'Diego Maradona', c: 'Argentina', f: 'ar', a: 8 },
   { n: 'Pierre Littbarski', c: 'Germany', f: 'de', a: 7 },
   { n: 'Grzegorz Lato', c: 'Poland', f: 'pl', a: 7 },
@@ -62,7 +61,7 @@ const assists = [
 
 // Goal involvements = goals + assists.
 const involvements = [
-  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', g: 13, a: 8 },
+  { n: 'Lionel Messi', c: 'Argentina', f: 'ar', g: 21, a: 12 },
   { n: 'Pelé', c: 'Brazil', f: 'br', g: 12, a: 6 },
   { n: 'Diego Maradona', c: 'Argentina', f: 'ar', g: 8, a: 8 },
 ];
@@ -77,22 +76,27 @@ const motm = [
 const records = [
   { k: 'Most titles (nation)', v: 'Brazil — 5' },
   { k: 'Most Golden Balls (best player)', v: 'Lionel Messi — 2 (2014, 2022)' },
-  { k: 'Most knockout-stage goals', v: 'Ronaldo & Mbappé — 8' },
+  { k: 'Most Golden Boots', v: 'Kylian Mbappé — 2 (2022, 2026)' },
   { k: 'Most assists (one tournament)', v: 'Pelé — 6 (1970)' },
-  { k: 'Most goal involvements', v: 'Lionel Messi — 21 (13 G + 8 A)' },
+  { k: 'Most goal involvements', v: 'Lionel Messi — 33 (21 G + 12 A)' },
+  { k: 'Most assists (career)', v: 'Lionel Messi — 12' },
   { k: 'Most finals reached (nation)', v: 'Germany — 8' },
-  { k: 'Only ever-present nation', v: 'Brazil — all 22 tournaments' },
-  { k: 'Most career goals (player)', v: 'Miroslav Klose — 16' },
+  { k: 'Only ever-present nation', v: 'Brazil — all 23 tournaments' },
+  { k: 'Most career goals (player)', v: 'Kylian Mbappé — 22 (2018–2026)' },
   { k: 'Most goals in one tournament', v: 'Just Fontaine — 13 (1958)' },
-  { k: 'Most matches played', v: 'Lionel Messi — 26' },
+  { k: 'Most matches played', v: 'Lionel Messi — 34' },
+  { k: 'Most World Cups played', v: 'Lionel Messi & Cristiano Ronaldo — 6' },
   { k: 'Most titles (player)', v: 'Pelé — 3 (1958, 1962, 1970)' },
   { k: 'Goals in a final (player)', v: 'Geoff Hurst — 3 (1966)' },
   { k: 'Fastest goal', v: 'Hakan Şükür — 11 seconds (2002)' },
   { k: 'Highest-scoring match', v: 'Austria 7–5 Switzerland — 12 goals (1954)' },
+  { k: 'Highest-scoring third-place play-off', v: 'England 6–4 France (2026)' },
+  { k: 'Most saves in a final', v: 'Emiliano Martínez — 11 (2026)' },
   { k: 'Biggest winning margin', v: 'Hungary 10–1 El Salvador (1982)' },
   { k: 'Youngest goalscorer', v: 'Pelé — 17y 239d (1958)' },
   { k: 'Oldest goalscorer', v: 'Roger Milla — 42y 39d (1994)' },
-  { k: 'Most goals in one tournament (total)', v: '172 goals — Qatar 2022' },
+  { k: 'Most goals in one tournament (total)', v: '308 goals — 2026 (104 matches)' },
+  { k: 'Highest total attendance', v: '6,810,966 — 2026' },
   { k: 'Most World Cups hosted', v: 'Mexico — 3 (1970, 1986, 2026)' },
 ];
 
@@ -205,4 +209,3 @@ if (recordsRoot) {
     .join('');
 }
 
-initCountdown();
