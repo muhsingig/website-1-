@@ -47,14 +47,9 @@ function teamBlock(name, groupId) {
   const s = squads[name];
   if (!s) return '';
   const players = s.players || [];
-  const announced = players.length > 0;
   const haystack = (name + ' ' + players.map((p) => p.n).join(' ')).toLowerCase();
-  const countChip = announced
-    ? `<span class="sq-count">${players.length}</span>`
-    : `<span class="sq-count sq-soon">Soon</span>`;
-  const body = announced
-    ? POS.map(([c, l]) => posBlock(players, c, l, name)).join('')
-    : `<p class="sq-tba">Squad list not added here yet — see FIFA.com for the full 26-man list.</p>`;
+  const countChip = `<span class="sq-count">${players.length}</span>`;
+  const body = POS.map(([c, l]) => posBlock(players, c, l, name)).join('');
   return `
     <details class="sq-team" data-search="${haystack.replace(/"/g, '')}" data-group="${groupId}">
       <summary class="sq-summary">

@@ -74,9 +74,7 @@ function resultRow(m, fav, group) {
 
 function squadHTML(fav) {
   const s = squads[fav];
-  if (!s || !(s.players || []).length) {
-    return `<p class="sq-tba">Squad list not added here yet${s?.coach ? ` — coach ${s.coach}` : ''}. See FIFA.com for the full 26-man list.</p>`;
-  }
+  if (!s) return '';
   return POS.map(([code, label]) => {
     const list = s.players.filter((p) => p.p === code);
     if (!list.length) return '';
